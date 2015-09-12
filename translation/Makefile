@@ -5,7 +5,7 @@ all: $(FILE).pdf
 
 .PHONY: clean
 clean:
-	\rm *.aux *.blg *.out *.log
+	\rm *.aux *.blg *.out *.log *.bbl *.bcf *.synctex.gz
 
 $(FILE).tex:
 

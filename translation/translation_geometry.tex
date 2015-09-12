@@ -18,6 +18,15 @@
   allcolors=blue,
 }
 
+\usepackage[
+  backend=biber,
+  style=numeric,
+  citestyle=ieee,
+]{biblatex}
+\addbibresource{translation_geometry.bib}
+
+\usepackage{graphicx}
+
 \usepackage{siunitx}
 
 \usepackage{xcolor}
@@ -50,7 +59,7 @@
 这种限制来源于三个困难：缺乏能够测量龙卷风引起的风压和荷载的仪器；缺乏实测数据与实验数据进行对比研究；
 以及缺乏对抗龙卷风设计的兴趣，因为人们假定这样做是不经济的。
 
-为了克服上文第一个困难，爱荷华州立大学（Iowa State University, ISU）建成了一个龙卷风模拟装置。
+为了克服上文第一个困难\cite{haan2008design}，爱荷华州立大学（Iowa State University, ISU）建成了一个龙卷风模拟装置。
 ISU龙卷风装置能产生相对于建筑模型运动的龙卷风，也能调整多个参数以产生不同种类的龙卷风。
 随着近年来几次龙卷风的实测数据的陆续发表，第二个困难也能迎刃而解了。
 随后的工作比较了ISU实验室模拟的龙卷风与实测龙卷风及计算流体力学的龙卷风模型的特征。
@@ -78,7 +87,14 @@ ISU龙卷风模拟装置产生的风场在\SI{19}{mm}高度处的最大切向速
 根据足尺龙卷风平均作用时间与模拟龙卷风作用时间相等的原则，
 可确定最大水平风速为\SI{74}{m/s}（EF3等级）的足尺龙卷风与ISU模拟龙卷风的速度相似比为$\lambda_{\mathrm{v}}=11.7/74=1/6.3$。
 根据最大切向速度归一化后的切向速度分布的等值线图见图\ref{fig:Vt-contour}。 
-% 图1
+
+\begin{figure}
+\centering
+\includegraphics{./fig/1.jpg}
+\caption{切向速度根据最大切向速度归一化后等值线图}
+\label{fig:Vt-contour}
+\end{figure}
+
 
 \subsection{龙卷风核心直径}
 Brooks利用报道的龙卷风破坏路径长度和宽度的数据，将藤田级数建模成Weibull分布。
@@ -134,6 +150,14 @@ $h/L$比值（\num{0.34}-\num{0.8}；其中$h$是平均屋盖高度），
 % pressure taps
 每个模型都贴有最多\num{124}个压强贴。
 
+\begin{figure}
+\centering
+\includegraphics{./fig/2}
+\caption{研究所用建筑模型}
+\label{fig:building-models}
+\end{figure}
+
+
 模型的几何尺寸根据实际建筑尺寸经过$1:100$的相似比放大后确定，
 这样才能根据试验中建筑模型的屋盖高度、纵横比、屋面倾角、挑檐距离和附加车库对模型所受模拟龙卷风的风压和荷载的影响，推测实际的情况。
 模型尺寸根据常规的简易房屋设计确定，并参考ASCE 7-10规范中图6-6确定，该图将风压系数列成平均屋盖高度与建筑长度、风向和屋面倾角的比值间关系的表格。
@@ -155,6 +179,14 @@ BOA为\SI{0}{\degree}对应着龙卷风行进方向与建筑模型的屋脊平�
 车库模型的设置角度从\SI{0}{\degree}到\SI{90}{\degree}（方位1）和\SI{180}{\degree}到\SI{270}{\degree}（方位2）。
 在方位1的情况，较高的车库模型先经历龙卷风，方位2时，较低的车库模型先经历龙卷风。
 所有试验工况，龙卷风的行进路径都经过建筑模型的中心。
+
+\begin{figure}
+\centering
+\includegraphics{./fig/3}
+\caption{建筑模型相对于龙卷风行进方向轴($X$)的方位角（BOA）及用于风压系数归一化的面积($S_v$, $S_z$)}
+\label{fig:BOA}
+\end{figure}
+
 
 风压系数沿如下方向计算：$x$向（平行于龙卷风行进方向的水平方向）；$y$向（垂直于龙卷风行进方向的水平方向）；$z$向（竖向）。
 平面$xy$上的风ya压系数 （$C_{Fxy}$）为$x$向风压系数（$C_{Fx}$）和$y$向风压系数（$C_{Fy}$）平方和的根，是一个表征低矮建筑所受风荷载的重要参数。
@@ -180,6 +212,6 @@ $z$向的风压系数利用面积$S_z$进行归一化，其中$S_z$等于建筑�
 
 
 
-
+\printbibliography
 
 \end{document}
