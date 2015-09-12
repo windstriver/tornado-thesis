@@ -1,0 +1,12 @@
+Table 1.
+        Model dimensions.
+Model,Roof pitch<comma> θ (deg),Width<comma> B (mm),Length<comma> L (mm),Eave height<comma> he (mm),Roof ridge height<comma> ht (mm),Mean roof height<comma> h (mm),L/B,h/L
+1,15.95,98,146,60,74,67,1.5,0.46
+2,15.95,98,146,110,124,117,1.5,0.80
+3,4.6,98,98,53,57,55,1.0,0.56
+4,15.95,98,98,48,62,55,1.0,0.56
+5,35.5,98,98,37,72,55,1.0,0.56
+6,35.5,221,221,37,114,76,1.0,0.34
+7 (Overhang),15.95,98,146,60,74,67,1.5,0.46
+8 (Garage 1)a,35.5b,98,187,37,72,55,1.9,0.29
+9 (Garage 2)a,15.95b,98,235,60,74,67,2.4,0.29
