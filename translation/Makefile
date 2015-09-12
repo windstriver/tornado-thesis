@@ -16,3 +16,6 @@ $(FILE).pdf: $(FILE).tex $(FILE).bib
 	biber $(FILE)
 	xelatex $(FILE).tex
 
+.PHONY: view
+view:
+	evince $(FILE).pdf &
