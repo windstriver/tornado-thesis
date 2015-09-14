@@ -27,6 +27,10 @@
 
 \usepackage{graphicx}
 
+\usepackage{booktabs}
+
+\usepackage{csvsimple}
+
 \usepackage{siunitx}
 
 \usepackage{xcolor}
@@ -162,6 +166,8 @@ $h/L$比值（\num{0.34}-\num{0.8}；其中$h$是平均屋盖高度），
 这样才能根据试验中建筑模型的屋盖高度、纵横比、屋面倾角、挑檐距离和附加车库对模型所受模拟龙卷风的风压和荷载的影响，推测实际的情况。
 模型尺寸根据常规的简易房屋设计确定，并参考ASCE 7-10规范中图6-6确定，该图将风压系数列成平均屋盖高度与建筑长度、风向和屋面倾角的比值间关系的表格。
 模型尺寸列于表\ref{tab:model-dimension}。
+
+\csvautobooktabular{./tab/table.csv}
 
 \subsection{量测仪器}
 对于静止龙卷风，采用Cobra探头（多孔探头，TFI\textregistered ）测量风速，采样频率为\SI{78.1}{Hz}，采样时间为\SI{26}{s}。
