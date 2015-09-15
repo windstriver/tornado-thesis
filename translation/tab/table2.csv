@@ -1,0 +1,7 @@
+﻿Table 2.
+        Required wind velocity for sheathing panel uplift failure.
+Nail type,Nailing schedule (mm),Capacity (kN/m2),Velocity required for Cp=6.1 (m/s),Velocity required for Cp=4.9 (m/s)
+8d Smooth shank,150/300,4.6,33.35,37.22
+8 d Ring shank,150/300,8.04,46.37,51.74
+8d Smooth shank,150/150,7.3,44.18,49.30
+8 d Ring shank,150/150,12.5,57.82,64.51
