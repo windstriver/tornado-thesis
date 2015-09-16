@@ -25,6 +25,7 @@
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{csvsimple}
+\usepackage{multirow}
 \usepackage{siunitx}
 \usepackage{enumerate}
 \usepackage{amsmath}
@@ -141,7 +142,7 @@ ISU龙卷风装置可通过增大叶片角度\cite{haan2008design}以提高涡�
 \section{建筑模型，量测仪器，数据处理}
 \subsection{建筑模型}
 分别测量9种坡屋盖建筑模型的风压（图\ref{fig:building-models}）:
-不同的屋面倾角（\num{4.6}-\SI{35.5}{\degree}）,屋脊高度（\num{12.2}-\SI{36}{ft}），
+不同的屋面倾角$\theta$（\num{4.6}-\SI{35.5}{\degree}）,屋檐高度$h_e$（\num{12.2}-\SI{36}{ft}），
 $L/B$比值（\num{1.0}和\num{1.5}；其中$L$是长度，$B$是宽度）和
 $h/L$比值（\num{0.34}-\num{0.8}；其中$h$是平均屋盖高度），
 是否有附属车库，并且设置多种试验工况以考虑建筑模型相对于龙卷风行进轨迹的方位角的影响。
@@ -161,10 +162,18 @@ $h/L$比值（\num{0.34}-\num{0.8}；其中$h$是平均屋盖高度），
 模型尺寸根据常规的简易房屋设计确定，并参考ASCE 7-10规范中图6-6\cite{american1994minimum}确定，该图将风压系数列成平均屋盖高度与建筑长度、风向和屋面倾角的比值间关系的表格。
 模型尺寸列于表\ref{tab:1}。
 
-\begin{table}\label{tab:1}
-\csvautobooktabular{./tab/table.csv}
+\begin{table}
+\label{tab:1}
+\caption{模型尺寸}
+\csvreader[tabular=ccccccccc,
+    respect backslash,
+    table head=\toprule \multirow{2}{*}{模型} & 屋面倾角 & 宽度 & 长度 & 屋檐高度 & 屋脊高度 & 平均屋盖高度 & \multirow{2}{*}{$L/B$} & \multirow{2}{*}{$h/L$} \\
+        & $\theta$/\SI{}{\degree} & $B$/\SI{}{mm} & $L$/\SI{}{mm} & $h_e$/\SI{}{mm} & $h_t$/\SI{}{mm} & $h$/\SI{}{mm} &  & \\\hline,
+    table foot=\bottomrule,
+  ]
+  {./tab/table.csv}{}
+  {\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv & \csvcolvi & \csvcolvii & \csvcolviii & \csvcolix}
 \end{table}
-
 
 \subsection{量测仪器}
 对于静止龙卷风，采用Cobra探头（多孔探头，TFI\textregistered ）测量风速，采样频率为\SI{78.1}{Hz}，采样时间为\SI{26}{s}。
@@ -414,6 +423,18 @@ C_p=\frac{P_i}{(1/2) \rho V_H^2}
 表中风速对应足尺龙卷风，根据与模拟龙卷风作用相同时间的准则确定。
 以较小间距安装8d圆形柄栓钉代替6d光滑柄栓钉，增加的费用与住宅全部费用相比较少。
 而如果这一设置减少了因龙卷风造成的损失，则微小的费用增加是合理的。
+
+\begin{table}
+\label{tab:2}
+\caption{栓钉连接受吸力破坏时的风速}
+\csvreader[tabular=ccccc,
+    respect backslash,
+    table head = \toprule 栓钉类型 & 栓钉间距/\SI{}{mm} & 承载力/\SI{}{\kilo\newton/\meter\squared} & $ C_{p}$为\num{6.1}（\SI{}{m/s}） & $ C_p $为\num{4.9}时（\SI{}{m/s}） \\\hline,
+    table foot=\bottomrule,
+  ]
+  {./tab/table2.csv}{}
+  {\csvcoli & \csvcolii & \csvcoliii & \csvcoliv & \csvcolv }
+\end{table}
 
 
 \subsection{屋盖与墙的连接}
