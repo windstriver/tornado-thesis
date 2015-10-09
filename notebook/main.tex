@@ -3,7 +3,7 @@
 %%%% Chinese support
 \usepackage[
     UTF8,
-    heading=true,
+    heading=false,
   ]{ctex}               %
 
 %%%% Page geometry
@@ -42,7 +42,7 @@
     citestyle=ieee,
     refsection=chapter,
   ]{biblatex}             %
-%\addbibresource{}
+\addbibresource{tornado_thesis.bib}
 
 \title{Notebook for tornado thesis}
 \author{Yong WANG}
@@ -50,10 +50,15 @@
 
 \begin{document}
 
+\ctexset{
+  contentsname={Contents},
+}
+
 \maketitle
 \tableofcontents
 
 \include{./chapter/definitions}
+\include{./chapter/WDR}
 
 \printbibliography
 \end{document}
