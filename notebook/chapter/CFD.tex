@@ -1,0 +1,60 @@
+\chapter{ANSYS Fluent}
+
+\section{Solver Theory}
+
+\begin{enumerate}
+  \item pressure-based solver
+  \item density-based solver
+\end{enumerate}
+
+\subsection{Discretization}
+\subsubsection{Spatial Discretization}
+Discrete values of $\phi$ at cell centers -> Face values $\phi_f$
+
+\textbf{First-Order Upwind Scheme}
+The face value $\phi_f$ is set to equal to cell-center value of $\phi$ in the upstream cell.
+
+\textbf{Power-Law Scheme}
+$$\frac{\phi(x)-\phi_0}{\phi_L-\phi_0}=\frac{\exp \left( Pe \frac{x}{L}\right)-1}{\exp \left( Pe \right)-1}$$
+$$Pe=\frac{\rho u L}{\Gamma}$$
+
+\textbf{Second-Order Upwind Scheme}
+\[
+\phi_f = \phi + \nabla \phi \cdot \mathbf{r}
+\]
+
+\textbf{Centeral-Differencing Scheme}
+\[
+\phi_f = \frac{1}{2} \left( \phi_0 + \phi_1 \right) + 
+\frac{1}{2} \left( \nabla \phi_0 \cdot \mathbf{r_0} + \nabla \phi_1 \cdot \mathbf{r_1} \right)
+\]
+
+\textbf{QUICK Scheme}
+\[
+\phi_e = \theta \left[ \frac{S_d}{S_c+S_d} \phi_P + \frac{S_c}{S_c + S_d} \phi_E \right] +
+(1-\theta) \left[ \frac{S_u+2S_c}{S_u+S_c} \phi_P - \frac{S_c}{S_u+S_c} \phi_W \right]
+\]
+
+\subsubsection{Evaluation of Gradients and Derivatives}
+\textbf{Green-Gauss Cell-Based Gradient Evaluation}
+\[
+\bar{\phi_f} = \frac{\phi_{c0} + \phi_{c1}}{2}
+\]
+
+\textbf{Green-Gauss Node-Based Gradient Evaluation}
+\[
+\bar{\phi_f} = \frac{1}{N_f} \sum_n^{N_f} \bar{\phi_n}
+\]
+
+The node-based gradient is known to be more accurate than the cell-based gradient particularly on irregular
+(skewed and distorted) unstructured meshes.
+
+\textbf{Least Squares Cell-Based Gradient Evaluation}
+\[
+\left( \nabla \right)_{c0} \cdot \Delta r_i = \left( \phi_{ci} - \phi_{c0} \right)
+\]
+\[
+\mathbf{J} \left( \nabla \phi \right)_{c0} = \Delta \phi
+\]
+
+
