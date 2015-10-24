@@ -5,6 +5,7 @@
 #     drag coefficient of the sphere is constant 0.5.
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
 
 # Rankine vortex model
 
@@ -76,7 +77,7 @@ def z(t):
     '''
     Calculate the z of the sphere.
     '''
-    return z0 - 1 / 2 * g * t ^ 2
+    return z0 - 1 / 2 * g * t * t
 
 # the property of the sphere when hit the ground (z=0 m)
 t_g = np.sqrt(2 * z0 / g)
@@ -94,8 +95,29 @@ print(u_z_g)
 
 time = np.linspace(0, t_g, num=100)
 u_t_hist = u_t(time)
-plt.plot(time, u_t_hist)
-plt.title('Tangential velocity of the sphere')
-plt.xlabel('$t / \mathrm{s}$')
-plt.ylabel('$u_t (\mathrm{m/s})$')
-plt.show()
+u_z_hist = u_z(time)
+theta_hist = theta(time)
+x_hist = r0 * np.cos(theta_hist)
+y_hist = r0 * np.sin(theta_hist)
+z_hist = z(time)
+
+
+fig = plt.figure(tight_layout=True)
+ax1 = fig.add_subplot(1, 2, 1)
+line_ut, = ax1.plot(time, u_t_hist)
+ax1.set_xlabel(r'$t / \mathrm{s}$')
+ax1.set_ylabel(r'$u_t (\mathrm{m/s})$')
+ax2 = fig.add_subplot(1, 2, 2)
+line_uz = ax2.plot(time, u_z_hist)
+ax2.set_xlabel(r'$t / \mathrm{s}$')
+ax2.set_ylabel(r'$u_z (\mathrm{m/s})$')
+fig.savefig('velocity_history.png')
+
+# fig2 = plt.figure()
+# ax = fig2.add_subplot(111, projection='3d')
+# ax.plot(x_hist, y_hist, z_hist)
+# ax.set_zlim3d(0, 10)
+# ax.set_xlabel('$x/\mathrm{m}$')
+# ax.set_ylabel('$y/\mathrm{m}$')
+# ax.set_zlabel('$z/\mathrm{m}$')
+# plt.show()
