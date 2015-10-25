@@ -5,8 +5,8 @@
 #     drag coefficient of the sphere is constant 0.5.
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
-
+from matplotlib.backends.backend_pdf import FigureCanvasPdf as FigureCanvas
+from matplotlib.figure import Figure
 # Rankine vortex model
 
 
@@ -79,6 +79,31 @@ def z(t):
     '''
     return z0 - 1 / 2 * g * t * t
 
+# Effect of vertical air resistence
+dt = 0.01
+imax = 2000
+u_t2 = np.zeros((imax, ))
+u_z2 = np.zeros((imax, ))
+theta2 = np.zeros((imax, ))
+z2 = np.zeros((imax, ))
+z2[0] = z0
+
+U = V_r(r0, V_R, R)
+
+for i in range(imax):
+    a_t = k * (U - u_t2[i]) * np.sqrt((U - u_t2[i])**2 + u_z2[i]**2)
+    a_z = k * (-u_z2[i]) * np.sqrt((U - u_t2[i])**2 + u_z2[i]**2) - g
+    u_t2[i + 1] = u_t2[i] + a_t * dt
+    u_z2[i + 1] = u_z2[i] + a_z * dt
+    theta2[i + 1] = theta2[i] + u_t2[i] * dt / r0 + \
+        a_t * dt**2 / (2 * r0)
+    z2[i + 1] = z2[i] + u_z2[i] * dt + a_z * dt**2 / 2
+    if z2[i + 1] < 0:
+        imax = i
+        t_g2 = dt * i
+        break
+
+
 # the property of the sphere when hit the ground (z=0 m)
 t_g = np.sqrt(2 * z0 / g)
 theta_g = theta(t_g)
@@ -86,12 +111,6 @@ x = r0 * np.cos(theta_g)
 y = r0 * np.sin(theta_g)
 u_t_g = u_t(t_g)
 u_z_g = u_z(t_g)
-
-print(t_g)
-print(x)
-print(y)
-print(u_t_g)
-print(u_z_g)
 
 time = np.linspace(0, t_g, num=100)
 u_t_hist = u_t(time)
@@ -101,23 +120,28 @@ x_hist = r0 * np.cos(theta_hist)
 y_hist = r0 * np.sin(theta_hist)
 z_hist = z(time)
 
+time2 = np.arange(0, t_g2 + dt, dt)
+u_t2 = u_t2[:imax + 1]
+u_z2 = u_z2[:imax + 1]
 
-fig = plt.figure(tight_layout=True)
+fig = Figure(tight_layout=True)
+canvas = FigureCanvas(fig)
 ax1 = fig.add_subplot(1, 2, 1)
-line_ut, = ax1.plot(time, u_t_hist)
+line_no_uz, = ax1.plot(time, u_t_hist, label=r'Case 1')
+line_uz, = ax1.plot(time2, u_t2, '--', label=r'Case 2')
 ax1.set_xlabel(r'$t / \mathrm{s}$')
 ax1.set_ylabel(r'$u_t (\mathrm{m/s})$')
+ax1.legend(handles=[line_no_uz, line_uz], loc='upper left')
+
 ax2 = fig.add_subplot(1, 2, 2)
-line_uz = ax2.plot(time, u_z_hist)
+line2_no_uz, = ax2.plot(time, u_z_hist, label=r'Case 1')
+line2_uz, = ax2.plot(time2, u_z2, '--', label=r'Case 2')
 ax2.set_xlabel(r'$t / \mathrm{s}$')
 ax2.set_ylabel(r'$u_z (\mathrm{m/s})$')
-fig.savefig('velocity_history.png')
+ax2.legend(handles=[line2_no_uz, line2_uz])
 
-# fig2 = plt.figure()
-# ax = fig2.add_subplot(111, projection='3d')
-# ax.plot(x_hist, y_hist, z_hist)
-# ax.set_zlim3d(0, 10)
-# ax.set_xlabel('$x/\mathrm{m}$')
-# ax.set_ylabel('$y/\mathrm{m}$')
-# ax.set_zlabel('$z/\mathrm{m}$')
-# plt.show()
+fig.savefig('velocity_history.pdf')
+
+print(t_g, t_g2)
+print(u_t(t_g), u_t2[imax])
+print(u_z(t_g), u_z2[imax])
