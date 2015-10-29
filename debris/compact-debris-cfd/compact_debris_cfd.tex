@@ -278,7 +278,7 @@ x_p^{n+1} = x_{p}^{n} + \frac{1}{2} \left( u_p^{n}+u_{p}^{n+1}\right) \Delta t
 \begin{description}
 \item[Case 1: ] 采用《龙卷风风场中块状飞射物的飞行特性：解析方法》中考虑竖向速度对风阻力影响的小时间步积分法计算飞射物的运动过程。
 \item[Case 2: ] 
-利用ANSYS Fluent\textregistered 将第\ref{sec:tornado_cfd}节的龙卷风风场初始化为Rankine涡模型，然后释放飞射物进行离散相的计算。
+利用ANSYS Fluent\textregistered 提供的UDF功能 将第\ref{sec:tornado_cfd}节的龙卷风风场初始化为Rankine涡模型，然后释放飞射物进行离散相的计算。
 \item[Case 3: ] 
 利用ANSYS Fluent\textregistered 直接模拟龙卷风风场（模拟方法见第\ref{sec:tornado_simulation}节），然后释放飞射物进行离散相的计算。
 \end{description}
