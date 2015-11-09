@@ -1,0 +1,48 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{arrows,calc,math}
+\usepackage{tikz-3dplot}
+
+\begin{document}
+
+\pgfmathsetmacro{\rvec}{.8}
+\pgfmathsetmacro{\thetavec}{30}
+\pgfmathsetmacro{\phivec}{60}
+
+\tdplotsetmaincoords{70}{110}
+\begin{tikzpicture}
+  [scale=5,
+  tdplot_main_coords,
+  >=stealth']
+\draw[thick,->] (0,0,0) coordinate (O) -- (1,0,0) node[anchor=north east]{$x$};
+\draw[thick,->] (O) -- (0,1,0) node[anchor=north west]{$y$};
+\draw[thick,->] (O) -- (0,0,1) node[anchor=south]{$z$};
+
+\tdplotsetcoord{M}{\rvec}{\thetavec}{\phivec}
+\tdplotsetcoord{M1}{\rvec}{\thetavec}{0}
+\tdplotsetcoord{M2}{\rvec}{\thetavec}{90}
+
+\tdplotdrawarc[help lines]{(Mz)}{0.4}{0}{90}{anchor=north}{}
+\draw[help lines] (M) -- (Mz);
+\draw[help lines] (M1) -- (Mz) -- (M2);
+\path[shade,ball color=gray] (M) circle[radius=0.05];
+\draw[help lines] (M)--  node[right]{$z$} (Mxy);
+\draw[help lines,->] (O) --(Mxy)  node[right]{$r$};
+\tdplotdrawarc[help lines,->]{(O)}{0.2}{0}{\phivec}{anchor=north}{$\theta$}
+
+\tdplotsetrotatedcoordsorigin{(M)}
+\tdplotsetrotatedcoords{0}{0}{150}
+
+\draw[thick,color=blue,tdplot_rotated_coords,->] (0,0,0) --
+(.2,0,0) node[anchor=north]{$u_t$};
+\draw[thick,color=blue,tdplot_rotated_coords,->] (0,0,0) --
+(0,.15,0) node[anchor=east]{$u_r$};
+\draw[thick,color=blue,tdplot_rotated_coords,->] (0,0,0) --
+(0,0,.1) node[anchor=south]{$u_z$};
+
+\draw[ultra thick,color=red,tdplot_rotated_coords,->] (-0.3,0,0) node[anchor=east]{$V_t$}--(-0.02,0,0);
+\draw[ultra thick,color=red,tdplot_rotated_coords,->] (0,-0.2,0) node[anchor=north]{$V_r$}--(0,-0.02,0);
+\draw[ultra thick,color=red,tdplot_rotated_coords,->] (0,0,-0.15) node[anchor=north]{$V_z$}--(0,0,-0.02);
+
+\end{tikzpicture}
+
+\end{document}
