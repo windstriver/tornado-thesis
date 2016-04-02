@@ -1,0 +1,56 @@
+FINISH $ /CLEAR
+/INPUT, 'MODEL', 'MAC',
+FINISH
+/TITLE, "ANALYSIS OF TOWER"
+
+SEL_TOR = 0.001
+R = 280    ! radical position of the tornado center
+THETA = 0
+! READ TORNADO WIND FIELD
+*DIM, Vt, TABLE, 100, 2, , 'radical', 'height'
+*TREAD, Vt, 'tangential_velocity', 'csv', 'InputData/', 2
+*DIM, Vr, TABLE, 100, 2, , 'radical', 'height'
+*TREAD, Vr, 'radial_velocity', 'csv', 'InputData/', 2
+*DIM, Va, TABLE, 100, 2, , 'radical', 'height'
+*TREAD, Va, 'axial_velocity', 'csv', 'InputData/', 2
+
+LS = 4000 ! length scale factor
+VS = 14 ! velocity scale factor
+FINISH
+
+
+/PREP7
+/VUP, 1, Z
+/VIEW, 1, 1, 1, 1
+EPLOT
+
+ET, 2, BEAM188
+ESEL, ALL
+EMODIF, ALL, TYPE, 2
+
+NSEL, ALL
+NUMMRG, NODE
+NSEL, S, LOC, Z, 0-SEL_TOR, 0+SEL_TOR
+D, ALL, ALL, 0
+ALLSEL, ALL
+
+! MODAL ANALYSIS
+/SOLU
+ANTYPE, MODAL
+MODOPT, LANB, 9
+MXPAND, 9
+SOLVE
+FINISH
+
+/POST1
+SET, LIST
+!SET, FIRST
+!PLNSOL, U, SUM, 0, 1.0
+!ANMODE, 10, 0.5
+!SET, NEXT
+!PLNSOL, U, SUM, 0, 1.0
+!ANMODE, 10, 0.5
+
+
+! APPLY TORNADO LOAD
+/PREP7
