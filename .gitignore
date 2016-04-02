@@ -196,3 +196,17 @@ target/
 # Simulink Code Generation
 slprj/
 
+####=== ANSYS ===#####
+
+*.BCS
+*.db
+*.err
+*.esav
+*.full
+*.log
+*.mlv
+*.mode
+*.rst
+*.lock
+*.page
+*.tmp

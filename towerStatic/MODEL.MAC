@@ -5,7 +5,7 @@
 ! compatible with Mechanical APDL input.
 !
 /PREP7
-SHPP,OFF
+!SHPP,OFF
 /NOPR
 !
 ! COORDINATE SYSTEMS
@@ -15,7 +15,7 @@ SHPP,OFF
 !
 /com, Materials <SECTION=MATERIALS>
 ! Origin Material Property ID - 1
-MP,DENS,1,7.85e-06,	! kg mm^-3
+MP,DENS,1,7.85e-09,	! kg mm^-3
 MP,ALPX,1,1.2e-05,	! C^-1
 MP,REFT,1,22,	! C
 MP,C,1,434000,	! mJ kg^-1 C^-1
