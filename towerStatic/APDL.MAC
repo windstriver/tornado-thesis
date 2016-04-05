@@ -1,8 +1,8 @@
 FINISH $ /CLEAR
 /TITLE, "ANALYSIS OF TOWER"
 
-workDir = 'C:/Users/wy/GitHub/tornado-thesis/towerStatic'
-inputData = 'C:/Users/wy/GitHub/tornado-thesis/towerStatic/InputData/'
+workDir = 'C:/towerStatic'
+inputData = 'C:/towerStatic/InputData/'
 ! Input APDL file for the model building
 /INPUT, 'MODEL', 'MAC', %workDir%
 ! Input the data to ANSYS table to store the tornado velocity field

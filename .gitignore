@@ -210,3 +210,5 @@ slprj/
 *.lock
 *.page
 *.tmp
+*.mntr
+*.stat
