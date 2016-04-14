@@ -1,0 +1,295 @@
+\documentclass{ctexart}
+
+%%%% Chinese support
+%
+
+%%%% Page geometry
+\usepackage[
+    a4paper,
+    total={210mm,297mm},
+    left=20mm,
+    right=20mm,
+    top=20mm,
+    bottom=20mm,
+  ]{geometry}            %
+
+%%%% Math
+\usepackage{amsmath}     %
+\usepackage{siunitx}     % SI unit support
+
+%%%% Caption
+\usepackage{caption}
+\captionsetup{belowskip=8pt,aboveskip=4pt}
+
+
+%%%% Graph processing
+\usepackage{graphicx}    % graph inclusion
+
+%%%% Table processing
+\usepackage{tabularx}
+\usepackage{booktabs}    %
+\usepackage{csvsimple}   % CSV table processing
+\usepackage{multirow}    % multirow in table
+
+%%%% Hyper reference
+\usepackage[
+    bookmarksnumbered=true,
+    colorlinks=true,
+    allcolors=blue,
+  ]{hyperref}             %
+
+%%%% Bibliography
+\usepackage[
+    backend=biber,
+    style=numeric,
+    citestyle=ieee,
+    bibencoding=utf8,
+  ]{biblatex}             %
+\addbibresource{compact_debris.bib}
+
+\usepackage{textcomp}
+
+\title{龙卷风风场中块状飞射物的飞行特性：解析方法}
+\author{王勇}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+考虑块状飞射物在龙卷风风场中的飞行问题。龙卷风风场采用Rankine涡模型，并根据规范取定其特征参数。
+假设块状飞射物在风场中仅受到风阻力和重力的作用，考虑如下两种情形：不考虑飞射物竖向速度对相对风速的影响；考虑飞射物竖向速度对相对风速的影响。第一种情形下飞射物的运动方程是非耦联的，可通过分离变量法求飞射物飞行轨迹的解析解。第二种情形下飞射物的运动方程是耦联的，通过小时间步积分法求其数值解。最后通过一个具体的算例，比较两种情形下飞射物落地时的情况和飞行过程中速度的时程曲线。
+\end{abstract}
+
+\section{龙卷风风场模型}
+龙卷风风场较为复杂，实际工程抗龙卷风计算时，一般对其进行一些简化。
+目前工程界主要通过给定龙卷风的特征参数，利用Rankine涡模型确定龙卷风切向速度和压强等流场信息。
+
+\subsection{龙卷风的特征参数}
+工程计算采用的龙卷风风场模型，具有如下参数：
+（1）最大旋转风速$V_{\mathrm{R}}$；
+（2）龙卷风涡的平移速度$V_{\mathrm{T}}$；
+（3）最大旋转风速的半径$R$；
+（4）气压降$\Delta P$；
+（5）气压降速率$\mathrm{d} P/ \mathrm{d} t$。
+
+我国《三十万千瓦压水堆核电厂安全重要土建结构抗龙卷风设计规定》中根据我国国情给出的两组龙卷风设计参数，如表\ref{tab:design_tornado}所示。
+
+\begin{table}[h]
+\caption{设计基准龙卷风特性}
+\label{tab:design_tornado}
+\centering
+\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} c c c c c c}
+    \toprule
+    组 & 最大风速 & 旋转风速 & 平移风速 & 最大旋转半径 & 压力降 & 降压时间 \\
+    别 & $V (\SI{}{m/s})$ & $V_{\mathrm{R}}  (\SI{}{m/s})$ & $V_{\mathrm{T}}  (\SI{}{m/s})$ & $R (\SI{}{m})$ & $\Delta P (\SI{}{Pa})$ & $t (\SI{}{s})$ \\ \midrule
+    A & 107.3 & 84.9 & 22.4 & 45.7 & 8620 & 2.5 \\
+    B & 134.1 & 107.3 & 28.8 & 45.7 & 13500 & 1.875 \\ \bottomrule
+\end{tabular*}
+\end{table}
+
+\subsection{龙卷风的Rankine涡模型}
+为了描述龙卷风风场的相关详细信息，工程界采用较多的是由Depperman\cite{Depperman1947}于1947年提出的Rankine涡模型。
+Rankine涡模型是满足Navier-Stokes方程的最简单的模型，仅由切向速度控制。
+它不考虑径向速度，并假定风速和压强不随高度变化，这在实际情况中是并不存在的。
+但研究者最关心的也正是龙卷风的切向速度，因为相比于切向速度，龙卷风的径向速度和竖向速度较小。
+其切向速度与离漩涡中心径向位置的关系曲线见图\ref{fig:Rankine}所示：强制涡区域内（$r\leq R$）切向速度与半径成正比，而在自由涡区域内（$r > R$）成反比。Rankine涡的切向速度表达式为\cite{Commission2007}：
+
+\begin{equation}
+\label{eqn:Rankine}
+\begin{split}
+    V_r &= \frac{r}{R} V_R,  \,\,\, r \leq R \\
+    V_r &= \frac{R}{r} V_R,  \,\,\, r > R
+\end{split}
+\end{equation}
+式中：$V_r$是距涡中心为$r$处的切向风速，$V_{\mathrm{R}}$为Rankine涡中的最大切向风速，$R$为最大切向风速对应的旋转半径。
+
+\begin{figure}[h]
+\centering
+\includegraphics{./fig/Rankine}
+\caption{Rankine涡模型中切向速度沿涡半径的变化曲线图}
+\label{fig:Rankine}
+\end{figure}
+
+\section{块状飞射物的运动方程}
+\subsection{问题的描述和简化}
+考虑龙卷风风场中由静止释放的块状飞射物。龙卷风风场采用Rankine涡模型，不考虑其平移速度。
+以龙卷风涡中心为坐标原点，地面为$xOy$坐标面，竖直向上为$z$轴正方向建立空间直角坐标系$O-xyz$，相应建立柱坐标系$O-r\theta z$。
+则龙卷风风场切向风速分布由式\eqref{eqn:Rankine}表示。
+设飞射物的初始位置为$(r_0,\theta_0,z_0)$。
+块状飞射物主要受风阻力的作用（即不考虑其受到的升力和翻转弯矩的影响），由风场相对于飞射物的风速引起，并沿相对风速的同向。
+
+当不考虑飞射物的竖向速度对相对风速的影响时，块状飞射物的相对风速的量值为$V_r-u_t$，其中$V_r$为龙卷风风场切向风速，$u_t$为飞射物切向速度。
+飞射物受到的风阻力$F_D=\frac{1}{2}\rho_a C_D A \left( V_r - u_t \right)^2 $，其中$\rho_a$为空气密度，$C_D$为风阻力系数。
+
+当考虑飞射物的竖向速度对相对风速的影响时，飞射物受到沿相对风速方向的风阻力（相对风速矢量如图\ref{fig:relative_velocity}所示）。相对风速量值为$\sqrt{(V_r-u_t)^2+u_z^2}$，所受的风阻力为$F_D=\frac{1}{2} \rho_a C_D A \left[(V_r-u_t)^2+u_z^2\right] $。
+
+\begin{figure}[h]
+\centering
+\includegraphics{./fig/relative_velocity}
+\caption{相对风速（风场相对于运动小球）矢量图}
+\label{fig:relative_velocity}
+\end{figure}
+
+\subsection{不考虑竖向速度对相对风速的影响}
+当不考虑竖向速度对相对风速的影响时，飞射物是在切向（水平向）风阻力和竖向重力的联合作用下运动，根据牛顿第二定律列其运动方程如式\eqref{eqn:Newton_no_uz}\eqref{eqn:Newton_no_uz2}：
+
+\begin{equation}
+  \label{eqn:Newton_no_uz}
+      m\frac{\mathrm{d}^2 \left(r_0 \theta \right)}{\mathrm{d} t^2} = m\frac{\mathrm{d} u_t}{\mathrm{d} t} = \frac{1}{2} \rho_a C_D A \left(V_r-u_t\right)^2
+\end{equation}
+
+\begin{equation}
+  \label{eqn:Newton_no_uz2}
+  m\frac{\mathrm{d}^2 z}{\mathrm{d} t^2} = m\frac{\mathrm{d} u_z}{\mathrm{d} t } = -mg
+\end{equation}
+定义参数
+\begin{equation}
+k=\frac{\rho_a C_D}{2 \rho_m \ell}
+\end{equation}
+其中$\rho_m$为飞射物的密度，$\ell$为飞射物的参考长度，即飞射物体积与迎风面积的比值。
+则块状飞射物的运动方程可简化为式\eqref{eqn:Newton_no_uz3}\eqref{eqn:Newton_no_uz4}：
+
+\begin{equation}
+  \label{eqn:Newton_no_uz3}
+      \frac{\mathrm{d}^2 \left(r_0 \theta\right)}{\mathrm{d} t^2} = \frac{\mathrm{d} u_t}{\mathrm{d} t} = k \left(V_r-u_t\right)^2
+\end{equation}
+
+\begin{equation}
+\label{eqn:Newton_no_uz4}
+\frac{\mathrm{d}^2 z}{\mathrm{d} t^2} = \frac{\mathrm{d} u_z}{\mathrm{d} t } = -g
+\end{equation}
+ 
+
+式\eqref{eqn:Newton_no_uz3}为非耦联的方程，因此可以通过分离变量法直接求其解析解：
+对飞射物切向的运动方程进行分离变量和积分，积分结果为
+\begin{equation}
+t=\int \frac{1}{k \left(V_r-u_t\right)^2} \mathrm{d} u_t =\frac{u_t}{k\left(V_r-u_t\right) V_r}.
+\end{equation}
+则不考虑物体竖向运动对风作用力的影响时块状飞射物的切向运动速度为：
+
+\begin{equation}
+  \label{eqn:velocity_no_uz}
+    u_t=\frac{kV_r^2 t}{1+k V_r t}
+\end{equation}
+式\eqref{eqn:velocity_no_uz}对于时间$t$积分可得：
+\begin{equation}
+  \label{eqn:displacement_no_uz}
+    \theta=\theta_0+\frac{V_r}{r_0} \left[t-\frac{1}{k V_r} \ln \left(1+kV_r t\right)\right]
+\end{equation}
+
+上述的推导仅考虑水平风阻力的作用，则飞射物在竖向仅受重力的作用，则物体竖向的速度和位移为：
+\begin{equation}
+u_z=-gt
+\end{equation}
+\begin{equation}
+z=z_0-\frac{1}{2}gt^2
+\end{equation}
+\subsection{考虑竖向风速对相对风速的影响}
+当考虑物体竖向运动对风作用力的影响时，飞射物受到沿相对风速方向的风阻力以及竖向重力作用。
+把风阻力分解成切向和竖向两部分：$F_{Dr} = F_D \cos \beta$， $F_{Dz} = F_D \sin \beta$。
+其中$\beta$为相对风速与切向风速的夹角。由图\ref{fig:relative_velocity}可得：
+\begin{equation}
+\cos \beta=\frac{V_r-u_t}{\sqrt{(V_r-u_t)^2+u_z^2}}
+\end{equation}
+\begin{equation}
+\sin \beta=\frac{-u_z}{\sqrt{(V_r-u_t)^2+u_z^2}}
+\end{equation}
+则飞射物在竖向所受到的作用力为：
+\begin{equation}
+F_z = F_D \sin \beta - mg
+\end{equation}
+
+则考虑物体竖向运动对风作用力的影响时，块状飞射物的运动方程为\cite{Holmes2004}：
+\begin{equation}
+\label{eqn:Newton_uz}
+\begin{split}
+\frac{\mathrm{d}^2 (r_0 \theta)}{\mathrm{d} t^2} = \frac{\mathrm{d} u_t}{\mathrm{d} t}& = \frac{\rho_a C_D (V_r - u_t)\sqrt{\left(V_r-u_t\right)^2+u_z^2}}{2\rho_m \ell} \\
+ & = k\left(V_r-u_t\right)\sqrt{\left(V_r-u_t\right)^2+u_z^2}
+\end{split}
+\end{equation}
+
+\begin{equation}
+\label{eqn:Newton_uz2}
+\begin{split}
+  \frac{\mathrm{d}^2 z}{\mathrm{d} t^2} = \frac{\mathrm{d}u_z}{\mathrm{d} t}&=  \frac{\rho_a C_D ( - u_z)\sqrt{\left(V_r-u_t\right)^2+u_z^2}}{2\rho_m \ell} -g \\
+   & = k\left(-u_z\right)\sqrt{\left(V_r-u_t\right)^2+u_z^2}-g
+\end{split}
+\end{equation}
+
+由于$u_z$在数值上是负的（块状飞射物的竖向运动速度是向下的），因此由重力产生的竖向加速度与由风作用力产生的竖向加速度方向是相反的。
+
+式\eqref{eqn:Newton_uz}和\eqref{eqn:Newton_uz2}是耦联的方程，不能直接求其解析解，但可以用小时间步法\cite{Baker2004}\cite{Zhu2008}求其水平和竖向的加速度、速度和位移，基本过程如下：
+
+\begin{enumerate}
+\item 假定飞射物$t_0=0$时刻的初始速度为零，即$u_{r0}=0$，$u_{t0}=0$，$u_{z0}=0$，初始位置为$(r_0,\theta_0,z_0)$。初始位置处龙卷风切向风速为$V_r$（Rankine涡模型中$V_r$仅与$r_0$有关，见式\eqref{eqn:Rankine}），则飞射物的相对风速为$V_r-u_{t0}$。在模拟过程中，时间步取$\Delta t$。
+\item 基于RANS时均应力模型，求解该时刻飞射物表面的风力系数$C_{D0}$，可以采用计算流体力学软件ANSYS Fluent\textregistered ，此时$x$向、$y$向和$z$向的入口风速分别为$V_r-u_{t0}$，$0$和$0$。
+\item 通过式\eqref{eqn:Newton_uz}和式\eqref{eqn:Newton_uz2}分别计算$t_0(i=0)$时刻块状飞射物的切向和竖向加速度：
+\begin{equation}
+a_{ti} = k \left(V_r-u_{ti}\right) \sqrt{\left(V_r-u_{ti}\right)^2 + u_{zi}^2}
+\end{equation}
+\begin{equation}
+a_{zi} = k (-u_{zi}) \sqrt{\left(V_r-u_{ti}\right)^2 + u_{zi}^2} -g
+\end{equation}
+则$t_1(i=1)$时刻（$t_1=t_0+\Delta t$）飞射物切向和竖向速度分别为：
+\begin{equation}
+u_{ti}=u_{t,i-1}+a_{t,i-1} \Delta t
+\end{equation}
+\begin{equation}
+u_{zi} = u_{z,i-1} + a_{z,i-1} \Delta t
+\end{equation}
+$t_1(i=1)$时刻飞射物的位置为：
+\begin{equation}
+\theta_i = \theta_{i-1} + \frac{1}{r_0} u_{t,i-1} \Delta t + \frac{1}{2 r_0} a_{t,i-1} \Delta t ^2
+\end{equation}
+\begin{equation}
+z_i = z_{i-1} + u_{z,i-1} \Delta t ^2 + \frac{1}{2} a_{z,i-1} \Delta t ^2
+\end{equation}
+
+$t_1$时刻，飞射物的相对风速为$\sqrt{\left(V_r-u_{t1}\right)^2 + u_{z1}^2}$，相对风速方向与水平向之间夹角为$\beta_1 $，见图\ref{fig:relative_velocity}。
+
+\item 
+建立$t_1$时刻飞射物的计算模型，并利用ANSYS Fluent\textregistered 求解该时刻飞射物表面的风力系数$C_{D1}$，此时$x$向、$y$向和$z$向的入口风速分别为$V_r-u_{t1}$，$0$和$-u_{z1}$。
+
+\item
+利用$t_1$时刻的风力系数求解该时刻平板飞射物所受到的风作用力，进而求解飞射物在$t_1$时刻的加速度以及$t_2$时刻的速度和位移。
+
+\item
+这样一步步迭代下去，直到达到预定目标停止计算。
+\end{enumerate}
+
+\section{算例}
+选用A组龙卷风的特征参数（见表\ref{tab:design_tornado}），即$V_{\mathrm{R}}=\SI{84.9}{m/s}$，$R = \SI{45.7}{m}$。飞射物为石质圆球，直径$d=\SI{8}{mm}$，密度为$\rho_m=\SI{2000}{kg/m^3}$，则$\ell =\frac{2}{3}d=\SI{5.33}{mm}$。
+
+假设圆球从龙卷风风场最大切向速度处释放，即$r_0=R=\SI{45.7}{m}$，释放位置距地面高$z_0=\SI{10}{m}$。
+小球的初始来流风速为$V_{\mathrm{R}}=\SI{84.9}{m/s}$，雷诺数为
+\begin{equation}
+  \mathrm{Re} = \frac{V_{\mathrm{R}} d}{\upsilon} = \frac{\SI{84.9}{m/s} \times \SI{8}{mm}}{\SI{1.5e-5}{m^2/s}} = 45280
+\end{equation}
+根据文献\cite{Hoerner1965}可假定$C_D$不随来流相对风速变化，取\num{0.5}。分别针对如下情形计算：
+\begin{description}
+\item[Case 1: ] 不考虑竖向速度对相对风速的影响；
+\item[Case 2: ] 考虑竖向速度对相对风速的影响。
+\end{description}
+
+小球落地时两种情形的相关参数见表\ref{tab:compact}。飞行过程中（从释放到撞击地面），切向速度和径向速度随时间的变化曲线如图\ref{fig:velocity_history}所示。
+\begin{table}[h]
+\caption{龙卷风风场中采用两种模型计算\SI{8}{mm}石质圆球落地时各相关参数的比较}
+\label{tab:compact}
+\centering
+\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} c c c  }
+    \toprule
+    Case & 飞行时间($\SI{}{s}$) & 落地时切向速度$u_t(\SI{}{m/s})$ & 落地时竖向速度$u_z(\SI{}{m/s})$ \\ \midrule
+    1 & 1.43 & 65.96 & -14.00 \\
+    2 & 1.78 & 69.72 & -10.14 \\ \bottomrule
+\end{tabular*}
+\end{table}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=0.6\textwidth]{./fig/velocity_history.pdf}
+\caption{圆球飞行过程中切向速度和竖向速度的时程曲线}
+\label{fig:velocity_history}
+\end{figure}
+
+\printbibliography
+\end{document}

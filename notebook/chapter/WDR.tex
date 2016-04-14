@@ -1,0 +1,47 @@
+\chapter{Wind-Driven Rain}
+
+\section{Overview}
+\textbf{Euler-Euler frame in WDR simulation}\cite{Huang2011WDR}: 
+rain is regarded as a continuum similar to wind rather than as a single raindrop as it is treated in the existing WDR simulation methods. 
+A similar group of conservation equations with wind, including the mass conservation and momentum conservation equations, 
+were established for rain based on the concept of phase and phasic volume fraction in the same Euler coordinates as wind. 
+Then, the equations for rain can be solved in the same way as for wind.
+
+\textbf{Continuum hypothesis for raindrops}\cite{Huang2010WDR}:
+Continuum hypothesis is valid mathematically in consideration of the relatively small mean inter-particle distance with an order of \SI{0.1}{m}
+in most cases, as compared with the macroscopic size of a concerned WDR field (usually in the order of \SI{10}{m}).
+
+
+\section{Governing equations for WDR with Eulerian multiphase model}
+\textbf{Phase in multiphase flow regime}\cite{Huang2010WDR}:
+In a multiphase flow regime, \textit{phase} does not only refer to the physical phase of material, such as gas, liquid and solid,
+but also it has been defined in a broder sense as an identifiable class of material that has a particular inertial response to
+and interaction with the flow and the potential field in which it is immersed.
+Specifically in the WDR description, in addition to wind (air) phase (gas phase in physics), 
+different-sized raindrops can be regarded as different phases because each collection of raindrops with the same size will have a similar dynamical response to the wind field.
+
+\textbf{Phasic volume fraction $a_q$}:
+represents the space occupied by each phase, which is regarded as a continuous function in space and time.
+
+Rain is divided into $\mathnormal{N}$ phases according to the diameter sizes of raindrops, 
+with each phase representing the raindrops' diameter being in the range of $\left[D_k-(dD/2), D_k+(dD/2)\right]$,
+where $dD$ is the differential diameter range and $k=1,2,\cdot,N.$
+The volume fraction of the $k$th phase, denoted by $a_k$, 
+represents the volume fraction of raindrops belonging to the same diameter range $\left[D_k-(dD/2), D_k+(dD/2)\right]$.
+
+\textbf{Mass conservation equation and Momentum conservation equation for the phase $k$}:
+\begin{equation}
+\frac{\partial \rho_l a_k}{\partial t}+\frac{\partial \left(\rho_l a_k u_{kj}\right)}{\partial x_j} = 0
+\end{equation}
+\begin{equation}\label{eqn:monmentum}
+\frac{\partial \rho_l a_k u_{ki}}{\partial t} + \frac{\partial \left(\rho_l a_k u_{ki} u_{kj}\right)}{\partial x_j} =
+\rho_l a_k g_i + \rho_l a_k \frac{18\mu C_D Re_p}{24 \rho_l D_k^2}\left(u_i-u_{ki}\right)
+\end{equation}
+\begin{description}
+\item[$\rho_l$: ] the physical density of rain
+\item[$u_{ki}$: ] the absolute velocity component of the $k$th phase of rain
+\item[The first term in the right hand side of Eq. \ref{eqn:monmentum}: ] the source of gravitational force, where $g_i$ represents the gravity in the $i$th direction
+\item[The second term in the right hand side of Eq. \ref{eqn:monmentum}: ] denotes the source of drap force between the rain and the wind phases, in which $Re_p$ is the relative Reynolds number (referring to the wind around the raindrop); $C_D$ is the raindrop drag coefficient which is usually determined by fitting measurements, using a polynomial formula. $\mu$ and $\mu_i$ are the viscosity coefficient and velocity component of wind, respectively.
+\end{description}
+
+\textbf{For \textit{wind flow}, RANS equations, in combination with the realizable $k-\epsilon$ turbulence model:}\par 

@@ -1,0 +1,22 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{arrows,angles}
+
+\begin{document}
+\begin{tikzpicture}[
+  thick,
+  >=stealth',
+  ]
+  \draw[->] (0,-3) coordinate (O) -- (8,-3) coordinate[label={below:$V_r-u_t$}] (U);
+  \draw[->] (O) -- (0,0) coordinate[label={left:$-u_z$}] (V);
+  \draw[->,thin] (O) -- (8,0) coordinate (R);
+  \draw pic [draw,thin,angle radius=1.5cm,pic text=$\beta$,angle eccentricity=1.2] {angle = U--O--R};
+  \draw[help lines] (U) -- (R) --(V);
+  \draw [->] (4.5,3) -- (5.5,3) coordinate [label={above:$u_t$}] ();
+  \draw [->] (4.5,3) -- (4.5,2) coordinate [label={left:$-u_z$}]();
+  \draw (4.5,3) circle(0.5);
+  \draw [->] (1,4) -- (3,4);
+  \draw [->] (1,3) -- (3,3);
+  \draw [->] (1,2) -- (3,2);
+  \draw (0.5,3) node {$V_r$};
+\end{tikzpicture}
+\end{document}

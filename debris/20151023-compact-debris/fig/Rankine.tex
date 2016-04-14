@@ -1,0 +1,19 @@
+\documentclass[tikz,border=10pt]{standalone}
+\usetikzlibrary{arrows,intersections}
+
+\begin{document}
+\begin{tikzpicture}[
+    thick,
+    >=stealth',
+  ]  
+  \coordinate (O) at (0,0);
+  \draw[<->]  (0,6)  coordinate[label = {left:$V_r$}] (ymax) 
+     -- (0,0) coordinate[label={left:$O$}] (O)
+     -- (12,0) coordinate[label = {below:$r$}] (xmax);
+   \draw (0,0) -- (3,5);
+   \draw (1.2,3.5) node[above]{$V_r=\frac{r}{R}V_{\mathrm{R}}$};
+   \draw[domain=3:11,smooth,variable=\x]  plot(\x,{15/\x} );
+   \draw (5.4,3.5) node[above]{$V_r=\frac{R}{r} V_{\mathrm{R}}$};
+    \draw[thin,dashed] (3,0) coordinate[label={below:{R}}]-- (3,5) -- (0,5) coordinate[label={left:$V_{\mathrm{R}}$}];
+\end{tikzpicture}
+\end{document}
