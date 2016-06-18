@@ -1,0 +1,76 @@
+! UNIT: N-mm
+FINISH $ /CLEAR
+/TITLE,"ANALYSIS OF TOWER"
+! Parameters
+workDir='.'
+inputData='./InputData/'
+inputAPDL='./InputAPDL/'
+/INPUT,'PARA','MAC',%inputAPDL%
+
+! 导入输电塔模型
+/INPUT,'MODEL','MAC',%inputAPDL%
+
+/PREP7
+/VUP,1,Z
+/VIEW,1,1,1,1
+EPLOT
+! 将模型中的MESH200单元改为BEAM188单元
+ET,2,BEAM188
+ESEL,ALL
+EMODIF,ALL,TYPE,2
+ALLSEL,ALL
+! 将模型中的线弹性材料改为理想弹塑性材料
+MP,DENS,2,7.85E-09                               ! 材料密度(10^3 kg/mm^3)
+MP,EX,2,200000                                   ! 弹性模量(MPa)
+MP,PRXY,2,0.3
+TB,BKIN,2,1
+TBDATA,1,335,0                                   ! 屈服强度(335 MPa)
+ESEL,ALL
+MPCHG,2,ALL
+
+NSEL,ALL
+NUMMRG,NODE                                      ! 合并模型节点
+FINISH
+
+/SOLU
+! 约束
+NSEL,S,LOC,Z,0-SEL_TOR,0+SEL_TOR
+D,ALL,ALL,0
+ALLSEL,ALL                                       ! 施加底部节点的固定支座约束
+! 施加重力荷载
+ACEL,0,0,9.8E3                                   ! 重力加速度(mm/s^2)
+! 施加输电线作用于跨越塔的荷载
+*DO,I,1,8
+    TN=NODE(TP(I,1),TP(I,2),TP(I,3))
+    *IF,NX(TN),GT,0,THEN
+        F,TN,FX,Tx_R
+        F,TN,FZ,-Tz_R
+        ! F,TN,MY,My_R
+    *ELSEIF,NX(TN),LE,0
+        F,TN,FX,-Tx_L
+        F,TN,FZ,-Tz_L
+        ! F,TN,MY,-My_L
+    *ENDIF
+*ENDDO
+
+*DO,IR,1,6,1
+    *DO,IT,1,7,1
+        R=R_IN(IR)
+        THETA=THE_IN(IT)
+        /SOLU
+        ! Apply tornado load
+        /INPUT,'WLOAD','MAC',%inputAPDL%
+        ANTYPE,STATIC
+        NLGEOM,ON
+        NSUBST,100
+        ALLSEL,ALL
+        SOLVE
+        /INPUT,'POST','MAC',%inputAPDL%
+        USUM_OUT(IR,IT)=USUM
+        FINISH
+    *ENDDO
+*ENDDO
+*CFOPEN,'USUM','DAT'
+*VWRITE,USUM_OUT(1,1,1),USUM_OUT(1,2,1),USUM_OUT(1,3,1),USUM_OUT(1,4,1),USUM_OUT(1,5,1),USUM_OUT(1,6,1),USUM_OUT(1,7,1)
+(F9.3,'    ',F9.3,'    ',F9.3,'    ',F9.3,'    ',F9.3,'    ',F9.3,'    ',F9.3)
+*CFCLOS

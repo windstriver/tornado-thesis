@@ -2,14 +2,14 @@
 # operating system dependent functionality
 import os
 
-workDir = "C:/Users/wy/GitHub/tornado-thesis/towerStatic"
+workDir="E:\GitHub\\tornado-thesis\\towerStatic\\"
 
 # Specify the Mechanical APDL Input file to be processed
 inputFile = AbsUserPathName(workDir + "APDL.MAC")
 
 # Provide a list of bar length (Z) values to solve and write CDB files for.
 # Note: We expect '0' to fail.
-RValues = [0,100,200,300]
+RValues = [600,500]
 
 # Open a log file to record script progress
 logFile = open(AbsUserPathName(workDir + "para.log"),"w")
