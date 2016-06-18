@@ -212,3 +212,11 @@ slprj/
 *.tmp
 *.mntr
 *.stat
+*.ldhi
+*.mntr
+*.osav
+*.r001
+*.rdb
+*.stat
+*.mntr
+towerStatic/file.mntr
