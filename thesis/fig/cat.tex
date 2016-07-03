@@ -1,0 +1,30 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{structuralanalysis}
+
+\begin{document}
+\begin{tikzpicture}
+  \point{O}{0}{0};
+  \point{A}{3.7cm*3}{-1.6031cm*3};
+  \draw[help lines,-Stealth] (O) -- (2,0) node[right] {$x$};
+  \draw[help lines,-Stealth] (O) -- (0,1) node[left] {$y$};
+  \draw[blue,scale=3] plot[blue] file {cat_diagram.csv};
+  \foreach \x/\y in {0.25/-0.18063,0.5/-0.34998,0.75/-0.50828,1/-0.65573,1.25/-0.79255,1.5/-0.91892,1.75/-1.035,2.0/-1.141,2.25/-1.237,2.5/-1.3232,2.75/-1.3996,3/-1.4664,3.25/-1.5237,3.5/-1.5716}{
+    \draw[scale=3,-Stealth] (\x,\y) ++(0,-0.02) -- ++(0,-0.15);
+  };
+  \draw[scale=3] (1.75,-1.035) ++(0,-0.2) node[below] {$q_y$};
+  \support{1}{O};
+  \hinge{1}{O};
+  \draw[scale=3,red,-Stealth] (3.7,-1.6031) -- ++($0.5*(1,-0.1426)$) node[below right] {$T$};
+  \draw[scale=3,red,dashed,-Stealth] (3.7,-1.6031) -- ++($0.5*(0,-0.1426)$) node[below] {$T_y$};
+  \draw[scale=3,red,dashed,-Stealth] (3.7,-1.6031) -- ++($0.5*(1,0)$) node[right] {$T_x$};
+  \draw[scale=3,help lines] (0,-1.8) -- (0,-2);
+  \draw[scale=3,help lines] (3.7,-1.8) -- (3.7,-2);
+  \draw[scale=3,help lines,Stealth-Stealth] (0,-1.9) -- (3.7,-1.9) node[above,pos=0.5] {$L$};
+  \draw[scale=3,help lines] (4.5,0) -- (4.7,0);
+  \draw[scale=3,help lines] (4.5,-1.6031) -- (4.7,-1.6031);
+  \draw[scale=3,help lines,Stealth-Stealth] (4.6,0) -- (4.6,-1.6031) node[above,pos=0.5,rotate=90] {$C$};
+  
+\end{tikzpicture}
+\end{document}

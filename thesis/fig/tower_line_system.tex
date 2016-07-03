@@ -1,0 +1,19 @@
+%!TEX program=xelatex
+\documentclass[border=10pt]{standalone}
+\usepackage{ctex}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\begin{document}
+\begin{tikzpicture}
+  \draw[thin,-Stealth] (-22.90,0) -- (6,0) node[right] {$X$};
+  \draw[thin,-Stealth] (0,2.6) -- (0,3.5) node[left] {$Z$};
+  \draw[thick] (0,0) node[below] {跨越塔} -- (0,2.495);
+  \draw[thick] (5.2,0)  node[below] {锚塔} -- (5.2,0.55);
+  \draw[thick] (-17.7,0)  node[below] {跨越塔} -- (-17.7,2.495);
+  \draw[thick] (-22.9,0)  node[below] {锚塔} -- (-22.9,0.55);
+  \draw[blue] plot[xshift=-17.70cm,yshift=2.15cm,blue] file {cat.csv};
+  \draw[blue] plot[yshift=2.15cm,blue] file {cat2.csv};
+  \draw[blue] plot[xshift=-17.70cm,yshift=2.15cm,rotate around y=180] file {cat2.csv};
+\end{tikzpicture}
+\end{document}

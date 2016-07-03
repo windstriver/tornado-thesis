@@ -1,0 +1,41 @@
+%!TEX program=xelatex
+\documentclass[border=10pt]{standalone}
+\usepackage{ctex}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{angles}
+\usetikzlibrary{quotes}
+\usetikzlibrary[calc]
+
+\tikzstyle{axis}=[-Stealth,thin]
+
+\begin{document}
+\begin{tikzpicture}[decoration={
+    markings,
+    mark=between positions 1/8 and 1/8 step 1mm with {\arrow{stealth}},
+    mark=between positions 5/8 and 5/8 step 1mm with {\arrow{stealth}},}
+  ]
+  \draw (0,0) coordinate (O) node[below left] {$O$};
+  \draw (8,4) coordinate (T);
+  \draw[axis] (-3,0) -- (15,0) coordinate (X) node[right] {$X$};
+  \draw (T) ++(0,-4) node[below] {输电线方向};
+  \draw[axis] (0,-3) -- (0,8) node[left] {$Y$};
+  \draw (-1,-1) rectangle (1,1);
+  \draw[dash dot,thin] (T) ++(-3.5,0) -- ++(7.5,0);
+  \draw[dash dot,thin] (T) ++(0,-3.5) -- ++(0,7);
+  \foreach \r in {1.5,2,...,3}{
+    \draw[dashed,postaction={decorate}] (T) circle (\r);}
+  \draw[-Latex,help lines] (O) -- (T) node[pos=0.5,above] {$R$};
+  \draw pic[help lines,"$\theta$",draw,->,angle radius=0.5cm,angle eccentricity=1.5] {angle=X--O--T};
+  \draw[help lines,-Latex] (T) -- (1,-1) coordinate (D) node[pos=0.5,below right] {$R_{fd}$};
+  \draw (1,1) node[above right] {$a$};
+  \draw (-1,1) node[above left] {$b$};
+  \draw (-1,-1) node[below left] {$c$};
+  \draw (1,-1) node[right] {$d$};
+  \coordinate (TX) at ($(T)+(3.5,0)$);
+  \draw pic[help lines,"$\theta_{fd}$",draw,->,angle radius=0.7cm,angle eccentricity=1.5] {angle=TX--T--D};
+  \draw[help lines,blue,-Stealth] (D) -- ++($0.05*(D)-0.05*(T)$) node[below] {$V_{R}$};
+  \draw[help lines,blue,-Stealth] (D) -- ++(0.5,-0.7) node[below] {$V_T$};
+\end{tikzpicture}
+\end{document}
