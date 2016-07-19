@@ -1,5 +1,6 @@
 %!TEX program = xelatex
 \documentclass[algorithmlist,figurelist,tablelist,nomlist,masters]{seuthesix}
+\usepackage{style}
 
 \begin{document}
 \categorynumber{000} % 分类采用《中国图书资料分类法》
@@ -32,6 +33,8 @@
 
 \mainmatter
 
-\chapter{绪论}
+\input{tornado-simulation/tornado_simulation.tex}
+
+\thesisbib{seuthesix}
 
 \end{document}
