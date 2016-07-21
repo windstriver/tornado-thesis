@@ -12,22 +12,27 @@
 \begin{document}
 \begin{tikzpicture}[isometric]
   \coordinate (O) at (0,0,0);
-  \draw[axis] (O) -- ++(0.7,0,0) node[right] {$X$};
-  \draw[black!55,dashed] (O) -- ++(0,0,0.6);
-  \draw[axis] (O) ++(0,0,0.6) -- ++(0,0,0.3) node[above] {$Z$};
-  \draw[fill,pattern color=gray,pattern=north east lines] (O) circle (0.6);
+  \draw[axis] (O) -- ++(0.6,0,0) node[right] {$X$};
+  \draw[black!55,dashed] (O) -- ++(0,0,1.4);
+  \draw[axis] (O) ++(0,0,1.4) -- ++(0,0,0.15) node[above] {$Z$};
+  \draw[fill,pattern color=gray,pattern=north east lines] (O) circle (0.4);
   \draw (O) node[left,fill=white] {壁面};
-  \draw (O) ++(0,0,0.6) circle (0.6);
-  \draw (O) ++(0,0,0.6) node[left,fill=white] {出口};
-  \draw (O) ++(-0.6,0,0) -- ++(0,0,0.6)
+  \draw (O) ++(0,0,0.4) circle (0.4);
+  \draw (O) ++(0,0,1.4) circle (0.4);
+  \draw (O) ++(0,0,1.4) node[left,fill=white] {出口};
+  \draw (O) ++(-0.4,0,0) -- ++(0,0,0.4)
     node[above,midway,rotate=90] {速度入口};
-  \draw (O) ++(0.6,0,0) -- ++(0,0,0.6)
-    node[below,midway,rotate=90] {速度入口};
-  \draw[dim,thin,blue] (0,0,0.6) -- ++(0.6,0,0)
-    node[midway,above] {$r_0=\SI{0.6}{m}$}; 
-  \draw[thin,blue] (-0.6,0,0) -- ++(0.1,0,0);
-  \draw[thin,blue] (-0.6,0,0.6) -- ++(0.1,0,0);
-  \draw[dim,thin,blue] (-0.55,0,0) -- ++(0,0,0.6)
-    node[midway,below,rotate=90] {$h_0=\SI{0.6}{m}$};
+  \draw (O) ++(0.4,0,0) -- ++(0,0,0.4);
+  \draw (O) ++(-0.4,0,0.4) -- ++(0,0,1.0) node[midway,above,rotate=90] {侧壁};
+  \draw (O) ++(0.4,0,0.4) -- ++(0,0,1.0);
+  \draw[dim,thin,blue] (0,0,0.4) -- ++(0.4,0,0)
+    node[midway,above] {$R_0=\SI{0.4}{m}$}; 
+  \draw[thin,blue] (0.4,0,0) -- ++(0.1,0,0);
+  \draw[thin,blue] (0.4,0,0.4) -- ++(0.1,0,0);
+  \draw[dim,thin,blue] (0.45,0,0) -- ++(0,0,0.4)
+    node[midway,below,rotate=90] {$H_0=\SI{0.4}{m}$};
+  \draw[thin,blue] (0.4,0,1.4) -- ++(0.1,0,0);
+  \draw[dim,thin,blue] (0.45,0,0.4) -- ++(0,0,1)
+    node[midway,below,rotate=90] {$L_0=\SI{1.0}{m}$};
 \end{tikzpicture}
 \end{document}

@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"incl",
+				"\\includegraphics[options]{name}	latex-document"
+			],
+			[
 				"include",
 				"\\includegraphics[options]{name}	latex-document"
 			]
@@ -23,7 +27,7 @@
 			"file": "thesis/seuthesix.bib",
 			"settings":
 			{
-				"buffer_size": 2180,
+				"buffer_size": 4273,
 				"line_ending": "Windows"
 			}
 		},
@@ -31,32 +35,52 @@
 			"file": "thesis/tornado-simulation/tornado_simulation.tex",
 			"settings":
 			{
-				"buffer_size": 5938,
+				"buffer_size": 7794,
 				"line_ending": "Windows"
 			}
 		}
 	],
-	"build_system": "",
+	"build_system": "Anaconda Python Builder",
 	"build_system_choices":
 	[
+		[
+			[
+				[
+					"Anaconda Python Builder",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Anaconda Python Builder",
+				""
+			]
+		]
 	],
 	"build_varint": "",
 	"command_palette":
 	{
 		"height": 375.0,
-		"last_filter": "Package Control: ",
+		"last_filter": "view",
 		"selected_items":
 		[
+			[
+				"view",
+				"LaTeXTools: View package documentation"
+			],
 			[
 				"Package Control: ",
 				"Package Control: Remove Package"
 			],
 			[
 				"view ",
-				"LaTeXTools: View PDF"
-			],
-			[
-				"view",
 				"LaTeXTools: View PDF"
 			]
 		],
@@ -87,14 +111,32 @@
 	],
 	"file_history":
 	[
-		"/C/Users/Yong/AppData/Roaming/Sublime Text 3/Packages/LaTeXTools/LaTeXTools.sublime-settings",
-		"/C/Users/Yong/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
-		"/C/Users/Yong/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
 		"/E/GitHub/tornado-thesis/thesis/style.sty",
+		"/E/GitHub/tornado-thesis/thesis/tornado-simulation/fig/Ward_TVC_sketch.pdf_tex",
+		"/C/Users/Yong/Desktop/Ward_TVC_sketch.pdf_tex",
+		"/E/GitHub/tornado-thesis/thesis/main.bbl",
+		"/C/Users/Yong/Downloads/inkscape/README",
+		"/E/GitHub/tornado-thesis/thesis/tornado-simulation/fig/domain.tex",
+		"/E/tornado-simulation/Vt_plot.py",
+		"/E/tornado-simulation/R0.4H1.4_inlet_velocity_S=0.28.c",
+		"/E/tornado-simulation/Hex1536K-Trans-SSTkOmega-S=0.28/inlet_velocity_S=0.28.c",
+		"/E/tornado-simulation/R0.6H0.6_inlet_velocity_R0.6H0.6_S=0.28.c",
+		"/E/tornado-simulation/R0.4H1.4_inlet_velocity_R0.6H0.6_S=0.28.c",
+		"/E/tornado-simulation/inlet_velocity_S=0.28.c",
+		"/E/tornado-simulation/Hex1536K-Trans-SSTkOmega-S=1/inlet_velocity_S=0.28.c",
+		"/C/Users/Yong/Desktop/tornado-post/Vt_plot.py",
+		"/E/tornado-simulation/Hex550K-Trans-RSM-S=0.28/Vt_plot.py",
+		"/E/tornado-simulation/Hex1536K-Trans-SSTkOmega-S=1/inlet_velocity_S=1.c",
+		"/E/tornado-legacy/scaled-tornado/define_rw_file_exp.c",
+		"/E/tornado-simulation/Hex550K-Trans-RSM-S=0.28/Vt_z=0.2m.xy",
+		"/C/Users/Yong/AppData/Roaming/Sublime Text 3/Packages/User/LaTeXTools.sublime-settings",
+		"/C/Users/Yong/Desktop/hosts",
+		"/C/Users/Yong/Desktop/dist.py",
+		"/C/Users/Yong/AppData/Roaming/Sublime Text 3/Packages/LaTeXTools/LaTeXTools.sublime-settings",
+		"/C/Users/Yong/AppData/Roaming/Sublime Text 3/Packages/User/Default (Windows).sublime-keymap",
 		"/E/GitHub/tornado-thesis/debris/20151023-compact-debris/compact_debris.tex",
 		"/E/GitHub/tornado-thesis/debris/20151023-compact-debris/compact_debris.bib",
 		"/E/GitHub/tornado-thesis/thesis/tornado-simulation/fig/Rankine.tex",
-		"/E/GitHub/tornado-thesis/thesis/tornado-simulation/fig/domain.tex",
 		"/E/GitHub/tornado-thesis/thesis/main.tex",
 		"/E/GitHub/tornado-thesis/thesis.sublime-project",
 		"/E/GitHub/tornado-thesis/thesis/seuthesix.bib",
@@ -113,7 +155,7 @@
 	],
 	"find":
 	{
-		"height": 26.0
+		"height": 36.0
 	},
 	"find_in_files":
 	{
@@ -127,6 +169,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"0.6",
 			"use_b"
 		],
 		"highlight": true,
@@ -135,6 +178,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"0.4"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -145,7 +189,7 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -161,8 +205,8 @@
 						"selection":
 						[
 							[
-								593,
-								593
+								952,
+								952
 							]
 						],
 						"settings":
@@ -172,7 +216,7 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 162.0,
+						"translation.y": 324.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -184,15 +228,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2180,
+						"buffer_size": 4273,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1744,
-								1769
+								4272,
+								4272
 							]
 						],
 						"settings":
@@ -202,10 +246,10 @@
 							"syntax": "Packages/LaTeXTools/BibLaTeX.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 949.0,
+						"translation.y": 2620.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -214,15 +258,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5938,
+						"buffer_size": 7794,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1283,
-								1283
+								7485,
+								7485
 							]
 						],
 						"settings":
@@ -232,10 +276,10 @@
 							"syntax": "Packages/LaTeX/LaTeX.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 4066.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -247,7 +291,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 36.0
 	},
 	"layout":
 	{
@@ -272,6 +316,10 @@
 		]
 	},
 	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 120.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
@@ -284,7 +332,7 @@
 	"project": "thesis.sublime-project",
 	"replace":
 	{
-		"height": 48.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -322,7 +370,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 207.0,
+	"side_bar_width": 244.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

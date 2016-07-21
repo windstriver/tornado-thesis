@@ -1,4 +1,6 @@
+\graphicspath{{tornado-simulation/fig/}}
 \chapter{龙卷风风场及其数值模拟}
+
 
 \section{龙卷风的特性及描述}
 无论是模拟龙卷风，还是评估龙卷风对结构的影响，都需要对龙卷风的风场特性进行研究。
@@ -71,37 +73,65 @@ Rankine涡模型是满足Navier-Stokes方程的最简单的模型，仅由切向
 \end{equation}
 式中：$V_r$是距涡中心为$r$处的切向风速，$V_{\mathrm{R}}$为Rankine涡中的最大切向风速，$R$为最大切向风速对应的旋转半径。
 \begin{figure}[!htbp]
-\centering
-\includegraphics{tornado-simulation/fig/Rankine.pdf}
-\caption{Rankine涡模型中切向速度沿涡半径的变化曲线图}
-\label{fig:Rankine}
+  \centering
+  \includegraphics[width=0.6\textwidth]{Rankine.pdf}
+  \caption{Rankine涡模型中切向速度沿涡半径的变化曲线图}
+  \label{fig:Rankine}
 \end{figure}
 
 
 
 \section{龙卷风的数值模拟}
-实际情况中龙卷风的风场结构十分复杂，不仅有着单涡和多涡等多种形式，还具有一定的平移速度。
-出于简化影响因素的考虑，本文仅模拟单涡形式的龙卷风，且不考虑龙卷风的平移运动，忽略地面粗糙度的影响。
-采用计算流体力学软件FLUENT模拟缩尺龙卷风数值模型。
+本文选择Ward型龙卷风发生装置（Ward-type Tornado Vortex Chamber，下文简称Ward-TVC）\cite{ward1972exploration}的改进版（Purdue-TVC）\cite{church1979characteristics}进行数值模拟，Purdue-TVC的示意图见图\ref{fig:Ward-TVC}。
+Davies-Jones\cite{davies1976laboratory}详细评述了各种龙卷风发生装置，认为Ward-TVC与实际发生的龙卷风之间具有较好的几何和动力学相似性（geometric and dynamic similarity）。
 
-
-\subsection{风场几何区域}
-为了与Baker\cite{baker1981boundary}的实验进行对比以验证数值风场的正确性，
-将风场几何区域设置为与其实验装置尺寸类似的圆柱体，
-具体尺寸及边界设置见图\ref{fig:tornado-domain}。
-其中$X$轴对应龙卷风风场的径向，$Z$轴对应龙卷风风场的竖向。
+控制龙卷风风场的主要无量纲参数为\cite{lewellen1993tornado}：
+高宽比$A$、涡流比$S$、雷诺数（Reynolds number）$\mathrm{Re}$、弗劳德数（Froude number）$\mathrm{Fr}=\left( \Delta P/ 2g\Delta \rho z\right)^{1/2}$；$\Delta P$为气压降、$\Delta \rho$为流域内空气密度的变化、$g$为重力加速度、$z$为距离地面的高度。
+高宽比和涡流比的定义如下：
+\begin{equation}
+  A = H_0/R_0
+\end{equation}
+\begin{equation}
+  S = V_t/2A V_r
+\end{equation}
+其中$R_0$为上升气流孔的半径，$H_0$为气流入口的高度（见图\ref{fig:Ward-TVC}），
+$V_t$和$V_r$为$R_0$处的切向和径向入流速度。
+实验\cite{ward1972exploration}\cite{church1979characteristics}\cite{snow1982review}和数值模拟\cite{davies1976laboratory}等说明涡流比是控制龙卷风风场特征的最主要参数。
+图\ref{fig:swirl}展示了龙卷风风场结构随涡流比的增大而发生变化\cite{hangan2008swirl}。
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.6\textwidth]{tornado-simulation/fig/domain.pdf}
-  \caption{龙卷风数值模型的几何区域}\label{fig:tornado-domain}
+  \includegraphics[width=\textwidth]{swirl_ratio_tornado_flow_pattern.jpg}
+  \caption{增大涡流比引起龙卷风风场结构发生变化的示意图}\label{fig:swirl}
+\end{figure}
+
+随着涡流比的增大，龙卷风从射流状流场变化为单涡状涡旋（图\ref{fig:swirl}(a)），接着风场产生一个驻点、涡旋脱离地面（图\ref{fig:swirl}(b)），最后涡旋着地，分裂形成双涡状龙卷风（图\ref{fig:swirl}(c)）。
+
+本节主要介绍计算流体力学软件ANSYS Fluent模拟Ward-TVC的方法，并探讨涡流比对数值风场的影响。
+
+\subsection{风场几何区域}
+数值模拟的计算流域取Purdue-TVC的阴影区域，见图\ref{fig:Ward-TVC}。
+为了与Baker\cite{baker1981boundary}的实验进行对比以验证数值风场的正确性，
+取计算流域的尺寸及边界条件如图\ref{fig:tornado-domain}所示。
+其中$X$轴对应龙卷风风场的径向，$Z$轴对应龙卷风风场的竖向。
+\begin{figure}[!htbp]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \input{tornado-simulation/fig/Ward_TVC_sketch.pdf_tex}
+    \caption{Purdue-TVC龙卷风发生装置示意图}\label{fig:Ward-TVC}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics{domain.pdf}
+    \caption{龙卷风数值模型的计算流域}\label{fig:tornado-domain}
+  \end{subfigure}
+  \caption{龙卷风发生装置和计算流域示意图}\label{fig:TVC-domain}
 \end{figure}
 
 
 \subsection{网格划分}
 采用适应性良好的六面体结构化网格进行计算流域的划分。
-由于工程实际主要关注近地面附近龙卷风对结构的作用，
-故对近地面流域处的网格进行了细分。
-进行初步的网格收敛性研究后，最终采用的结构化网格的数量为 \SI{3E5}{}。
+初始网格数量大概为$300,000$，然后根据速度梯度和Y+进行自适应网格划分\cite{fluent2015user}。由于工程实际主要关注近地面附近龙卷风对结构的作用，
+故细分主要针对近地面流域处的网格。不断加密网格直到近地面最大切向速度和最大切向速度所在半径的位置前后两次计算结果相差小于$5\%$。最后根据计算机的能力及计算结果的有效性，采用的网格数量为$1,536,000$。
 
 
 \subsection{湍流模型}
@@ -109,7 +139,6 @@ Rankine涡模型是满足Navier-Stokes方程的最简单的模型，仅由切向
 模型参数为：$C_{\mu}=0.09$; $C_{1\varepsilon}=1.44$; $C_{2\varepsilon}=1.92$; 
 $C1-ps=1.8$; $C2-ps=0.6$; $C1'-ps=0.5$; $C2'-ps=0.3$。
 湍流动能（TKE）普朗特数为 $1$; 湍动耗散率（TDR）普朗特数为 $1.3$。
-
 
 \subsection{边界条件}
 速度入口处径向和切向速度分布采用如下形式：
@@ -130,9 +159,6 @@ $C1-ps=1.8$; $C2-ps=0.6$; $C1'-ps=0.5$; $C2'-ps=0.3$。
   \caption{入口处规格化切向和径向速度与Baker\cite{baker1981boundary}试验的对比}
   \label{fig:bc-inlet}
 \end{figure}
-
-计算流域上边界采用出口边界条件。
-此边界条件假设除压强外的所有物理量在边界的法向梯度为零\cite{fluent2015user}。
 
 试验表明，沿壁面法线方向的不同距离，可以将近壁面区域分成三层区域。
 最里层，又称粘性底层，流动区域很薄，粘性力在动量、热量及质量交换中都起主导作用；
@@ -166,9 +192,18 @@ $C1-ps=1.8$; $C2-ps=0.6$; $C1'-ps=0.5$; $C2'-ps=0.3$。
   \label{fig:wall-treatment}
 \end{figure}
 
-本文壁面处采用强化壁面函数（Enhanced wall treatment\cite{fluent2015user}），需要对近壁面的网格进行细化。
+本文地面处采用强化壁面函数（Enhanced wall treatment\cite{fluent2015user}），需要对近壁面的网格进行细化。
 边界层网格节点是否合适需要检查计算后的$y^{+}$值。
 $y^{+}=u_{\tau} y/\nu$小于$1.5$能取得较好效果。
+
+Smith的数值模拟\cite{smith1987effect}说明了侧壁的边界条件的选取对汇集区风场（主要关注的区域）的影响很小。
+因此选择无滑壁面条件。
+
+Purdue-TVC出口处设置了蜂窝板，能使气流竖直流出，还能阻止排风机对涡旋的影响。
+试验中排风机驱动了流场运动，而在数值模型中，入口风速驱动了流场运动，且不包含排风机的影响，因此数值模型出口处不需设置代表直流蜂窝板的边界条件。根据Smith\cite{smith1987effect}的论述，上边界更合适的边界条件为压强出口边界条件（pressure-outflow）。
+此边界条件假设除压强外的所有物理量在边界的法向梯度为零\cite{fluent2015user}。
+
+
 
 
 \subsection{控制方程及求解选项}
