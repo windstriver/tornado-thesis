@@ -96,7 +96,7 @@ Davies-Jones\cite{davies1976laboratory}详细评述了各种龙卷风发生装�
 \end{equation}
 其中$R_0$为上升气流孔的半径，$H_0$为气流入口的高度（见图\ref{fig:Ward-TVC}），
 $V_t$和$V_r$为$R_0$处的切向和径向入流速度。
-实验\cite{ward1972exploration}\cite{church1979characteristics}\cite{snow1982review}和数值模拟\cite{davies1976laboratory}等说明涡流比是控制龙卷风风场特征的最主要参数。
+试验\cite{ward1972exploration}\cite{church1979characteristics}\cite{snow1982review}和数值模拟\cite{davies1976laboratory}等说明涡流比是控制龙卷风风场特征的最主要参数。
 图\ref{fig:swirl}展示了龙卷风风场结构随涡流比的增大而发生变化\cite{hangan2008swirl}。
 \begin{figure}[!htbp]
   \centering
@@ -110,7 +110,7 @@ $V_t$和$V_r$为$R_0$处的切向和径向入流速度。
 
 \subsection{风场几何区域}
 数值模拟的计算流域取Purdue-TVC的阴影区域，见图\ref{fig:Ward-TVC}。
-为了与Baker\cite{baker1981boundary}的实验进行对比以验证数值风场的正确性，
+为了与Baker\cite{baker1981boundary}的试验进行对比以验证数值风场的正确性，
 取计算流域的尺寸及边界条件如图\ref{fig:tornado-domain}所示。
 其中$X$轴对应龙卷风风场的径向，$Z$轴对应龙卷风风场的竖向。
 \begin{figure}[!htbp]
@@ -187,7 +187,7 @@ $C1-ps=1.8$; $C2-ps=0.6$; $C1'-ps=0.5$; $C2'-ps=0.3$。
 图\ref{fig:wall-treatment}为两种方法的对比\cite{fluent2015theory}。
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.8\textwidth]{tornado-simulation/fig/wall_treatment.jpg}
+  \includegraphics[width=0.8\textwidth]{wall_treatment.jpg}
   \caption{近壁面区域处理方法}
   \label{fig:wall-treatment}
 \end{figure}
@@ -205,8 +205,107 @@ Purdue-TVC出口处设置了蜂窝板，能使气流竖直流出，还能阻止�
 
 
 
-
 \subsection{控制方程及求解选项}
 控制方程采用非定常雷诺平均纳维－斯托克斯方程（Unsteady Reynolds Averaged Navier-Stokes, RANS）。
 时间离散采用一阶隐性格式，压强速度场的耦合采用压力修正的分离式算法，SIMPLEC算法。
 动量、TKE、TDR和雷诺应力采用二阶迎风格式。
+
+
+
+\section{数值模拟结果及其正确性验证}
+图\ref{fig:tornado-domain}所示的风场几何区域，建立柱面坐标系$\{O:r \theta z\}$。
+本文主要关注在柱面坐标系下数值风场的速度特征，其中径向（radial）、切向(tangential）、竖向（axial）风速分别记为$V_r(r,\theta,z)$、$V_t(r,\theta,z)$和$V_a(r,\theta,z)$。
+
+考虑到龙卷风风场具有轴对称性，故对数值风场速度分布沿圆周（$r=$常数）进行平均，消除速度随$\theta$的变化，得到轴对称的风场$V_r(r,z)$、$V_t(r,z)$和$V_a(r,z)$。
+
+将上述轴对称风场与Baker试验\cite{baker1981boundary}结果及多普勒雷达实测风场进行对比，以验证数值风场的正确性。
+并探讨缩尺龙卷风数值风场转化为足尺风场的方法。
+
+
+
+\subsection{Baker试验对比}
+Baker利用Purdue-TVC进行了龙卷风风场的试验模拟\cite{baker1981boundary}，选取$S=0.28$的风场在$r/R_0=0.1025$和$r/R_0=0.2125$处风速各分量随高度变化曲线与数值风场进行对比。
+将高度以$R_0$进行无量纲化，速度以入口平均径向速度$U_0=Q/(R_0 H_0)$进行无量纲化，其中$2\pi Q$为速度入口边界处的流量。
+将\eqref{eqn:Vr}定义的速度入口边界的径向速度代入可得：
+\begin{equation}
+  U_0 = \frac{Q}{R_0 H_0} = \frac{R_0 \int_0^{H_0} V_r(z)\,\mathrm{d}z}{R_0 H_0} = \frac{\int_0^{H_0} V_0 (z/z_0)^{1/7}\,\mathrm{d}z}{H_0} = \frac{7}{8} V_0 \left(\frac{H_0}{z_0}\right)^{1/7}
+\end{equation}
+
+图\ref{fig:cfd_vs_exp_Vr}、图\ref{fig:cfd_vs_exp_Vt}和图\ref{fig:cfd_vs_exp_Va}分别为数值风场（CFD）与Baker试验无量纲化径向、切向和轴向风速随高度变化的对比图。
+二者总体上吻合较好。
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{cfd_vs_exp_Vr.pdf}
+  \caption{数值风场与Baker试验无量纲化径向速度随高度变化的对比，$S=0.28$}
+  \label{fig:cfd_vs_exp_Vr}
+\end{figure}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{cfd_vs_exp_Vt.pdf}
+  \caption{数值风场与Baker试验无量纲化切向速度随高度变化的对比，$S=0.28$}
+  \label{fig:cfd_vs_exp_Vt}
+\end{figure}
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{cfd_vs_exp_Va.pdf}
+  \caption{数值风场与Baker试验无量纲化竖向速度随高度变化的对比，$S=0.28$}
+  \label{fig:cfd_vs_exp_Va}
+\end{figure}
+
+\subsection{数值风场的风速分布特征}
+图\ref{fig:Vt-x=0}为计算流域轴向剖面（$X=0$）处切向速度云图。
+从图中可以明显看出涡旋中心处切向速度接近于零；
+图\ref{fig:Vt-z=30mm}为\SI{30}{mm}高度处的切向速度云图，可以看出流域的涡旋接近中心轴线，并能显示出漏斗状形态，显示了龙卷风风场具有很好的涡旋特性。
+由图\ref{fig:Vt}可知龙卷风涡旋中心的切向速度较小，在核心半径处达到最大，而后随着远离涡旋中心的距离增大而逐渐减小。
+且在核心半径内，切向速度的变化较快，而远离核心半径时，变化逐渐缓和，与Rankine模型吻合较好。
+此外还可看出随着离地高度的增加，核心半径有所增大，而最大切向风速呈逐渐减小的趋势。
+\begin{figure}[!htbp]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Vt_x=0.png}
+    \caption{轴向剖面（$X=0$）}\label{fig:Vt-x=0}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Vt_z=30mm.png}
+    \caption{水平剖面（$Z=\SI{30}{mm}$）}\label{fig:Vt-z=30mm}
+  \end{subfigure}
+  \caption{切向速度云图}\label{fig:Vt-contour}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.6\textwidth]{Vt.pdf}
+  \caption{数值风场不同高度处切向速度沿径向的变化图，$S=0.28$}
+  \label{fig:Vt}
+\end{figure}
+
+\subsection{数值风场的风压分布特征}
+图\ref{fig:P-x=0}和图\ref{fig:P-z=30mm}分别给出了计算流域轴向剖面（$X=0$）和水平剖面（$Z=\SI{30}{mm}$）处风压云图，$P_m$是风场最大静压，为负压。
+可以看出龙卷风中心处离地面一定高度范围内存在很强的负压，且随着半径的增加而逐渐减小。
+
+图\ref{fig:p}给出了三种不同高度处的风压沿径向的分布，可以看出不同高度处风压分布接近一致。
+
+\begin{figure}[!htbp]
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{P_x=0.png}
+    \caption{轴向剖面（$X=0$）}\label{fig:P-x=0}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{P_z=30mm.png}
+    \caption{水平剖面（$Z=\SI{30}{mm}$）}\label{fig:P-z=30mm}
+  \end{subfigure}
+  \caption{风压云图}\label{fig:Vt-contour}
+\end{figure}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{p.pdf}
+  \caption{数值风场不同高度处风压沿径向的变化图}
+  \label{fig:p}
+\end{figure}
+
+\subsection{实测龙卷风风场对比}
