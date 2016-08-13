@@ -1,0 +1,41 @@
+\chapter{龙卷风数值模拟速度入口处边界条件的UDF程序}
+\begin{minted}{c}
+#include "udf.h"
+
+#define H 0.4
+#define R 0.4
+#define UREF 0.34    /* reference velocity */
+#define ZREF 0.025    /* reference height */
+#define S 0.28    /* swirl ratio */
+
+/* profile for radial velocity */
+DEFINE_PROFILE(V_r, t, i)
+{
+    real x[ND_ND], z;
+    face_t f;
+
+    begin_f_loop(f, t)
+    {
+        F_CENTROID(x, f, t);
+        z = x[2];
+        F_PROFILE(f, t, i) = -UREF*pow(z/ZREF,1.0/7.0);
+    }
+    end_f_loop(f, t)
+}
+
+/* profile for tangential velocity */
+DEFINE_PROFILE(V_t, t, i)
+{
+    real x[ND_ND], z;
+    face_t f;
+
+    begin_f_loop(f, t)
+    {
+        F_CENTROID(x, f, t);
+        z = x[2];
+        F_PROFILE(f, t, i) = 2.0*S*UREF*pow(z/ZREF,1.0/7.0);
+    }
+    end_f_loop(f, t)
+}
+
+\end{minted}

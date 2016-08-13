@@ -1,4 +1,4 @@
-\graphicspath{{tornado-simulation/fig/}}
+\graphicspath{{figures/tornado/}}
 \chapter{龙卷风风场及其数值模拟}
 
 
@@ -20,8 +20,10 @@
 \begin{table}[!htb]
 \caption{龙卷风强度级数的划分}
 \label{tab:EF_scale}
+\tabulinesep=2mm
 \centering
-\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} c p{11cm}}
+%\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} c p{11cm}}
+\begin{tabu} to 1.0\textwidth {X[1,c] X[2,c] X[6,l]}
     \toprule
     等级 & 风速(\SI{}{m/s}) & 破坏程度 \\ \midrule
     EF0 & $29.2-38.1$ & 轻度破坏：烟囱被损坏；刮断树枝；浅根系树木倾斜；毁坏商店招牌 \\
@@ -31,7 +33,8 @@
     EF4 & $74.2-89.4$ & 毁灭性破坏：坚固房屋被整体刮倒；基础不牢的建筑物被刮跑；汽车被抛向空中，空中比较大的物件横飞 \\
     EF5 & $>89.4$ & 极度破坏：坚固房屋框架被刮走；汽车大小的物件在空中横飞超过100米；飘飞碎片挂树梢；出现很罕见的现象 \\
     \bottomrule
-\end{tabular*}
+%\end{tabular*}
+\end{tabu}
 \end{table}
 
 
@@ -48,13 +51,15 @@
 \caption{设计基准龙卷风特性}
 \label{tab:design_tornado}
 \centering
-\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} c c c c c c}
+%\begin{tabular*}{\textwidth}{c @{\extracolsep{\fill}} c c c c c c}
+\begin{tabu} to 1.0\textwidth {X[c] X[c] X[c] X[c] X[1.5,c] X[c] X[c] }
     \toprule
     组 & 最大风速 & 旋转风速 & 平移风速 & 最大旋转半径 & 压力降 & 降压时间 \\
     别 & $V (\SI{}{m/s})$ & $V_{\mathrm{R}}  (\SI{}{m/s})$ & $V_{\mathrm{T}}  (\SI{}{m/s})$ & $R (\SI{}{m})$ & $\Delta P (\SI{}{Pa})$ & $t (\SI{}{s})$ \\ \midrule
     A & 107.3 & 84.9 & 22.4 & 45.7 & 8620 & 2.5 \\
     B & 134.1 & 107.3 & 28.8 & 45.7 & 13500 & 1.875 \\ \bottomrule
-\end{tabular*}
+\end{tabu}
+%\end{tabular*}
 \end{table}
 
 
@@ -116,7 +121,7 @@ $V_t$和$V_r$为$R_0$处的切向和径向入流速度。
 \begin{figure}[!htbp]
   \begin{subfigure}[b]{0.5\textwidth}
     \centering
-    \input{tornado-simulation/fig/Ward_TVC_sketch.pdf_tex}
+    \input{figures/tornado/Ward_TVC_sketch.pdf_tex}
     \caption{Purdue-TVC龙卷风发生装置示意图}\label{fig:Ward-TVC}
   \end{subfigure}
   \begin{subfigure}[b]{0.5\textwidth}
@@ -155,7 +160,7 @@ $C1-ps=1.8$; $C2-ps=0.6$; $C1'-ps=0.5$; $C2'-ps=0.3$。
 公式\eqref{eqn:Vr}和\eqref{eqn:Vt}类似于大气边界层风速分布，并尽可能与Baker\cite{baker1981boundary}试验保持一致。
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\textwidth]{tornado-simulation/fig/bc_inlet.png}
+  \includegraphics[width=\textwidth]{bc_inlet.png}
   \caption{入口处规格化切向和径向速度与Baker\cite{baker1981boundary}试验的对比}
   \label{fig:bc-inlet}
 \end{figure}
@@ -177,7 +182,7 @@ $C1-ps=1.8$; $C2-ps=0.6$; $C1'-ps=0.5$; $C2'-ps=0.3$。
 以$y^{+}$的对数为横坐标，以$u^{+}$为纵坐标，可将壁面区域内的三个区域表示为图\ref{fig:uplus}所示\cite{fluent2015theory}。
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.6\textwidth]{tornado-simulation/fig/uplus.jpg}
+  \includegraphics[width=0.6\textwidth]{figures/tornado/uplus.jpg}
   \caption{近壁面区域划分}\label{fig:uplus}
 \end{figure}
 
@@ -212,7 +217,7 @@ Purdue-TVC出口处设置了蜂窝板，能使气流竖直流出，还能阻止�
 
 
 
-\section{数值模拟结果及其正确性验证}
+\section{数值模拟结果及其正确性验证}\label{sec:tornado}
 图\ref{fig:tornado-domain}所示的风场几何区域，建立柱面坐标系$\{O:r \theta z\}$。
 本文主要关注在柱面坐标系下数值风场的速度特征，其中径向（radial）、切向(tangential）、竖向（axial）风速分别记为$V_r(r,\theta,z)$、$V_t(r,\theta,z)$和$V_a(r,\theta,z)$。
 
@@ -298,7 +303,7 @@ Baker利用Purdue-TVC进行了龙卷风风场的试验模拟\cite{baker1981bound
     \includegraphics[width=\textwidth]{P_z=30mm.png}
     \caption{水平剖面（$Z=\SI{30}{mm}$）}\label{fig:P-z=30mm}
   \end{subfigure}
-  \caption{风压云图}\label{fig:Vt-contour}
+  \caption{风压云图}\label{fig:p-contour}
 \end{figure}
 
 \begin{figure}[!htbp]
@@ -309,3 +314,15 @@ Baker利用Purdue-TVC进行了龙卷风风场的试验模拟\cite{baker1981bound
 \end{figure}
 
 \subsection{实测龙卷风风场对比}
+为了进一步验证数值龙卷风风场的有效性，选用1998年5月发生在美国南达科他州Spencer地区的实测龙卷风风场进行对比。
+这些数据由车载式多普勒雷达采集，Wurman等人有详细的介绍\cite{wurman2002multiple}\cite{alexander2005spencer}\cite{wurman2005spencer}。
+
+采集的风场在不同竖向高度处、\SI{2}{km}$\times$\SI{2}{km}的水平区域内（水平测点间距为\SI{20}{m}）。
+将原始风场去除龙卷风平移速度，得到涡旋风场，并利用最小二乘原理将速度场沿圆周平均，以消除多涡等因素的影响。
+最终得到的龙卷风切向速度随离开涡旋中心径向距离的变化关系如图\ref{fig:Vt-full}所示。
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Vt_full.pdf}
+  \caption{实测风场在不同高度处切向速度与径向距离的关系曲线\cite{sarkar2005velocity}}
+  \label{fig:Vt-full}
+\end{figure}

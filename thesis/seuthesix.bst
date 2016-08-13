@@ -249,12 +249,12 @@ FUNCTION {en.format.names}
   
   numnames 'namesleft :=
     { namesleft #0 > }
-    { s nameptr "{vv~}{ll}{, ff}{, jj}" format.name$ 't :=
+    { s nameptr "{vv~}{ll}{ ff}{, jj}" format.name$ 't :=
       nameptr #1 >
         { namesleft #1 >
             { ", " * t * }
             { numnames #2 >
-                { "," * }
+                { ", " * }
                 'skip$
               if$
               t "others" =
