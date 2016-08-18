@@ -136,6 +136,7 @@
 	],
 	"file_history":
 	[
+		"/D/MinGW/set_distro_paths.bat",
 		"/E/GitHub/tornado-thesis/thesis/figures/static/line_force.tex",
 		"/E/GitHub/tornado-thesis/thesis/appendix/cat.tex",
 		"/C/Users/Yong/Downloads/pygapdl-master/pygapdl/apdl_lexer.py",
@@ -458,7 +459,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 3721.0,
+						"translation.y": 3793.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,

@@ -1,5 +1,19 @@
 \graphicspath{{figures/static/}}
-\chapter{输电塔在龙卷风作用下的静态响应分析}
+\chapter{输电塔结构在龙卷风作用下的静态响应分析}
+
+本章主要进行输电塔结构在龙卷风作用下的静态响应分析，即忽略龙卷风的平移效应，选定龙卷风核心相应于输电塔结构中心的位置，进行静力弹塑性分析。输电塔结构受到的主要荷载为：
+\begin{enumerate}
+\item 重力荷载
+\item 输电塔受到的龙卷风涡旋风场的荷载
+\item 输电线传到输电塔的荷载
+\end{enumerate}
+其中忽略了龙卷风对输电线的荷载，主要是因为：
+\begin{enumerate}
+\item 龙卷风路径宽度较小，F1-F2级龙卷风的路径宽度为\SI{60}{m}-\SI{150}{m}。
+\item 输电线受到的风荷载作用机制比较复杂。
+\end{enumerate}
+
+
 \section{龙卷风风场处理}
 输电塔在龙卷风风场中的水平投影示意图如图\ref{fig:tower-tornado-cs}所示。
 \begin{figure}[!htpb]
@@ -67,8 +81,60 @@ $abcd$为输电塔处于同一水平剖面的节点。
 最后根据第\ref{sec:cs}节的方法即可将输电塔节点$d$受到的极坐标系下的足尺龙卷风风速分量转化为直角坐标系下的风速分量。
 
 
-\section{龙卷风风荷载计算}
+\section{输电塔结构龙卷风风荷载计算}
 
+\subsection{ASCE输电塔荷载规范风荷载计算方法}
+ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line structural loading\cite{wong2009guidelines}中输电塔风荷载计算公式为：
+\begin{equation}
+F = \gamma_{\mathrm{w}} Q K_{\mathrm{z}} K_{\mathrm{zt}} \left( V_{50}\right)^2 G C_{\mathrm{f}} A
+\end{equation}
+其中：
+\begin{description}[leftmargin=!,labelwidth=2em]
+\item[$F$] 顺风向风荷载
+\item[$\gamma_{\mathrm{w}}$] 考虑平均重现期的风荷载调整系数。平均重现期为$50$年时，$\gamma_{\mathrm{w}}=1.0$；平均重现期为$100$年时，$\gamma_{\mathrm{w}}=1.15$
+\item[$V_{50}$] 平均重现期为$50$年规定的风速基准值（基本风速）
+\item[$K_{\mathrm{z}}$] 风速压力暴露系数
+\item[$K_{\mathrm{zt}}$] 地形系数
+\item[$Q$] 将风速转化为速度压的常数，$Q=1/2 \rho_a=\SI{0.613}{kg/m^3}$
+\item[$C_{\mathrm{f}}$] 风压系数
+\end{description}
+各量中文翻译参考刘刚的论文\cite{liu2010wind}。
+
+
+\subsection{中国架空输电线路设计规范风荷载计算方法}
+中国《110～750kV架空输电线路设计规范》\cite{GB50545-2010}中杆塔风荷载的计算公式为：
+\begin{equation}
+W_{\mathrm{s}} = W_{0} \cdot \mu_{\mathrm{z}} \cdot \mu_{\mathrm{s}} \cdot B_{2} \cdot A_{\mathrm{s}} \cdot \beta_{\mathrm{z}}
+\end{equation}
+\begin{equation}
+W_0 = V^2/1600
+\end{equation}
+式中：
+\begin{description}[leftmargin=!,labelwidth=2em]
+\item[$W_{\mathrm{s}}$] 杆塔风荷载标准值；
+\item[$W_{0}$] 基准风压标准值（\SI{}{kN/m^2}）;
+\item[$V$] 基准高度为\SI{10}{m}的风速（\SI{}{m/s}）；
+\item[$\mu_{\mathrm{z}}$] 风压高度变化系数
+\item[$\mu_{\mathrm{s}}$] 构件的体型系数，杆塔取$1.3(1+\eta)$，环形截面钢筋混凝土杆取$0.7$；
+\item[$B_{2}$] 杆塔构件覆冰风荷载增大系数，\SI{5}{mm}冰区取$1.1$，\SI{10}{mm}冰区取$1.2$，\SI{15}{mm}冰区取$1.6$，\SI{20}{mm}冰区取$1.8$，\SI{20}{mm}以上冰区取$2.0$～$2.5$；
+\item[$A_\mathrm{s}$] 迎风面构件的投影面积计算值（\SI{}{m^2}）；
+\item[$\eta$] 塔架背风面荷载降低系数，按表\ref{tab:eta}选用；
+\item[$\beta_\mathrm{z}$] 杆塔风荷载调整系数。
+\end{description}
+
+\begin{table}[!htbp]
+\caption{塔架背风面荷载降低系数$\eta$}
+\label{tab:eta}
+\centering
+\begin{tabu} to 1.0\textwidth {X[2,c] | X[c] X[c] X[c] X[c] X[c] X[c] }
+  \toprule
+  \diagbox{$b/a$}{$A_s/A$} & $\leq$ 0.1 & 0.2 & 0.3 & 0.4 & 0.5 & $>$ 0.6 \\
+  \midrule
+  $\leq$ 1 & 1.0 & 0.85 & 0.66 & 0.50 & 0.33 & 0.15 \\
+  2 & 1.0 & 0.90 & 0.75 & 0.60 & 0.45 & 0.30 \\
+  \bottomrule
+\end{tabu}
+\end{table}
 
 \section{索的悬链线理论及输电线作用于塔的荷载}
 
@@ -200,8 +266,6 @@ $abcd$为输电塔处于同一水平剖面的节点。
   T_{Rx} & = \SI{21.33}{kN},\quad \theta_L  = \ang{36.70}
 \end{split}
 \end{equation}
-
-
 
 
 
