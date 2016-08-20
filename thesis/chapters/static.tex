@@ -14,7 +14,7 @@
 \end{enumerate}
 
 
-\section{龙卷风风场处理}
+\section{龙卷风风场处理}\label{sec:tornado}
 输电塔在龙卷风风场中的水平投影示意图如图\ref{fig:tower-tornado-cs}所示。
 \begin{figure}[!htpb]
   \centering
@@ -96,10 +96,30 @@ F = \gamma_{\mathrm{w}} Q K_{\mathrm{z}} K_{\mathrm{zt}} \left( V_{50}\right)^2 
 \item[$K_{\mathrm{z}}$] 风速压力暴露系数
 \item[$K_{\mathrm{zt}}$] 地形系数
 \item[$Q$] 将风速转化为速度压的常数，$Q=1/2 \rho_a=\SI{0.613}{kg/m^3}$
+\item[$G$] 阵风系数
 \item[$C_{\mathrm{f}}$] 风压系数
+\item[$A$] 迎风面构件的投影面积
 \end{description}
 各量中文翻译参考刘刚的论文\cite{liu2010wind}。
 
+下面介绍ASCE规范中输电塔结构所受风荷载的风压系数$C_{\mathrm{f}}$的计算方法。
+
+风压系数是密实度系数（solidity ratio）$\Phi$的函数，定义为：
+\begin{equation}
+\Phi = \frac{A_\mathrm{m}}{A_\mathrm{o}}
+\end{equation}
+其中：
+\begin{description}[leftmargin=!,labelwidth=2em]
+\item[$A_\mathrm{m}$] 迎风面构件的投影面积
+\item[$A_\mathrm{o}$] 塔架的轮廓面积
+\end{description}
+风压系数与密实度系数$\Phi$的关系表见图\ref{fig:force-coefficient}\cite{wong2009guidelines}
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\textwidth]{force_coefficient.png}
+\caption{风压系数}\label{fig:force-coefficient}
+\end{figure}
+方形截面的风压系数根据图\ref{fig:force-coefficient}中Table 2-4计算，圆形截面的风压系数根据Table 2-4的系数再乘上Table 2-5中的系数。
 
 \subsection{中国架空输电线路设计规范风荷载计算方法}
 中国《110～750kV架空输电线路设计规范》\cite{GB50545-2010}中杆塔风荷载的计算公式为：
@@ -111,7 +131,7 @@ W_0 = V^2/1600
 \end{equation}
 式中：
 \begin{description}[leftmargin=!,labelwidth=2em]
-\item[$W_{\mathrm{s}}$] 杆塔风荷载标准值；
+\item[$W_{\mathrm{s}}$] 杆塔风荷载标准值（\SI{}{kN}）；
 \item[$W_{0}$] 基准风压标准值（\SI{}{kN/m^2}）;
 \item[$V$] 基准高度为\SI{10}{m}的风速（\SI{}{m/s}）；
 \item[$\mu_{\mathrm{z}}$] 风压高度变化系数
@@ -136,19 +156,82 @@ W_0 = V^2/1600
 \end{tabu}
 \end{table}
 
+\subsection{中美规范计算输电塔龙卷风荷载参数取值}
+美国输电塔荷载规范Guidelines for electrical transmission line structural loading\cite{wong2009guidelines}针对输电塔受到的龙卷风风荷载的建议为：考虑F2等级的龙卷风荷载，因为F2等级龙卷风发生的概率较高，且能够在经济投入允许的情况下加以设防；由于龙卷风风场速度为阵风风速，故风速压力暴露系数$K_\mathrm{z}$和阵风系数$G$取为$1.0$，即利用龙卷风风场的实际风速代入公式计算，不利用系数$K_\mathrm{z}$对其进行修正；由于龙卷风荷载是一种极端荷载情况，故考虑平均重现期的风荷载调整系数$\gamma_\mathrm{w}$取为$1.0$。
+
+文献\cite{hamada2010finite}\cite{hamada2011behaviour}\cite{altalmas2014finite}等建议地形系数$K_\mathrm{zt}$取为$1.0$，因为龙卷风多发生在平坦开阔的平原。
+
+
+参考美国输电塔荷载规范计算龙卷风荷载的参数取值建议，中国《110～750kV架空输电线路设计规范》的相关参数建议为：忽略覆冰荷载的影响，故杆塔构件覆冰风荷载增大系数取为$1.0$；忽略龙卷风的风振效应，将杆塔风荷载调整系数取为$1.0$。
+
+\subsection{输电塔龙卷风荷载施加方法}
+将输电塔分为多层，见图\ref{fig:tower-zone}所示，某具体层示意图见图\ref{fig:tower-zone-diagram}。
+输电塔节点a，b，c和d上受到的龙卷风荷载的计算步骤如下：
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.3\textwidth]{tower_zone.jpg}
+\caption{输电塔分层示意图}\label{fig:tower-zone}
+\end{figure}
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{tower_zone_diagram.pdf}
+\caption{输电塔典型层示意图}\label{fig:tower-zone-diagram}
+\end{figure}
+
+\begin{enumerate}
+\item 根据第\ref{sec:tornado}节计算输电塔节点a，b，c和d处龙卷风速度分量 $V_x$和$V_y$；
+\item 分别沿$X$和$Y$方向计算风速风量的均值$V_x'$和$V_y'$；
+\item 计算输电塔节点a，b，c和d处所在层龙卷风荷载，值得注意的是公式中各物理量采用SI单位制，即风速单位为\SI{}{m/s}，风荷载单位为\SI{}{N}。
+
+根据美国ASCE规范，该层$X$和$Y$方向龙卷风荷载$F_{\mathrm{w}x}$和$F_{\mathrm{w}y}$为
+\begin{equation}
+F_{\mathrm{w}x} = 0.613 (V_{x}')^2 C_{\mathrm{f}x} A_x
+\end{equation}
+\begin{equation}
+F_{\mathrm{w}y} = 0.613 (V_{y}')^2 C_{\mathrm{f}y} A_y
+\end{equation}
+其中，$A_x$和$A_y$分别为该层迎风面构件沿$X$和$Y$方向的投影面积。
+风压系数由\ref{fig:force-coefficient}计算。
+
+根据中国规范，该层$X$和$Y$方向龙卷风荷载$F_{\mathrm{w}x}$和$F_{\mathrm{w}y}$为
+\begin{equation}
+F_{\mathrm{w}x} = 0.625 (V_{x}')^2 \mu_{\mathrm{s}x} A_x 
+\end{equation}
+\begin{equation}
+F_{\mathrm{w}y} = 0.625 (V_{y}')^2 \mu_{\mathrm{s}y} A_y 
+\end{equation}
+体型系数$\mu_\mathrm{s} = 1.3(1+\eta)$，$\eta$由表\ref{tab:eta}计算。
+
+可知中美规范计算龙卷风荷载的公式的主要区别如下：中国将风速转化为速度压的系数为$\SI{0.625}{kg/m^3}$，美国为$1/2\rho_a=\SI{0.613}{kg/m^3}$，中国规范稍微偏保守；二者的主要差别为体型系数（风压系数）的计算：对于圆形截面输电塔，$\Phi<0.025$的层，美国规范的风压系数为$C_\mathrm{f}=4.0\times0.67=2.68$，中国规范为$\mu_\mathrm{s}=1.3(1+\eta)=1.3 \times(1+1.0)=2.6$，相差不大，美国规范偏保守。
+
+\item 迎风面和背风面上风荷载分配
+
+中国规范根据塔架背风面荷载降低系数$\eta$对某层输电塔所受风荷载进行分配，即迎风面节点在$X$和$Y$方向所受风荷载分量分别为 $1/(1+\eta) F_{\mathrm{w}x}$ 和 $1/(1+\eta) F_{\mathrm{w}y}$；背风面节点在$X$和$Y$方向所受风荷载分量分别为 $\eta/(1+\eta) F_{\mathrm{w}x}$ 和 $\eta/(1+\eta) F_{\mathrm{w}y}$；
+
+\item 迎（背）风面节点间风荷载分配
+
+迎（背）风面上的节点根据各节点的投影面积进行迎（背）风面上风荷载的分配。
+
+
+\end{enumerate}
+
+
+
+
+
 \section{索的悬链线理论及输电线作用于塔的荷载}
 
 \subsection{索的悬链线理论基本假设}
 索由高强钢丝集束而成，相对抗弯刚度很小，其受力特点可以认为是完全柔性。
 在自重和张力作用下分析其线形和力学参数时，基本假设如下：
-
 \begin{itemize}
-  \item
-  索是理想柔性，既不能受压也不能受弯；
-  \item
-  索的材料符合胡克定律；
-  \item
-  索的横截面积在外荷载作用下的变化量十分微小，可忽略不计。
+\item
+索是理想柔性，既不能受压也不能受弯；
+\item
+索的材料符合胡克定律；
+\item
+索的横截面积在外荷载作用下的变化量十分微小，可忽略不计。
 \end{itemize}
 
 为了确定重力作用下索的线形，以弦左端点为原点、竖直向上为Y轴正方向建立右手直角坐标系。
