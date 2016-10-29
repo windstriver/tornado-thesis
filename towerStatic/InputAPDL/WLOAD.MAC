@@ -1,3 +1,4 @@
+! Apply tornado load
 *DO,I,1,WLP_NUM
     x_i=WLP(I,1)/1000                            
                                                  ! 获取龙卷风荷载作用点的X坐标，并将单位转化为m

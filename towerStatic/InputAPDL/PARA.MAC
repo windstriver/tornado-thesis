@@ -6,8 +6,8 @@ SEL_TOR=1                                        ! 选择精度
 *TREAD,Vr,'radial_velocity','csv',%inputData%,2
 *DIM,Va,TABLE,100,2,,'radical','height'          ! 缩尺龙卷风竖向风速场
 *TREAD,Va,'axial_velocity','csv',%inputData%,2
-LS=4000                                          ! 缩尺龙卷风模型长度相似比
-VS=13                                            ! 缩尺龙卷风模型速度相似比
+LS=12000                                          ! 缩尺龙卷风模型长度相似比
+VS=40                                            ! 缩尺龙卷风模型速度相似比
 ! 龙卷风荷载作用位置
 WLP_NUM=48                                       ! 龙卷风荷载施加的节点数
 SEC_NUM=12                                       ! 输电塔模型分层数
@@ -37,10 +37,10 @@ My_R=Tx_R*h_insu
 
 ! 龙卷风位置参数化
 ! Parametric Sweep
-*DIM,R_IN,ARRAY,1
-R_IN(1)=600
-*DIM,THE_IN,ARRAY,1
-THE_IN(1)=45
-*DIM,USUM_OUT,ARRAY,6,7
+*DIM,R_IN,ARRAY,7
+R_IN(1)=500,450,400,350,300,250,200
+*DIM,THE_IN,ARRAY,7
+THE_IN(1)=0,15,30,45,60,75,90
+*DIM,USUM_OUT,ARRAY,7,7
 
 FINISH

@@ -326,3 +326,28 @@ Baker利用Purdue-TVC进行了龙卷风风场的试验模拟\cite{baker1981bound
   \caption{实测风场在不同高度处切向速度与径向距离的关系曲线\cite{sarkar2005velocity}}
   \label{fig:Vt-full}
 \end{figure}
+
+对比CFD数值模拟风场和Spencer足尺龙卷风风场的最大切向风速$V_t(r_{c\,\mathrm{max}}, z_{\mathrm{max}})$，如表\ref{tab:CFD_Spencer}所示。
+
+\begin{table}[!htbp]
+  \caption{CFD风场与Spencer足尺风场对比}
+  \label{tab:CFD_Spencer}
+  \centering
+  \begin{tabu} to 1.0\textwidth {X[1.5,c] X[2,c] X[2,c]}
+    \toprule
+    龙卷风风场 & $r_{c\,\mathrm{max}} ( \mathrm{m} )$ & $V_t (\mathrm{m/s})$ \\
+    \midrule
+    CFD & $0.01$ & $2.0$ \\
+    Spencer & $120$ & $81.4$ \\
+    缩尺比 & $L_s = r_{c\,\mathrm{max}}^{\mathrm{Spencer}} / r_{c\,\mathrm{max}}^{\mathrm{CFD}}=120 / 0.01 =12000$ & $V_s =  V_t^{\mathrm{Spencer}} / V_t^{\mathrm{CFD}} = 81.34/2.0 = 40 $\\
+    \bottomrule
+  \end{tabu}
+\end{table}
+计算长度缩尺比$L_s$和速度缩尺比$V_s$如表\ref{tab:CFD_Spencer}所示。
+根据长度缩尺比确定实际高度$z=\SI{20}{m}$、$\SI{50}{m}$和$\SI{170}{m}$对应的缩尺龙卷风高度分别为$z/L_s = \SI{0.00167}{m}$、$\SI{0.00417}{m}$和$\SI{0.01417}{m}$处切向速度随径向距离的分布如图\ref{fig:CFD_Spencer}所示。
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=\textwidth]{Spencer_CFD.pdf}
+  \caption{CFD龙卷风风场与Spencer足尺风场对比图}
+  \label{fig:CFD_Spencer}
+\end{figure}
