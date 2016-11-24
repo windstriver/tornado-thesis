@@ -1,5 +1,5 @@
 \graphicspath{{figures/static/}}
-\chapter{输电塔结构在龙卷风作用下的静态响应分析}
+\chapter{输电塔结构在龙卷风作用下的静态响应分析}\label{chapter:static}
 
 本章主要进行输电塔结构在龙卷风作用下的静态响应分析，即忽略龙卷风的平移效应，选定龙卷风核心相应于输电塔结构中心的位置，进行静力弹塑性分析。输电塔结构受到的主要荷载为：
 \begin{enumerate}
@@ -323,7 +323,7 @@ F_{\mathrm{w}y} = 0.625 (V_{y}')^2 \mu_{\mathrm{s}y} A_y
 
 \begin{figure}[!htbp]
 \centering
-\includegraphics[width=0.6\textwidth]{cat_disp.pdf}
+\includegraphics[width=0.8\textwidth]{cat_disp.pdf}
 \caption{跨越塔之间输电线变形图（单位：\SI{}{m}）}
 \label{fig:cat-disp}
 \end{figure}
@@ -350,3 +350,38 @@ F_{\mathrm{w}y} = 0.625 (V_{y}')^2 \mu_{\mathrm{s}y} A_y
 
 
 \section{龙卷风位置变化的参数分析}
+\subsection{位移响应参数化分析}
+利用附录\ref{apen:static}中的APDL程序进行龙卷风作用下输电塔结构的静力响应分析，
+并改变龙卷风核心位置$(R, \theta)$（见图\ref{fig:tower-tornado-cs}），
+分析其对输电塔塔顶位移响应的影响，如表\ref{tab:disp}和图\ref{fig:disp}所示。
+
+\begin{table}[!htbp]
+  \centering
+  \caption{塔顶位移响应(\SI{}{mm})随龙卷风核心位置的参数化分析}
+  \label{tab:disp}
+  \begin{tabu} to 1.0\textwidth {X[1.5,c] X[1,r] X[1,r] X[1,r] X[1,r] X[1,r] X[1,r] X[1,r]}
+    \toprule
+    \diagbox{$R/\SI{}{m}$}{$\theta/\SI{}{\degree}$} & 0 & 15 & 30 & 45 & 60 & 75 & 90 \\
+    \midrule
+    500 &  377.3 & 434.4 &  537.1 &  607.8 &  430.5 &  459.3 &  367.5 \\
+    450 &  425.1 & 475.6 &  601.5 &  674.6 &  465.9 &  509.5 &  411.1 \\
+    400 &  479.1 & 517.4 &  675.1 &  743.4 &  502.6 &  563.2 &  459.9 \\
+    350 &  542.6 & 560.2 &  763.1 &  814.3 &  542.5 &  621.6 &  517.9 \\
+    300 &  629.4 & 611.6 &  886.2 &  898.1 &  596.7 &  694.5 &  602.1 \\
+    250 &  775.4 & 699.7 & 1092.5 & 1027.3 &  700.6 &  811.8 &  755.6 \\
+    200 & 1001.8 & 842.8 & 1403.9 & 1199.9 &  885.5 &  984.1 & 1010.8 \\
+    150 & 1139.5 & 920.6 & 1567.2 & 1232.6 & 1016.9 & 1063.0 & 1175.6 \\
+    120 & 1042.8 & 823.9 & 1394.7 & 1035.9 &  942.6 &  952.0 & 1059.3 \\
+    100 &  794.7 & 626.0 & 1105.3 &  756.2 &  736.0 &  710.3 &  843.8 \\
+    \bottomrule
+  \end{tabu}
+\end{table}
+可知，塔顶位移响应的危险工况位于$\theta=\SI{30}{\degree}$附近，
+且径向位置靠近核心半径$r_c=\SI{120}{m}$处。
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{disp.pdf}
+  \caption{输电塔位移响应随龙卷风核心位置变化的等值线图}
+  \label{fig:disp}
+\end{figure}

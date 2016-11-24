@@ -1,5 +1,5 @@
 \graphicspath{{figures/tower/}}
-\chapter{输电塔结构有限元建模}
+\chapter{输电塔结构有限元建模}\label{chapter:tower}
 \section{\SI{500}{kV}南京三江口长江大跨越工程介绍}
 \SI{500}{kV}南京三江口长江大跨越工程是山西阳城电厂二期工程电力送出江苏省
 内配套等输变电工程的重要组成部分，跨越点在长江南京河段的三江口节点位置。
@@ -46,3 +46,28 @@
 
 
 \section{输电塔结构模态分析}
+本节对大跨越输电塔结构进行模态分析，计算其固有频率及振型，与文献对比，以验证输电塔有限元模型的正确性，并为后续的动态响应分析提供参考。
+
+输电塔各阶固有频率及其与文献\cite{ren2010tower}的对比见表\ref{tab:freq}，
+各阶振型见图\ref{fig:modes}所示。
+
+\begin{table}[!htbp]
+  \centering
+  \caption{输电塔固有频率$/\SI{}{Hz}$}
+  \label{tab:freq}
+  \begin{tabu} to 1.0\textwidth {X[1.5,c] X[1,c] X[1,c] X[1,c] X[1,c] X[1,c] X[1,c] X[1,c] X[1,c] X[1,c]}
+  \toprule
+  振型 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
+  \midrule
+  频率\cite{ren2010tower} & 0.609 & 0.612 & 1.102 & 1.558 & 1.608 & 2.113 & 2.296 & 2.407 & 3.046 \\
+  频率 & 0.613 & 0.615 & 1.093 & 1.565 & 1.594 & 2.084 & 2.312 & 2.363 & 2.368 \\
+  \bottomrule
+  \end{tabu}
+\end{table}
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.9\textwidth]{modes.pdf}
+  \caption{输电塔各阶振型图}
+  \label{fig:modes}
+\end{figure}

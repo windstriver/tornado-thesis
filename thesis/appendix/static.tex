@@ -1,0 +1,210 @@
+\chapter{静态响应分析的APDL程序}\label{apen:static}
+
+\section{主程序.\textbackslash{}SETUP.MAC}
+
+\begin{minted}{apdl}
+
+! UNIT: N-mm
+FINISH $ /CLEAR
+/TITLE,"ANALYSIS OF TOWER"
+! Parameters
+workDir='.'
+inputData='./InputData/'
+inputAPDL='./InputAPDL/'
+/INPUT,'PARA','MAC',%inputAPDL%
+
+! 导入输电塔模型
+/INPUT,'MODEL','MAC',%inputAPDL%
+
+/PREP7
+/VUP,1,Z
+/VIEW,1,1,1,1
+EPLOT
+! 将模型中的MESH200单元改为BEAM188单元
+ET,2,BEAM188
+ESEL,ALL
+EMODIF,ALL,TYPE,2
+ALLSEL,ALL
+! 将模型中的线弹性材料改为理想弹塑性材料
+MP,DENS,2,7.85E-09                               ! 材料密度(10^3 kg/mm^3)
+MP,EX,2,200000                                   ! 弹性模量(MPa)
+MP,PRXY,2,0.3
+TB,BKIN,2,1
+TBDATA,1,335,0                                   ! 屈服强度(335 MPa)
+ESEL,ALL
+MPCHG,2,ALL
+
+NSEL,ALL
+NUMMRG,NODE                                      ! 合并模型节点
+FINISH
+
+/SOLU
+! 约束
+NSEL,S,LOC,Z,0-SEL_TOR,0+SEL_TOR
+D,ALL,ALL,0
+ALLSEL,ALL                                       ! 施加底部节点的固定支座约束
+! 施加重力荷载
+ACEL,0,0,9.8E3                                   ! 重力加速度(mm/s^2)
+! 施加输电线作用于跨越塔的荷载
+*DO,I,1,8
+    TN=NODE(TP(I,1),TP(I,2),TP(I,3))
+    *IF,NX(TN),GT,0,THEN
+        F,TN,FX,Tx_R
+        F,TN,FZ,-Tz_R
+        ! F,TN,MY,My_R
+    *ELSEIF,NX(TN),LE,0
+        F,TN,FX,-Tx_L
+        F,TN,FZ,-Tz_L
+        ! F,TN,MY,-My_L
+    *ENDIF
+*ENDDO
+
+*DO,IR,1,1,1
+    *DO,IT,1,7,1
+        R=R_IN(IR)
+        THETA=THE_IN(IT)
+        /SOLU
+        ! Apply tornado load
+        /INPUT,'WLOAD','MAC',%inputAPDL%
+        ANTYPE,STATIC
+        NLGEOM,ON
+        NSUBST,100
+        ALLSEL,ALL
+        SOLVE
+        /INPUT,'POST','MAC',%inputAPDL%
+        USUM_OUT(IR,IT)=USUM
+    *ENDDO
+*ENDDO
+
+*CFOPEN,OUT_U
+*VWRITE,USUM_OUT(1,1,1),USUM_OUT(1,2,1),USUM_OUT(1,3,1),USUM_OUT(1,4,1),USUM_OUT(1,5,1),USUM_OUT(1,6,1),USUM_OUT(1,7,1)
+(F6.1, ',', F6.1, ',', F6.1, ',', F6.1, ',', F6.1, ',', F6.1, ',', F6.1, ',', F6.1, ',', F6.1)
+*CFCLOS
+
+
+\end{minted}
+
+\section{参数定义子程序.\textbackslash{}InputAPDL\textbackslash{}PARA.MAC}
+\begin{minted}{apdl}
+
+! Parametric Analysis of the tower under tornado
+SEL_TOR=1                                        ! 选择精度
+*DIM,Vt,TABLE,100,9,,'radical','height'          ! 缩尺龙卷风切向风速场
+*TREAD,Vt,'tangential_velocity','csv',%inputData%,2
+*DIM,Vr,TABLE,100,9,,'radical','height'          ! 缩尺龙卷风径向风速场
+*TREAD,Vr,'radial_velocity','csv',%inputData%,2
+*DIM,Va,TABLE,100,2,,'radical','height'          ! 缩尺龙卷风竖向风速场
+*TREAD,Va,'axial_velocity','csv',%inputData%,2
+LS=12000                                          ! 缩尺龙卷风模型长度相似比
+VS=40                                            ! 缩尺龙卷风模型速度相似比
+! 龙卷风荷载作用位置
+WLP_NUM=48                                       ! 龙卷风荷载施加的节点数
+SEC_NUM=12                                       ! 输电塔模型分层数
+*DIM,WLP,TABLE,WLP_NUM,3, ,'NO.','XYZ'
+*TREAD,WLP,'wind_load_points','csv',%inputData%,2
+! 龙卷风风速场转化为龙卷风荷载需要的参数
+*DIM,PA,TABLE,SEC_NUM,3, ,'LEVEL','AXYZ'         ! 各个龙卷风荷载作用点的迎风面积
+*TREAD,PA,'projected_area','csv',%inputData%,2
+YITA=1.0                                         ! 风荷载遮挡系数
+MU_S=1.3*(1+YITA)                                ! 体型系数
+RHO_A=1.225                                      ! 空气密度(kg/m^3)
+*DIM,PV,ARRAY,WLP_NUM,3                          ! 存储各作用点处龙卷风速
+
+! 输电线施加给跨越塔的力
+Tx_L=93.3073E3                                   ! 跨越线的张力X分量(N)
+Tx_R=21.3252E3                                   ! 锚塔线的张力(N)
+tan_L=0.3037                                     ! 跨越线在跨越塔处的切线斜率
+tan_R=0.7454                                     ! 锚塔线在跨越塔处的切线斜率
+Tz_L=Tx_L*tan_L                                  ! 跨越线的张力Z分量(N)
+Tz_R=Tx_R*tan_R                                  ! 锚塔线的张力Z分量(N)
+h_insu=9.45E3                                    ! 绝缘子串高度(mm)
+My_L=Tx_L*h_insu                                 ! 绝缘子串高度引起的力矩(N-mm)
+My_R=Tx_R*h_insu
+! 输电线施加给跨越塔的力的作用位置
+*DIM,TP,TABLE,8,3,,'NO.','XYZ'
+*TREAD,TP,'tension_points','csv',%inputData%,2
+
+! 龙卷风位置参数化
+! Parametric Sweep
+*DIM,R_IN,ARRAY,1
+R_IN(1)=120
+*DIM,THE_IN,ARRAY,7
+THE_IN(1)=0,15,30,45,60,75,90
+*DIM,USUM_OUT,ARRAY,1,7
+
+FINISH
+\end{minted}
+
+\section{有限元模型子程序.\textbackslash{}InputAPDL\textbackslash{}MODEL.MAC}
+略。
+
+\section{龙卷风荷载施加子程序.\textbackslash{}InputAPDL\textbackslash{}WLOAD.MAC}
+\begin{minted}{apdl}
+! Apply tornado load
+*DO,I,1,WLP_NUM
+    x_i=WLP(I,1)/1000                            
+                                                 ! 获取龙卷风荷载作用点的X坐标，并将单位转化为m
+    y_i=WLP(I,2)/1000                            
+                                                 ! 获取龙卷风荷载作用点的Y坐标，并将单位转化为m
+    z_i=WLP(I,3)/1000                            
+                                                 ! 获取龙卷风荷载作用点的Z坐标，并将单位转化为m
+    R_fi=SQRT((x_i-R*COS(THETA))**2+(y_i-R*SIN(THETA))**2)
+                                                 ! 龙卷风荷载作用点相对于龙卷风坐标系的经像位置
+    R_ma=R_fi/LS                                 ! 根据长度相似比对应于缩尺龙卷风模型的径向位置
+    Z_ma=z_i*1.0/LS                              ! 根据长度相似比对应于缩尺龙卷风模型的竖向位置
+    V_t=Vt(R_ma,Z_ma)*VS                         ! 龙卷风切向风速
+    V_r=Vr(R_ma,Z_ma)*VS                         ! 龙卷风径向风速
+    V_a=Va(R_ma,Z_ma)*VS                         ! 龙卷风竖向风速
+    PV(I,1)=-V_t*(y_i-R*SIN(THETA))/R_fi+V_r*(x_i-R*COS(THETA))/R_fi
+                                                 ! 龙卷风X向风速
+    PV(I,2)=V_t*(x_i-R*COS(THETA))/R_fi+V_r*(y_i-R*SIN(THETA))/R_fi
+                                                 ! 龙卷风Y向风速
+    PV(I,3)=V_a
+                                                 ! 龙卷风X向风速
+*ENDDO
+! 施加龙卷风荷载
+*DO,I,1,SEC_NUM
+    VX_AVG=(PV(4*I-3,1)+PV(4*I-2,1)+PV(4*I-1,1)+PV(4*I,1))/4
+    VY_AVG=(PV(4*I-3,2)+PV(4*I-2,2)+PV(4*I-1,2)+PV(4*I,2))/4
+    FX_T=0.5*RHO_A*VX_AVG**2*MU_S*PA(I,1)
+    FY_T=0.5*RHO_A*VY_AVG**2*MU_S*PA(I,2)
+    WLN1=NODE(WLP(4*I-3,1),WLP(4*I-3,2),WLP(4*I-3,3))
+    WLN2=NODE(WLP(4*I-2,1),WLP(4*I-2,2),WLP(4*I-2,3))
+    WLN3=NODE(WLP(4*I-1,1),WLP(4*I-1,2),WLP(4*I-1,3))
+    WLN4=NODE(WLP(4*I,1),WLP(4*I,2),WLP(4*I,3))
+    ! 施加X向龙卷风荷载
+    *IF,VX_AVG,GE,0,THEN
+        F,WLN2,FX,0.5/(1+YITA)*FX_T
+        F,WLN3,FX,0.5/(1+YITA)*FX_T
+        F,WLN4,FX,0.5*YITA/(1+YITA)*FX_T
+        F,WLN1,FX,0.5*YITA/(1+YITA)*FX_T
+    *ELSE,VX_AVG,LT,0
+        F,WLN4,FX,-0.5/(1+YITA)*FX_T
+        F,WLN1,FX,-0.5/(1+YITA)*FX_T
+        F,WLN2,FX,-0.5*YITA/(1+YITA)*FX_T
+        F,WLN3,FX,-0.5*YITA/(1+YITA)*FX_T
+    *ENDIF
+    ! 施加Y向龙卷风荷载
+    *IF,VY_AVG,GE,0,THEN
+        F,WLN2,FY,0.5/(1+YITA)*FY_T
+        F,WLN3,FY,0.5/(1+YITA)*FY_T
+        F,WLN4,FY,0.5*YITA/(1+YITA)*FY_T
+        F,WLN1,FY,0.5*YITA/(1+YITA)*FY_T
+    *ELSE,VX_AVG,LT,0
+        F,WLN4,FY,-0.5/(1+YITA)*FY_T
+        F,WLN1,FY,-0.5/(1+YITA)*FY_T
+        F,WLN2,FY,-0.5*YITA/(1+YITA)*FY_T
+        F,WLN3,FY,-0.5*YITA/(1+YITA)*FY_T
+    *ENDIF
+*ENDDO
+
+\end{minted}
+
+\section{输电塔结构响应提取子程序.\textbackslash{}InputAPDL\textbackslash{}POST.MAC}
+\begin{minted}{apdl}
+/POST1
+PLNSOL,U,SUM
+out_node=NODE(3750.2,3750.2,243500)
+*GET,USUM,NODE,out_node,U,SUM
+
+\end{minted}
