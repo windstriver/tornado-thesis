@@ -1,0 +1,7 @@
+! Parametric Analysis of the tower under tornado
+! Units: N-m-kg
+
+FINISH
+! Selection accuracy
+SEL_TOR=0.01
+

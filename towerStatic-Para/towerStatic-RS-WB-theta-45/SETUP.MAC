@@ -1,0 +1,73 @@
+! UNIT: N-m-kg
+
+FINISH
+/CLEAR
+
+/TITLE,"ANALYSIS OF TOWER"
+
+! Directory for input APDL & DATA
+workDir='.'
+inputData='./InputData/'
+inputAPDL='./InputAPDL/'
+
+! Parameters for analysis
+/INPUT,'PARA','MAC',%inputAPDL%
+
+! Build the tower fea model from APDL written by Workbench
+/INPUT,'MODEL','MAC',%inputAPDL%
+
+
+/PREP7
+
+/VUP,1,Z
+/VIEW,1,1,1,1
+EPLOT
+
+! Change the element to BEAM188 with cubic shape function
+ET,2000,BEAM188
+KEYOPT,2000,3,3
+ESEL,ALL
+EMODIF,ALL,TYPE,2000
+
+! Change the material to BKIN
+MP,DENS,2000,7850
+MP,EX,2000,200000E6
+MP,PRXY,2000,0.3
+TB,BKIN,2000,1
+TBDATA,1,335E6,0
+ALLSEL,ALL
+MPCHG,2000,ALL
+
+! Merge the nodes
+NSEL,ALL
+NUMMRG,NODE
+
+! Constraints
+NSEL,S,LOC,Z,0-SEL_TOR,0+SEL_TOR
+D,ALL,ALL,0
+ALLSEL,ALL
+
+FINISH
+
+/SOLU
+
+ANTYPE,STATIC
+NLGEOM,ON
+NSUBST,1000
+! Apply gravity
+! ACEL,0,0,9.8
+
+! Apply tornado load
+/INPUT,'LOAD','MAC',%inputAPDL%
+/INPUT,'LOAD2','MAC',%inputAPDL%
+SOLVE
+
+NSEL,ALL
+FDELE,ALL
+/INPUT,'LOAD3','MAC',%inputAPDL%
+SOLVE
+
+/POST1
+SET,LAST
+PLNSOL,U,SUM
+/INPUT,'POST','MAC'
