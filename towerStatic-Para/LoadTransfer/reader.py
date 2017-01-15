@@ -4,14 +4,15 @@
 import numpy as np
 
 inputDir = "Input/"
+caseDir = "theta-0/"
 # Read CFD Pressure Data (x[m], y[m], z[m], pres[Pa])
-cfdPresFile = inputDir+"cfd_pressure.csv"
+cfdPresFile = inputDir + caseDir + "cfd_pressure.csv"
 cfdPresM = np.genfromtxt(cfdPresFile, delimiter=',', skip_header=17)
 cfdPresM[:,3] = 1.0*cfdPresM[:,3]    # into the surface pressure +
 
 # Read CFD velocity Data
 # (nodeNum, x[m], y[m], z[m], pres[Pa], u[m/s], v[m/s], w[m/s])
-cfdVeloFile = inputDir + "cfd_velocity2.out"
+cfdVeloFile = inputDir + caseDir + "cfd_velocity2.out"
 cfdVeloM = np.genfromtxt(cfdVeloFile, delimiter=',')
 
 # Remove the zero lines
