@@ -1,0 +1,100 @@
+! UNIT: N-m-kg
+
+FINISH
+/CLEAR
+
+/TITLE,"ANALYSIS OF TOWER"
+
+! Directory for input APDL & DATA
+workDir='.'
+inputData='./InputData/'
+inputAPDL='./InputAPDL/'
+
+! Parameters for analysis
+/INPUT,'PARA','MAC',%inputAPDL%
+
+! Build the tower fea model from APDL written by Workbench
+/INPUT,'MODEL','MAC',%inputAPDL%
+
+
+/PREP7
+
+/VUP,1,Z
+/VIEW,1,1,1,1
+EPLOT
+
+! Change the element to BEAM188 with cubic shape function
+ET,2000,BEAM188
+KEYOPT,2000,3,3
+ESEL,ALL
+EMODIF,ALL,TYPE,2000
+
+! Change the material to BKIN
+MP,DENS,2000,7850
+MP,EX,2000,200000E6
+MP,PRXY,2000,0.3
+! TB,BKIN,2000,1
+! TBDATA,1,335E6,0
+ALLSEL,ALL
+MPCHG,2000,ALL
+
+! Merge the nodes
+NSEL,ALL
+NUMMRG,NODE
+
+! Constraints
+NSEL,S,LOC,Z,0-SEL_TOR,0+SEL_TOR
+D,ALL,ALL,0
+ALLSEL,ALL
+
+FINISH
+
+/SOLU
+ANTYPE,TRAN
+TRNOPT,FULL
+RESCONTROL,NORESTART,NONE
+
+ALPHAD,0.0
+BETAD,0.04
+
+! NLGEOM,ON
+! NSUBST,500
+! Apply gravity
+! ACEL,0,0,9.8
+
+! Apply tornado load
+x0=120
+y0=1500
+
+vx=0
+vy=-20
+
+dt=0.1
+ts=1000
+
+*DIM,TLSUM,ARRAY,ts,3
+*DIM,TVELO,ARRAY,TS,3
+NTOP1=NODE(3.75,3.75,243.5)
+
+*DO,I,1,ts
+    J=I
+    t=I*dt
+    r=SQRT(x0**2+(y0+vy*t)**2)
+    theta=ATAN2((y0+vy*t),(x0+vx*t))
+    /INPUT,'TORNADO','MAC',%inputAPDL%
+    I=J
+    TLSUM(I,1)=t
+    TLSUM(I,2)=FX_SUM
+    TLSUM(I,3)=FY_SUM
+    TVELO(I,1)=t
+    TVELO(I,2)=V(NTOP1,1)
+    TVELO(I,3)=V(NTOP1,2)
+    TIME,t
+    OUTRES,ALL,ALL
+    SOLVE
+*ENDDO
+
+! /POST1
+! SET,LAST
+! PLNSOL,U,SUM
+! /INPUT,'POST','MAC'

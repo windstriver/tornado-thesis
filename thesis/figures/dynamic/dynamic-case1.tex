@@ -1,0 +1,34 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{ctex}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,decorations.markings}
+\usepackage{siunitx}
+
+\begin{document}
+
+\tikzstyle{axis}=[-Stealth,thin]
+
+\begin{tikzpicture}[
+    decoration={
+        markings,
+        mark=between positions 1/8 and 1/8 step 1mm with {\arrow{Stealth}},
+        mark=between positions 5/8 and 5/8 step 1mm with {\arrow{Stealth}},
+    },
+    ]
+  \draw (0,0) coordinate (O) node[below left] {$O$};
+  \draw (8,8) coordinate (T);
+  \draw[axis] (-3,0) -- (17,0) coordinate (X) node[right] {$X$};
+  \draw (T) ++(0,-8) node[below] {输电线方向};
+  \draw[axis] (0,-3) -- (0,8) node[left] {$Y$};
+  \draw (-0.5,-0.5) rectangle (0.5,0.5);
+  \draw (14.5,-0.5) rectangle (15.5,0.5);
+  \draw[dashed,postaction={decorate}] (8,3.5) circle (2);
+  \draw[dashed,postaction={decorate}] (-3,3.5) circle (2);
+  \draw[dashed,-Stealth] (8,3.5) -- (2.5,3.5);
+  \draw[dashed,] (2.5,3.5) -- (-3,3.5);
+  \path (2.5,3.5) node[above] {龙卷风路径，平移速度\SI{20}{m/s}};
+  \path (8,3.5) node[below] {$(\SI{1500}{m},\SI{120}{m})$};
+  \path (-3,3.5) node[below] {$(\SI{-500}{m},\SI{120}{m})$};
+
+\end{tikzpicture}
+\end{document}

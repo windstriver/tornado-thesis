@@ -1,0 +1,40 @@
+! Parametric Analysis of the tower under tornado
+! Units: N-m-kg
+! Yong Wang <yungwong.seu@gmail.com>
+! 20170220
+
+FINISH
+
+! Selection accuracy
+SEL_TOR=0.01
+
+! Air density
+rho_a=1.25
+
+! FEA model information
+nodeNum = 1800
+
+! Initial center of tornado relative to tower
+*AFUN,DEG
+r=150
+theta=45
+
+! Read the tornado wind field
+rPoints=600    ! radial points number
+zPoints=300    ! vertical points number
+*DIM,Vt,TABLE,rPoints,zPoints,,'radical','height'
+*TREAD,Vt,'Vt','csv',%inputData%
+*DIM,Vr,TABLE,rPoints,zPoints,,'radical','height'
+*TREAD,Vr,'Vr','csv',%inputData%
+
+*DIM,V,ARRAY,nodeNum,2    ! locate array for node wind velocity
+
+! Read the projected area of nodes
+*DIM,Atab,TABLE,nodeNum,2,,'node','area'
+*TREAD,Atab,'area','csv',%inputData%
+*DIM,Ai,ARRAY,nodeNum,2
+*VFUN,Ai(1,1),COPY,Atab(1,1)
+*VFUN,Ai(1,2),COPY,Atab(1,2)
+*DEL,Atab,,NOPR
+
+*DIM,TLOAD,ARRAY,nodeNum,2    ! locate array for node tornado load

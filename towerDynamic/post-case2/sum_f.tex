@@ -1,0 +1,29 @@
+%! TeX Program=xelatex
+\documentclass[border=2pt]{standalone}
+\usepackage{ctex}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepackage{siunitx}
+
+\begin{document}
+
+\begin{tikzpicture}
+\pgfplotsset{every axis legend/.append style={
+  at={(0.8,0.95)},
+  anchor=north west}}
+\begin{axis}[
+  % title={龙卷风荷载合力时程},
+  xlabel={时间$t(\SI{}{s})$},
+  ylabel={荷载合力$\sum F(\SI{}{N})$},
+  grid=major,
+  legend entries={$X$, $Y$},
+  xtick distance=10,
+  ytick distance=2e6,
+]
+\addplot[red,mark=square*,mark size=1pt,mark repeat=10] table[x index=0, y index=1, col sep=comma] {tornado_loads_sum.out};
+\addplot[blue,mark=*,mark size=1pt,mark repeat=10] table[x index=0, y index=2, col sep=comma] {tornado_loads_sum.out};
+
+\end{axis}
+
+\end{tikzpicture}
+\end{document}

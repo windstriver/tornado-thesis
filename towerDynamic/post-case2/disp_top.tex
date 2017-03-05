@@ -1,0 +1,28 @@
+%! TeX Program=xelatex
+\documentclass[border=2pt]{standalone}
+\usepackage{ctex}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepackage{siunitx}
+
+\begin{document}
+
+\begin{tikzpicture}
+\pgfplotsset{every axis legend/.append style={
+  at={(0.75,0.95)},
+  anchor=north west}}
+\begin{axis}[
+  xlabel={时间$t(\SI{}{s})$},
+  ylabel={塔顶位移$(\SI{}{m})$},
+  grid=major,
+  legend entries={UX, UY},
+  xtick distance=10,
+  ytick distance=0.5,
+]
+\addplot[red,thick] table[header=false,x index=0, y index=1, col sep=comma] {disp_top.dat};
+\addplot[blue,densely dashed,thick] table[header=false,x index=0, y index=2, col sep=comma] {disp_top.dat};
+
+\end{axis}
+
+\end{tikzpicture}
+\end{document}

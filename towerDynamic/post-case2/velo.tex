@@ -1,0 +1,28 @@
+%! TeX Program=xelatex
+\documentclass[border=2pt]{standalone}
+\usepackage{ctex}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.14}
+\usepackage{siunitx}
+
+\begin{document}
+
+\begin{tikzpicture}
+\pgfplotsset{every axis legend/.append style={
+  at={(0.8,0.95)},
+  anchor=north west}}
+\begin{axis}[
+  xlabel={时间$t(\SI{}{s})$},
+  ylabel={龙卷风风速分量$V(\SI{}{m/s})$},
+  grid=major,
+  legend entries={$V_x$, $V_y$},
+  xtick distance=10,
+  ytick distance=20,
+]
+\addplot[red,mark=square*,mark size=1pt,mark repeat=10] table[x index=0, y index=1, col sep=comma] {tornado_velo_top_node.out};
+\addplot[blue,mark=*,mark size=1pt,mark repeat=10] table[x index=0, y index=2, col sep=comma] {tornado_velo_top_node.out};
+
+\end{axis}
+
+\end{tikzpicture}
+\end{document}

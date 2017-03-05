@@ -1,0 +1,25 @@
+! Apply tornado loads
+! Units: N-m-kg
+! Yong Wang <yungwong.seu@gmail.com>
+! 20170220
+
+! Transform the polar tornado velocity field to Cartesian components
+*DO,I,1,nodeNum
+    R_fi=SQRT((NX(I)-r*COS(theta))**2+(NY(I)-r*SIN(theta))**2)
+    V_t=Vt(R_fi,NZ(I))
+    V_r=Vr(R_fi,NZ(I))
+    V(I,1)=-V_t*(NY(I)-r*SIN(theta))/R_fi+V_r*(NX(I)-r*COS(theta))/R_fi
+    V(I,2)=V_t*(NX(I)-r*COS(theta))/R_fi+V_r*(NY(I)-r*SIN(theta))/R_fi
+*ENDDO
+
+! Apply tornado loads
+*DO,I,1,nodeNum
+    TLOAD(I,1)=0.5*rho_a*ABS(V(I,1))*V(I,1)*Ai(I,1)
+    TLOAD(I,2)=0.5*rho_a*ABS(V(I,2))*V(I,2)*Ai(I,2)
+    F,I,FX,TLOAD(I,1)
+    F,I,FY,TLOAD(I,2)
+*ENDDO
+
+! Calculate the sum of tornado loads
+*VSCFUN,FX_SUM,SUM,TLOAD(1,1)
+*VSCFUN,FY_SUM,SUM,TLOAD(1,2)
