@@ -1,0 +1,275 @@
+\section{计算流体动力学基本理论}
+
+计算流体动力学（Computational Fluid Dynamics, CFD）是通过数值方法在计算机中对流
+体力学的控制方程（质量守恒方程、动量守恒方程、能量守恒方程）进行求解，从而可预测
+流场的流动。
+CFD技术的基本思路可归纳为：把时间域及空间域上连续的物理量（如压力场、速度场），
+用一系列的有限离散点上变量值得集合来代替，通过一定的原则和方式建立关于离散点上场
+变量之间关系的代数方程组，然后求解此代数方程组获得场变量的近似值。
+
+CFD克服了传统的理论分析和试验研究的缺点，不受物理模型和试验模型限制，经济、高效、
+灵活，能够给出较为完整的数据和图像。
+尤其对特殊情况如试验无法模拟的时候，CFD将会发挥出独特的优势。
+
+\subsection{控制方程}
+
+流体的流动要受物理守恒定律的支配，包括质量守恒定律、动量守恒定律和能量守恒定律。
+控制方程是这些守恒定律的数学描述。
+
+\subsubsection{质量守恒方程}
+质量守恒定律可表述为：单位时间内流体微元体中质量的增加量，等于同一时间间隔内流入
+该微元体的净质量。
+根据这一定律，可得到流体的质量守恒定律（连续方程）：
+\begin{equation}
+  \label{eq:continuity}
+  \frac{\partial \rho}{\partial t} + \mathrm{div} (\rho \bm{u}) = 0
+\end{equation}
+式中：$ \rho $为空气密度，$ t $是时间，$ \bm{u} $为空气的速度矢量，$ u $、$ v $、
+$ w $是速度矢量$ \bm{u} $在$ x $、$ y $、$ z $三个方向上的分量，$ \mathrm{div}
+(\bm{a}) = \frac{\partial a_x }{\partial x } + \frac{\partial a_y }{\partial y }
++ \frac{\partial a_z  }{\partial z } $为矢量$ \bm{a} $的散度。
+
+\subsubsection{动量守恒方程}
+动量守恒定律可以表述为：流体微元体中流体动量对时间的变化率等于外界作用在该微元体
+上的各种力之和，该定律实际上是牛顿第二定律。
+据此，可推导出$ x $、$ y $、$ z $ 三个方向的动量守恒方程：
+\begin{equation}
+  \label{eq:momentum}
+  \begin{cases}
+    \rho \frac{\mathrm{d} u }{\mathrm{t}} = -\frac{\partial p}{\partial x} +
+    \frac{\partial \tau_{xx}}{\partial x} + \frac{\partial \tau_{yx}}{\partial y} +
+    \frac{\partial \tau_{zx}}{\partial z} + F_x \\
+    \rho \frac{\mathrm{d} v }{\mathrm{t}} = -\frac{\partial p}{\partial y} +
+    \frac{\partial \tau_{xy}}{\partial y} + \frac{\partial \tau_{yy}}{\partial y} +
+    \frac{\partial \tau_{zy}}{\partial z} + F_y \\
+    \rho \frac{\mathrm{d} w }{\mathrm{t}} = -\frac{\partial p}{\partial z} +
+    \frac{\partial \tau_{xz}}{\partial x} + \frac{\partial \tau_{yz}}{\partial y} +
+    \frac{\partial \tau_{zz}}{\partial z} + F_z \\
+  \end{cases}
+\end{equation}
+式中：$p$为流体微元体上的压力；$\tau_{xx}$、$\tau_{xy}$、$\tau_{xz}$分别为因粘性
+作用而产生的作用在微元体表面上粘性应力的分量；$F_x$、$F_y$和$F_z$是微元体上的体
+力分量，当微元体受到的体力只有重力，且$z$轴的方向竖直向上时，体力可以写成：
+$F_x=0$，$F_y=0$，$F_z=-\rho g$。
+
+下面对流体的粘性应力进行分析。当相邻两层流体发生相对滑移（即剪切变形）时，在与变
+形相反方向上会产生粘性应力（切向应力），来阻止变形的发生。
+流体这种抵抗变形的性质，称为粘性。
+结构风工程中的研究对象主要为近地层的空气，一般可看成是牛顿粘性流体。
+对于牛顿粘性流体，流体的粘性应力与其变形率成比例，各分量可写成如下形式：
+\begin{equation}
+  \label{eq:newton}
+  \begin{cases}
+    \tau_{xx}=2\mu \frac{\partial u}{\partial x} + \lambda \mathrm{div} \bm{u} \\
+    \tau_{yy}=2\mu \frac{\partial v}{\partial y} + \lambda \mathrm{div} \bm{v} \\
+    \tau_{zz}=2\mu \frac{\partial w}{\partial z} + \lambda \mathrm{div} \bm{w} \\
+    \tau_{xy}=\tau_{yx}=\mu \left( \frac{\partial u}{\partial y} +
+      \frac{\partial v}{\partial x} \right) \\
+    \tau_{xz}=\tau_{zx}=\mu \left( \frac{\partial u}{\partial z} +
+      \frac{\partial w}{\partial x} \right) \\
+    \tau_{yz}=\tau_{zy}=\mu \left( \frac{\partial v}{\partial z} +
+      \frac{\partial w}{\partial y} \right)
+  \end{cases}
+\end{equation}
+式中，$\mu$是动力粘度，$\lambda$为第二粘度，一般可取$\lambda=-\frac{2}{3}\mu$。
+将式\eqref{eq:newton}代入式\eqref{eq:momentum}中，可得到牛顿流体的动量方程，也就
+是比较常见的Navier-Stokes方程：
+\begin{equation}
+  \label{eq:ns}
+  \begin{cases}
+    \frac{\partial (\rho u)}{\partial t} + \mathrm{div}(\rho u \bm{u}) =
+    \mu  \bm{\mathrm{grad} }(u) - \frac{\partial p}{\partial x} + S_u \\
+    \frac{\partial (\rho v)}{\partial t} + \mathrm{div}(\rho v \bm{u}) =
+    \mu \bm{\mathrm{ grad} }(v) - \frac{\partial p}{\partial y} + S_v \\
+    \frac{\partial (\rho w)}{\partial t} + \mathrm{div}(\rho w \bm{u}) =
+    \mu \bm{\mathrm{ grad} }(w) - \frac{\partial p}{\partial x} + S_w
+  \end{cases}
+\end{equation}
+式中，$\bm{\mathrm{grad}}() = \frac{\partial ()}{\partial x} \bm{i} + \frac{\partial
+  ()}{\partial y} \bm{j} + \frac{\partial ()}{\partial z} \bm{k}$为变量的梯度；
+$S_u$、$S_v$、$S_w$代表着动量守恒方程的广义源项，其中$S_u=F_x+s_x$，
+$S_v=F_y+s_y$，$S_w=F_z+s_z$，一般情况下，$s_x$、$s_y$、$s_z$是小量，此处不再列
+出，对于粘性为常数的不可压缩流体，可取$s_x=s_y=s_z=0$。
+
+\subsubsection{能量守恒方程}
+能量守恒定律是包含有热交换的流动系统必须满足的基本规律，能量守恒定律可表述为：流
+体微元体中能量的增加率等于进入微元体的净热流量加上体力与面力对微元体所做的功。
+该定律实际上是热力学第一定律。
+\begin{equation}
+  \label{eq:energy}
+  \frac{\partial \rho T}{\partial t} + \mathrm{div} (\rho \bm{u} T) =
+  \mathrm{div} \left( \frac{K}{c_P} \bm{\mathrm{grad}} T \right) + S_T
+\end{equation}
+式中：$T$是流体的温度，$K$是流体的传热系数，$c_p$是比热容，$S_T$是流体的内热源及
+由于粘性作用流体机械能转换为热能的部分，有时简称$S_T$为粘性耗散项。
+
+综合方程\eqref{eq:continuity}、\eqref{eq:ns}、\eqref{eq:energy}等五个方程，共有
+$u$、$v$、$w$、$p$、$T$和$\rho$六个未知量，还需要补充一个流体的状态方程，方程组
+才能封闭：
+\begin{equation}
+  \label{eq:state}
+  p = p(\rho, T)
+\end{equation}
+
+由于近地边界层中的风速一般小于$0.3$倍的声速，因此可近似将近地层中的空气看成不可
+压缩的气体，即空气的密度是一个常量，不是空间或空间的函数。
+对于不可压缩流动，若热量交换很少以致可以忽略，可不考虑能量守恒方程。
+这样，只要联立求解质量守恒方程\eqref{eq:continuity}和动量守恒方程\eqref{eq:ns}即
+可。
+四个未知数$u$、$v$、$w$、$p$，四个方程，方程组封闭。
+
+\subsection{湍流模型}
+
+雷诺在1883年通过圆管试验揭示了粘性流体存在着两种不同的流动形态：层流和湍流。
+当雷诺数小于某一临界值，相邻的流动层彼此能有序地流动互不干扰，这种流动称为层流；
+当雷诺数大于该临界值时，流动呈现出无序的混乱状态，它的流动特征量（如速度、压强等）
+随机变化，这种流动状态称为湍流。
+大气边界层中的空气流动状态一般属于湍流。
+湍流流动的主要特征是运动过程中流体质点发生不断互相混掺的现象，速度和压力等物理量
+是在空间和时间上均具有随机性质的脉动值。
+
+上文所述的质量守恒方程\eqref{eq:continuity}和Navier-Stokes动量方程\eqref{eq:ns}，对于
+层流和湍流都是适用的。
+但对湍流流动，直接求解三维瞬态控制方程，对计算机的内存和速度要求很高，目前在工程
+实际中不可能实现。
+对于湍流流动，工程中采用的比较多的是大涡模拟（LES）和雷诺平均（RANS）两种方法。
+大涡模拟（LES）的基本思路为：用瞬态的Navier-Stokes方程直接模拟湍流中的大尺度涡，
+并不直接模拟小尺度涡，通过近似的模型来考虑小涡对大涡的影响。
+而雷诺平均（RANS）方法是对瞬态控制方程做时间平均处理，同时补充反映湍流特性的其他
+方程如湍流动能方程和湍流耗散率方程等。
+
+将三维瞬态控制方程中的各变量写成其平均值与脉动值相加的形式，如式
+\eqref{eq:rans-v}和式\eqref{eq:rans-p}所示。
+$\bm{u}^{*}$表示流体的速度矢量瞬时值，$\bm{u}$表示流体的速度矢量平均值，
+$\bm{u}^{'}$表示流体的速度矢量脉动值。其他变量以此类推。
+将其代入瞬态连续方程\eqref{eq:continuity}和Navier-Stokes方程\eqref{eq:ns}中，并
+在方程两侧对时间取平均，可以得到湍流时均流动的控制方程。
+\begin{equation}
+  \label{eq:rans-v}
+  \bm{u}^{*} = \bm{u} + \bm{u}^{'}
+\end{equation}
+\begin{equation}
+  \label{eq:rans-p}
+  p^{*} = p + p^{'}
+\end{equation}
+
+时均量表示的连续方程（质量守恒方程）：
+\begin{equation}
+  \label{eq:continuity2}
+  \frac{\partial \rho}{\partial t} + \mathrm{div} (\rho \bm{u}) = 0
+\end{equation}
+
+时均量表示的动量方程（Navier-Stokes方程）：
+\begin{equation}
+  \label{eq:ns2}
+  \begin{cases}
+    \frac{\partial (\rho u)}{\partial t} + \mathrm{div}(\rho u \bm{u}) =
+    \mathrm{\mu \bm{grad} u} - \frac{\partial p}{\partial x} +
+    \rho \left( -\frac{\partial \left( \rho \overline{u^{'2}} \right)}{\partial x}
+    -\frac{\partial \left( \rho \overline{u^{'}v^{'}} \right)}{\partial y}
+    -\frac{\partial \left( \rho \overline{u^{'}w^{'}} \right)}{\partial z}\right)
+    + S_u \\
+    \frac{\partial (\rho v)}{\partial t} + \mathrm{div}(\rho v \bm{u}) =
+    \mathrm{\mu \bm{grad} v} - \frac{\partial p}{\partial y} +
+     \rho \left( -\frac{\partial \left( \rho \overline{u^{'}v^{'}} \right)}{\partial x}
+    -\frac{\partial \left( \rho \overline{v^{'2}} \right)}{\partial y}
+    -\frac{\partial \left( \rho \overline{v^{'}w^{'}} \right)}{\partial z}\right)
+    + S_v \\
+    \frac{\partial (\rho w)}{\partial t} + \mathrm{div}(\rho w \bm{u}) =
+    \mathrm{\mu \bm{grad} w} - \frac{\partial p}{\partial x}
+     \rho \left( -\frac{\partial \left( \rho \overline{u^{'}w^{'}} \right)}{\partial x}
+    -\frac{\partial \left( \rho \overline{v^{'}w^{'}} \right)}{\partial y}
+    -\frac{\partial \left( \rho \overline{w^{'2}} \right)}{\partial z}\right)
+    + S_w
+  \end{cases}
+\end{equation}
+
+从公式\eqref{eq:ns2}中可看出，时均流动的动量方程又出现了新的未知项
+$\rho \overline{u_i^{'} u_j^{'}}$。
+人们定义该未知项为雷诺应力项，用$\tau_{ij}$表示：
+\begin{equation}
+  \label{eq:reynolds}
+  \tau_{ij} = -\rho \overline{u_i^{'} u_j^{'}}
+\end{equation}
+
+雷诺应力由湍流脉动值所引起的应力张量，为未知量。
+必须引入新的湍流模型，才能使得时均化的连续方程\eqref{eq:continuity2}和时均化的动
+量守恒方程\eqref{eq:ns2}构成的方程组封闭求解。
+一般通过湍流模型将湍流脉动值与时均值联系起来。
+由于没有特定的物理规律可以用来指导建立湍流模型，因此目前的湍流模型只能以大量实验
+观测结果作为基础。
+雷诺应力的求解是各湍流闭合模型的核心问题。
+根据对雷诺应力做出的假定或处理方法，可以将湍流模型分为两类：雷诺应力模型和涡粘模
+型。
+其中雷诺应力模型方法是直接构建雷诺应力的方程，然后联立求解质量守恒方程和动量守恒
+方程和新构建的雷诺应力方程。
+涡粘模型方法中，并不直接处理雷诺应力项，而是引入湍动粘度或涡粘系数，把湍流应力表
+示成湍动粘度的函数。
+
+涡粘模型方法中的湍动粘度来源于Boussinesq提出的涡粘假定，该假定建立了雷诺应力相对
+于平均速度梯度的关系，即：
+\begin{equation}
+  \label{eq:bou}
+  -\overline{u_i^{'} u_j^{'}} = \upsilon_t \left( \frac{\partial u_i}{\partial x_j} +
+    \frac{\partial u_j}{\partial x_i}\right)
+  - \frac{2}{3} \delta_{ij} k
+\end{equation}
+式中，$\upsilon_t$是湍动涡粘性系数，取决于流动状态；
+$u_i$是流体的时均速度；$\delta_{ij}$为Kronecker delta符号（当$i=j$时，
+$\delta_{ij}=1$；当$i \neq j$时，$\delta_{ij}=0$）；
+$k$为流体单位质量的湍动能，定义为：
+\begin{equation}
+  \label{eq:k}
+  k = \frac{1}{2}\overline{u_i^{'} u_j^{'}} =
+  \frac{1}{2}\left( \overline{u^{'2}} + \overline{v^{'2}} + \overline{w^{'2}} \right)
+\end{equation}
+
+流体力学中一般用$\varepsilon$表示单位质量湍流能量的耗散量（turbulent dissipation
+rate），定义为：
+\begin{equation}
+  \label{eq:epsilon}
+  \varepsilon = \upsilon \overline{\frac{\partial u_i^{'}}{\partial x_l}}
+  \overline{\frac{\partial u_i^{'}}{\partial x_l}}
+\end{equation}
+式中，$\upsilon$是运动粘度，对于牛顿流体，可用流体的动力粘度和密度的比值表示为
+$\upsilon = \mu/\rho$。
+
+根据量纲分析，可将湍动涡粘性系数写成如下的表达形式：
+\begin{equation}
+  {\upsilon_t} = {c_\mu }\frac{{{k^2}}}{\varepsilon }
+\end{equation}
+式中，$c_\mu$为经验常数，通常取为$c_\mu=0.09$。
+
+因此只要给出关于$k$和$\varepsilon$的两个方程，湍流时均流动的控制方程组即可封闭求
+解。
+$k$方程和$\varepsilon$方程可通过流体变量脉动量的连续方程和动量守恒方程经过一系列
+的运算得到其精确方程，然后对其各项通过量纲分析，表示成$k$，$\varepsilon$的函数形
+式。得到模型化的$k$方程和$\varepsilon$方程分别为：
+\begin{equation}
+  \frac{{\partial k}}{{\partial t}} + \frac{{\partial \left( {k{u_i}} \right)}}{{\partial {x_i}}} =
+    \frac{\partial }{{\partial {x_l}}}\left[ {{c_k}\frac{{{k^2}}}{\varepsilon }\frac{{\partial k}}{{\partial {x_l}}} +\upsilon \frac{{\partial k}}{{\partial {x_l}}}} \right] - \overline {{{u'}_i}{{u'}_l}} \frac{{\partial {u_i}}}{{\partial {x_l}}} - \varepsilon
+\end{equation}
+\begin{equation}
+  \frac{{\partial \varepsilon }}{{\partial t}} + \frac{{\partial \left( {\varepsilon {u_i}} \right)}}{{\partial {x_i}}} =
+    \frac{\partial }{{\partial {x_l}}}\left[ {{c_\varepsilon }\frac{{{k^2}}}{\varepsilon }\frac{{\partial \varepsilon }}{{\partial {x_l}}} +
+        \upsilon \frac{{\partial \varepsilon }}{{\partial {x_l}}}} \right] -
+    {c_{\varepsilon 1}}\frac{\varepsilon }{k}\overline {{{u'}_i}{{u'}_l}} \frac{{\partial {u_i}}}{{\partial {x_l}}} -
+    {c_{\varepsilon 2}}\frac{{{\varepsilon ^2}}}{k}
+\end{equation}
+式中，$c_k$，$c_\varepsilon$，$c_{\varepsilon 1}$，$c_{\varepsilon 2}$均为模型常
+数。
+
+\subsection{控制方程组的离散}
+对于在求解域内建立的偏微分方程，理论上是有真解（精确解或解析解）的。
+但由于所处理问题自身的复杂性（如复杂的边界条件），或方程自身的复杂性，很难获得方程的真解，需
+要通过数值方法离散求解。有限体积法是目前CFD领域广泛使用的离散方法。
+
+有限体积法(Finite Volume Method)基本思路：是将计算区域划分为网格，并使每个网格点
+周围有一个互不重复的控制体积。
+将待解的微分方程（控制方程）对每个控制体积积分，从而得出一组离散方程。
+未知量为网格点上的因变量$\phi$。
+为了求出控制体积的积分，假定值在网格点之间的变化规律。
+有限体积法得出的离散方程，要求因变量的积分守恒对任意一组的控制体积都能够得到满足。
+对整个计算区域，自然也能得到满足，这正是有限体积法吸引人的优点，即使在粗网格的情
+况下，仍显示出准确的积分守恒。
+
