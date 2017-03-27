@@ -25,25 +25,7 @@
 \makebigcover
 \makecover
 
-\begin{abstract}{龙卷风数值模拟；大跨越输电塔结构；悬链线理论；参数化分析}
-第\ref{chapter:tornado}章主要描述了龙卷风风场的特性；
-利用CFD技术模拟了龙卷风缩尺风场，与试验对比以验证数值风场的正确性；
-最终与实测的Spencer龙卷风足尺风场进行对比，以确定数值风场的长度缩尺比和速度缩尺比。
-
-第\ref{chapter:tower}章根据\SI{500}{kV}南京三江口长江大跨越工程进行输电塔结构的有限元建模，
-进行模态分析，提取各阶固有频率和振型与文献进行对比，以确定有限元模型的正确性。
-
-第\ref{chapter:static}章研究了将极坐标系下的缩尺龙卷风风场转化为直角坐标系下的足尺风场，
-并提取输电塔结构上任意节点处所受龙卷风的风速分量。
-然后根据中美相关规范探讨施加龙卷风荷载的方法；
-还利用经典的悬链线理论计算输电线传给输电塔的张力。
-最终将上述方法编制成APDL程序，进行输电塔结构在重力、输电线张力和静态龙卷风荷载作用下的静力弹塑性分析。
-程序可以改变龙卷风核心位置，进行塔顶位移的参数化分析，以确定位移响应的危险工况。
-
-\end{abstract}
-
-\begin{englishabstract}{}
-\end{englishabstract}
+\input{chapters/abstract.tex}
 
 \tableofcontents
 
@@ -64,5 +46,11 @@
 % \input{appendix/cat.tex}
 % \input{appendix/static.tex}
 
-
 \end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-PDF-mode: t
+%%% TeX-engine: xetex
+%%% TeX-master: t
+%%% End:
