@@ -108,7 +108,7 @@
 输电塔结构可分为梁柱主体框架和支撑体系，将输电塔整体的刚性模型包含进风场时，发现划分的网格数量巨大，需要较长时间才能完成CFD计算。
 故本文采用的方法如下：
 首先在SolidWorks中用实体建立输电塔结构主体梁柱框架模型，忽略迎风效应（截面）较小的支撑等构件，然后从代表足尺龙卷风风场的圆柱体中利用布尔运算减去输电塔梁柱实体，生成包含输电塔刚性模型的计算流域。
-支撑等构件受到的风荷载的计算方法在第2.4\todo{Change this ref.}节中介绍。
+支撑等构件受到的风荷载的计算方法在第\ref{sec:brace-load}节中介绍。
 
 在该计算流域上设置第\ref{sec:full-tornado}足尺龙卷风风场的边界条件，并将输电塔刚性模型表面的边界条件设置为不可滑移壁面。
 利用ICEM CFD软件进行网格划分，先采用Octree算法将计算流域初步划分为六面体和四面体混合的非结构化网格，再将生成的网格以Delaunay算法进行优化。
@@ -121,7 +121,7 @@
 
 \begin{figure}[!htpb]
 	\centering
-	\includegraphics[width=0.6\textwidth]{mesh.png}
+	\includegraphics[width=\textwidth]{mesh.png}
 	\caption{输电塔周围计算流域网格}
 	\label{fig:mesh}
 \end{figure}
@@ -132,14 +132,14 @@
 
 \begin{figure}[!htpb]
 	\centering
-	\includegraphics[width=1.0\textwidth]{velo.jpg}
+	\includegraphics[width=0.8\textwidth]{velo.jpg}
 	\caption{\SI{20}{m}高度处风速矢量图}
 	\label{fig:velocity}
 \end{figure}
 
 \begin{figure}[!htpb]
 	\centering
-	\includegraphics[width=0.4\textwidth]{pres.png}
+	\includegraphics[width=0.5\textwidth]{pres.png}
 	\caption{输电塔表面风压}
 	\label{fig:pressure}
 \end{figure}
@@ -167,7 +167,7 @@
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.6\textwidth]{algo.pdf}
+	\includegraphics{algo.pdf}
 	\caption{CFD风压点$P$与梁单元$IJ$示意图}
 	\label{fig:algo}
 \end{figure}
@@ -212,11 +212,11 @@
 设计如图\ref{fig:example}所示的算例测试该算法的有效性。
 悬臂钢管柱外径$R=\SI{1.0}{m}$，高度$H=\SI{9}{m}$，单侧受到径向压强，分布为$p_r(y)=p_0\frac{y}{H},p_0=\SI{100}{Pa}$。
 据此编程生成风压点及相应的压强值，作为本文算法的输入，输出各节点施加的集中力见表\ref{tab:example-force}所示。
-计算各节点集中力的合力见表\ref{tab:example-force}，与理论合力$F_X = \int_{0}^{H}\int_{\pi/2}^{3\pi/2}p_r(y)\cos(\theta+\pi)R \mathrm{d} \theta \mathrm{d} y = p_0 RH=\SI{900}{Pa}$误差很小。
+计算各节点集中力的合力见表\ref{tab:example-force}，与理论合力$F_X = \int_{0}^{H}\int_{\pi/2}^{3\pi/2}p_r(y)\cos(\theta+\pi)R \mathrm{d} \theta \mathrm{d} y = p_0 RH=\SI{900}{N}$误差很小。
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.8\textwidth]{example.pdf}
+	\includegraphics{example.pdf}
 	\caption{测试算例示意图}
 	\label{fig:example}
 \end{figure}
@@ -244,7 +244,7 @@
 	\end{tabu}
 \end{table}
 
-\subsection{输电塔支撑构件的龙卷风荷载计算}
+\subsection{输电塔支撑构件的龙卷风荷载计算}\label{sec:brace-load}
 利用APDL命令流从输电塔结构有限元模型中提取相应于支撑构件的梁单元节点编号及坐标。
 并通过下述方法计算支撑构件梁单元所受龙卷风荷载的方法。
 
@@ -253,7 +253,7 @@
 	\bm{F_w} = \frac{1}{2} \rho_a C_d A |U| \bm{U}
 \end{equation}
 式中，$\rho_a$为空气密度，$C_d$为体型系数，本位取为$1.0$，$A$为该节点迎风投影面积，$\bm{U}$为风场在该节点处的风速矢量。
-编制fluent UDF\todo{Add ref. for appendix}程序提取任意支撑节点$P(x, y, z)$在第\ref{sec:tornado-fsi}节模拟风场中的速度，算法如下：
+编制fluent UDF程序提取任意支撑节点$P(x, y, z)$在第\ref{sec:tornado-fsi}节模拟风场中的速度，算法如下：
 
 \begin{enumerate}
 	\item
@@ -369,13 +369,14 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 	\item[$A_\mathrm{m}$] 迎风面构件的投影面积
 	\item[$A_\mathrm{o}$] 塔架的轮廓面积
 \end{description}
-风压系数与密实度系数$\Phi$的关系表见图\ref{fig:force-coefficient}\cite{wong2009guidelines}
-\begin{figure}[!htbp]
-	\centering
-	\includegraphics[width=\textwidth]{force_coefficient.png}
-	\caption{风压系数}\label{fig:force-coefficient}
-\end{figure}
-方形截面的风压系数根据图\ref{fig:force-coefficient}中Table 2-4计算，圆形截面的风压系数根据Table 2-4的系数再乘上Table 2-5中的系数。
+风压系数与密实度系数$\Phi$的关系表见参见规范 Guidelines for electrical transmission line structural loading \cite{wong2009guidelines}中表 2-4和表2-5。 图\ref{fig:force-coefficient}\cite{wong2009guidelines}
+
+% \begin{figure}[!htbp]
+% 	\centering
+% 	\includegraphics[width=\textwidth]{force_coefficient.png}
+% 	\caption{风压系数}\label{fig:force-coefficient}
+% \end{figure}
+% 方形截面的风压系数根据图\ref{fig:force-coefficient}中Table 2-4计算，圆形截面的风压系数根据Table 2-4的系数再乘上Table 2-5中的系数。
 
 \subsubsection{中国架空输电线路设计规范风荷载计算方法}
 中国《110～750kV架空输电线路设计规范》\cite{GB50545-2010}中杆塔风荷载的计算公式为：
@@ -417,7 +418,6 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 
 文献\cite{hamada2010finite}\cite{hamada2011behaviour}\cite{altalmas2014finite}等建议地形系数$K_\mathrm{zt}$取为$1.0$，因为龙卷风多发生在平坦开阔的平原。
 
-
 参考美国输电塔荷载规范计算龙卷风荷载的参数取值建议，中国《110～750kV架空输电线路设计规范》的相关参数建议为：忽略覆冰荷载的影响，故杆塔构件覆冰风荷载增大系数取为$1.0$；忽略龙卷风的风振效应，将杆塔风荷载调整系数取为$1.0$。
 
 \subsubsection{输电塔龙卷风荷载施加方法}
@@ -425,13 +425,13 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 输电塔节点a，b，c和d上受到的龙卷风荷载的计算步骤如下：
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.6\textwidth]{tower_zone.png}
+	\includegraphics[width=0.8\textwidth]{tower_zone.png}
 	\caption{输电塔分层示意图}\label{fig:tower-zone}
 \end{figure}
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.6\textwidth]{tower_zone_diagram.png}
+	\includegraphics[width=0.4\textwidth]{tower_zone_diagram.png}
 	\caption{输电塔典型层示意图}\label{fig:tower-zone-diagram}
 \end{figure}
 
@@ -571,7 +571,7 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 
 \begin{figure}[!htpb]
 	\centering
-	\includegraphics[width=0.4\textwidth]{flow_chart.pdf}
+	\includegraphics[width=0.6\textwidth]{flow_chart.pdf}
 	\caption{单缆线形和力学参数计算框图}
 	\label{fig:flow-chart}
 \end{figure}
@@ -585,7 +585,7 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 
 \begin{figure}[!htbp]
 	\centering
-	\includegraphics[width=0.8\textwidth]{line_force}
+	\includegraphics[width=\textwidth]{line_force}
 	\caption{跨越塔受到输电线的张力示意图}
 	\label{fig:line-force}
 \end{figure}
@@ -646,8 +646,9 @@ $\theta_T$分别取\SI{0}{\degree}、\SI{45}{\degree}和\SI{90}{\degree}。
 	\end{tabu}
 \end{table}
 
-采用单向流固耦合和规范方法计算得到的输电塔结构响应整体上吻合较好，表
-\ref{tab:axial-force}所列构件中，二者最大误差不超过$50\%$。
+采用单向流固耦合和规范方法计算得到的输电塔结构响应整体上吻合较好，图\ref{fig:fx-vs-theta}和\ref{fig:disp-vs-theta}中按两种方法计算的结构轴向力和位移响应随袭击角$\theta_{\mathrm{T}}}$的变化趋势相似，且轴向力误差不超过$20\%$，位移响应误差不超过$30\%$，可以互相验证。
+袭击角为\SI{45}{\degree}工况下结构在$X$和$Y$方向均发生变形，会出现整体的扭转变形。
+表\ref{tab:axial-force}中所列构件中，梁柱等关键构件轴向力误差较小，支撑等次要构件轴向力响应误差较大，但误差不超过$50\%$。
 
 \section{本章小结}
 本章分别利用单向流固耦合方法和规范方法计算并施加龙卷风荷载到输电塔结构有限元模型上，并在0度，45度和90度袭击角工况下比较了两种方法计算得到的结构响应。

@@ -245,10 +245,12 @@ $k$方程和$\varepsilon$方程可通过流体变量脉动量的连续方程和�
 的运算得到其精确方程，然后对其各项通过量纲分析，表示成$k$，$\varepsilon$的函数形
 式。得到模型化的$k$方程和$\varepsilon$方程分别为：
 \begin{equation}
+  \label{eq:k-eq}
   \frac{{\partial k}}{{\partial t}} + \frac{{\partial \left( {k{u_i}} \right)}}{{\partial {x_i}}} =
     \frac{\partial }{{\partial {x_l}}}\left[ {{c_k}\frac{{{k^2}}}{\varepsilon }\frac{{\partial k}}{{\partial {x_l}}} +\upsilon \frac{{\partial k}}{{\partial {x_l}}}} \right] - \overline {{{u'}_i}{{u'}_l}} \frac{{\partial {u_i}}}{{\partial {x_l}}} - \varepsilon
 \end{equation}
 \begin{equation}
+  \label{eq:epsilon-eq}
   \frac{{\partial \varepsilon }}{{\partial t}} + \frac{{\partial \left( {\varepsilon {u_i}} \right)}}{{\partial {x_i}}} =
     \frac{\partial }{{\partial {x_l}}}\left[ {{c_\varepsilon }\frac{{{k^2}}}{\varepsilon }\frac{{\partial \varepsilon }}{{\partial {x_l}}} +
         \upsilon \frac{{\partial \varepsilon }}{{\partial {x_l}}}} \right] -
@@ -257,6 +259,14 @@ $k$方程和$\varepsilon$方程可通过流体变量脉动量的连续方程和�
 \end{equation}
 式中，$c_k$，$c_\varepsilon$，$c_{\varepsilon 1}$，$c_{\varepsilon 2}$均为模型常
 数。
+
+方程\eqref{eq:k-eq}和方程\eqref{eq:epsilon-eq}构成的湍流模型就是标准$k-\varepsilon$模型，是目前应用较为广泛的湍流模型。
+但对于涡旋流动（如龙卷风风场），该模型过于简化，精度较差。
+本文主要采用雷诺时平均湍流模型（RANS）中的$SST k-\omega$模型。
+$SST k-\omega$模型，又称剪切压力传输$k-\omega$模型，是由Menter\cite{menter1993zonal}发展起来的一种混合模型，属于近壁面函数的一种。
+$SST k-\omega$在近壁面保留标准的$k-\omega$，而在远离壁面的地方应用了$k-\varepsilon$模型。
+两者相比，$k-\varepsilon$模型仅局限于湍流边界层压力相，其壁面函数在边界层的修正中难以弥补计算模型与实际物理现象之间的差距，但是$SST k-\omega$湍流模型却弥补了这些缺陷，主要因为$SST k-\omega$模型能适应压力梯度变化的各种物理现象，且可应用粘性内层更为精确地模拟边界层的现象。
+
 
 \subsection{控制方程组的离散}
 对于在求解域内建立的偏微分方程，理论上是有真解（精确解或解析解）的。
