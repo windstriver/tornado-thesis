@@ -7,28 +7,26 @@
 但实际发生的龙卷风总会伴随着平移运动，故本章建立考虑移动效应的龙卷风动力荷载模型，进行动力时程分析，分析其动态响应。
 
 文献中考虑龙卷风平移的主要研究思路为：
-直接采用实测龙卷风风速时程数据，并利用规范中风荷载计算公式转化为龙卷风荷载。
+任超\cite{ren2010tower}直接采用实测龙卷风风速时程数据，并利用规范中风荷载计算公式转化为龙卷风荷载。
 但由于目前对龙卷风风场观测资料较少，这一思路较难得出一般性结论。
-有研究者利用CFD和动网格技术模拟龙卷风移动，但这一思路计算量巨大，仅适用于体型简单的结构，如平屋面或坡屋面结构，对于输电塔结构，该方法实施难度较大。
-近年来研究者利用龙卷风Rankine涡或Wen模型模拟龙卷风风场结构，并假定风场结构在平移过程中不变，进而建立龙卷风动态模型。
+王兆勇等\cite{wang2015different}利用CFD和动网格技术模拟龙卷风移动，但这一思路计算量巨大，仅适用于体型简单的结构，如平屋面或坡屋面结构，对于输电塔结构，该方法实施难度较大。
+汤卓\cite{tang2012tornado}、王新等\cite{wang2016tornado}采用Wen\cite{wen1975dynamic}提出的龙卷风半经验公式建立了三维准静态龙卷风风场模型，并在此基础上叠加平移运动，形成三维动态运动的龙卷风风场模型。
 该思路同样适用于输电塔等较为复杂的结构，且计算量相对较小，可以进行龙卷风多种平移工况下的动力时程分析。
 
-本章在此思路基础上，使用第二章模拟的足尺龙卷风数值风场代替Rankine涡或Wen模型，并选取龙卷风运动路径与输电线方向平行、垂直两种典型工况，利用ANSYS APDL编程实现动态龙卷风荷载的施加，并分析龙卷风风速和荷载时程。
+本章在汤卓等研究者的思路基础上，使用第\ref{sec:full-tornado}节模拟的足尺龙卷风数值风场代替Wen模型，并选取龙卷风运动路径与输电线方向平行、垂直两种典型工况，利用ANSYS APDL编程实现动态龙卷风荷载的施加，并分析龙卷风风速和荷载时程。
 最后进行动力时程分析，提取结构塔顶节点位移时程曲线。
 
 \section{动态龙卷风模型}
-
 根据第\ref{sec:tower-fea}建立整体坐标系，如图\ref{fig:tower-tornado-cs}所示。
 龙卷风相应于输电塔结构做平移运动的示意图见图\ref{fig:tornado-path}所示。
 \begin{figure}[!htpb]
 	\centering
-	\includegraphics[width=0.6 \textwidth]{tornado-path.png}
+	\includegraphics[width=0.5\textwidth]{tornado-path.png}
 	\caption{龙卷风相应于输电塔做平移运动的示意图}
 	\label{fig:tornado-path}
 \end{figure}
 
 \subsection{龙卷风路径}
-
 假定龙卷风核心在地面上做匀速直线运动，描述其路径的关键参数为核心初始位置和运动速度。
 
 为了使得初始时刻输电塔结构所受龙卷风荷载较小，需要将龙卷风核心初始位置设置在距离输电塔较远的地方。
@@ -55,27 +53,26 @@
 即采用第\ref{sec:full-tornado}中模拟的足尺龙卷风风场作为任一时刻动态龙卷风的风场。
 
 \section{动态龙卷风风速及荷载时程}
-
 在任意时刻$t$，利用第\ref{sec:static-code}节中规范方法施加该时刻的龙卷风荷载。
 由于第\ref{sec:static-code}节已编制了计算龙卷风荷载并施加到输电塔结构的APDL程序，
 在动力分析中，改变龙卷风核心相应于输电塔中心的极坐标$(R,\theta)$（见第\ref{sec:d-polor}节），
 调用龙卷风荷载施加子程序，即可完成动态荷载施加过程。
 
 \subsection{典型龙卷风运动工况}
-
 龙卷风平移运动的两种典型工况见图\ref{fig:dynamic-case1}和图\ref{fig:dynamic-case2}。
 图\ref{fig:dynamic-case1}中龙卷风运动路径平行于输电线，下文简称为龙卷风平行运动工况；
 图\ref{fig:dynamic-case2}中龙卷风运动路径垂直于输电线，下文简称为龙卷风垂直运动工况。
 
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=\textwidth]{dynamic-case1.pdf}
+    \includegraphics[width=0.8\textwidth]{dynamic-case1.pdf}
     \caption{龙卷风平行运动工况}
     \label{fig:dynamic-case1}
 \end{figure}
+
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=\textwidth]{dynamic-case2.pdf}
+    \includegraphics[width=0.8\textwidth]{dynamic-case2.pdf}
     \caption{龙卷风垂直运动工况}
     \label{fig:dynamic-case2}
 \end{figure}
@@ -91,43 +88,47 @@
 平移速度$v^T=\SI{20.0}{m/s}$，$\theta^T=-\frac{1}{2}\pi$。
 
 \subsection{动态龙卷风风速时程}
-
 随着龙卷风移动位置的变化，输电塔结构各节点受到风速时程的作用。
 现选取塔顶节点，平行工况和垂直工况时塔顶节点风速时程分别如图\ref{fig:velo_case1}、图\ref{fig:velo_case2}所示。
+可见龙卷风风速时程具有较强的时变性和峰值性。
+
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.6\textwidth]{velo_case1.pdf}
+    \includegraphics{velo_case1.pdf}
     \caption{龙卷风运动平行工况塔顶节点风速时程}
     \label{fig:velo_case1}
 \end{figure}
+
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.6\textwidth]{velo_case2.pdf}
+    \includegraphics{velo_case2.pdf}
     \caption{龙卷风运动垂直工况塔顶节点风速时程}
     \label{fig:velo_case2}
 \end{figure}
 
 \subsection{动态龙卷风荷载时程}
-
 在龙卷风移动过程中，任一时刻确定龙卷风位置后，
 根据规范方法（第\ref{sec:static-code}节）计算输电塔结构受到的龙卷风荷载。
 并将结构有限元模型所有节点受到的龙卷风荷载在$X$和$Y$轴的分量进行求和，
 绘制龙卷风荷载分量合力的时程曲线，如图\ref{fig:sum_f_case1}和\ref{fig:sum_f_case2}所示。
+平行工况时，龙卷风荷载总和$X$向（$X$向也为输电线方向）分量时程会出现持续时间约为\SI{10}{s}的波形，荷载先逐渐增大，后逐渐衰减，荷载峰值较大，呈现出一定的冲击效应。
+垂直工况中龙卷风荷载总和$Y$向分量出现类似的特点。
+
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.6\textwidth]{sum_f_case1.pdf}
+    \includegraphics{sum_f_case1.pdf}
     \caption{龙卷风运动平行工况荷载分量合力时程}
     \label{fig:sum_f_case1}
 \end{figure}
+
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.6\textwidth]{sum_f_case2.pdf}
+    \includegraphics{sum_f_case2.pdf}
     \caption{龙卷风运动垂直工况荷载分量合力时程}
     \label{fig:sum_f_case2}
 \end{figure}
 
 \section{输电塔结构动力时程分析}
-
 对输电塔进行风荷载动态响应分析，常采用时程分析方法，
 即将动态龙卷风荷载施加到结构上，利用数值方法求解动力运动方程，
 可全面了解结构在龙卷风动态荷载作用时间内的动力响应状况，求解精度较高。
@@ -140,7 +141,6 @@
 这说明\SI{0.10}{s}的时间步长是足够精确的。
 
 \subsection{动力方程及其求解}
-
 输电塔结构在考虑移动效应的龙卷风荷载时程作用下的动力方程为：
 \begin{equation}\label{eqn:dynamic}
     \bm{M}\ddot{\bm{u}}+\bm{C}\dot{\bm{u}}+\bm{K}\bm{u} = \bm{F}(t)
@@ -175,6 +175,7 @@ Newmark法假设$t+\Delta t$时刻的速度和位移为：
 \end{equation}
 将式\eqref{eqn:newmark-a2}代入式\eqref{eqn:newmark-v}，然后共同代入式\eqref{eqn:dynamic}，
 则得到从$\bm{u}_t$、$\dot{\bm{u}}_t$和$\ddot{\bm{u}}_t$计算$\bm{u}_{t+\Delta t}$的两步递推公式为：
+
 \begin{equation}
 \begin{split}
   \left(\bm{K}+\frac{1}{\beta \Delta t^2} \bm{M} + \frac{\gamma}{\beta \Delta t} \bm{C} \right) \bm{u}_{t+\Delta t} = \bm{F}_{t+\Delta t} + \\
@@ -186,9 +187,7 @@ Newmark法假设$t+\Delta t$时刻的速度和位移为：
 Newmark方法中，当参数$\gamma\geq 0.5$，$\beta \geq 0.25\left(0.5 + \gamma\right)^2$时，
 算法是无条件稳定的，即时间步长$\Delta t$的大小不影响解的稳定性。
 
-
 \subsection{输电塔结构的阻尼}
-
 阻尼能耗散动力系统能量，使自由振动的振幅随时间衰减。
 影响结构动力响应的阻尼主要有粘性阻尼、滞后阻尼、库伦阻尼等\cite{chopra2007dynamic}。
 结构动力分析的阻尼通常足够小，不考虑其实际来源，将其看做粘性阻尼，可足够精确模拟阻尼对结构的影响。
@@ -220,17 +219,24 @@ $\zeta_i$、$\zeta_j$分别为结构的第$i$、$j$阶振型的阻尼比。
 由此可计算处结构的阻尼矩阵。
 
 \subsection{输电塔动态响应结果}
-
 龙卷风动态荷载作用下，输电塔塔顶节点动态位移响应见图\ref{fig:disp_top_case1}和图\ref{fig:disp_top_case2}所示。
+在平行工况和垂直工况下，输电塔塔顶节点位移时程与龙卷风荷载总和时程变化趋势相似。
+平行工况下塔顶节点$Y$方向位移分量会出现一定的震荡性，这主要是由于初始时刻龙卷风$Y$方向风速分量约为\SI{20}{m/s}，并不是从零逐渐增大的。
+但这种位移响应的震荡会被结构阻尼过滤掉，变得与龙卷风荷载时程的变化曲线趋于一致。
+平行工况下输电塔塔顶节点在$X$方向的峰值位移较大，接近于\SI{4.0}{m}，在$Y$方向的峰值位移接近\SI{1.0}{m}。
+在龙卷风作用下输电塔结构的准静态响应中（见第\ref{sec:static-results}节），采用规范方法计算的$Y$向峰值位移约为\SI{1.8}{m}，$X$向峰值位移约为\SI{1.7}{m}。
+可以看出考虑龙卷风动态响应会放大结构响应，未来需要详尽的研究探讨动态龙卷风对结构的冲击与放大效应。
+
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.6\textwidth]{disp_top_case1.pdf}
+    \includegraphics{disp_top_case1.pdf}
     \caption{龙卷风运动平行工况塔顶节点位移响应时程}
     \label{fig:disp_top_case1}
 \end{figure}
+
 \begin{figure}[!htpb]
     \centering
-    \includegraphics[width=0.6\textwidth]{disp_top_case2.pdf}
+    \includegraphics{disp_top_case2.pdf}
     \caption{龙卷风运动垂直工况塔顶节点位移响应时程}
     \label{fig:disp_top_case2}
 \end{figure}
@@ -255,4 +261,5 @@ $\zeta_i$、$\zeta_j$分别为结构的第$i$、$j$阶振型的阻尼比。
 %%% mode: latex
 %%% TeX-PDF-mode: t
 %%% TeX-engine: xetex
+%%% TeX-master: "../main"
 %%% End:

@@ -82,7 +82,7 @@
 
 
 \subsection{龙卷风的Rankine涡模型}
-为了描述龙卷风风场的相关详细信息，工程界采用较多的是由Depperman\cite{Depperman1947}于1947年提出的Rankine涡模型。
+为了描述龙卷风风场的相关详细信息，工程界采用较多的是由Depperman\cite{depperman1947notes}于1947年提出的Rankine涡模型。
 Rankine涡模型是满足Navier-Stokes方程的最简单的模型，仅由切向速度控制。
 它不考虑径向速度，并假定风速和压强不随高度变化，这在实际情况中是并不存在的。
 但研究者最关心的也正是龙卷风的切向速度，因为相比于切向速度，龙卷风的径向速度和竖向速度较小。
@@ -222,7 +222,8 @@ $V_t$和$V_r$为$R_0$处的切向和径向入流速度。
 Smith的数值模拟\cite{smith1987effect}说明了侧壁的边界条件的选取对汇集区风场（主要关注的区域）的影响很小，因此选择无滑壁面条件。
 
 Purdue-TVC出口处设置了蜂窝板，能使气流竖直流出，还能阻止排风机对涡旋的影响。
-试验中排风机驱动了流场运动，而在数值模型中，入口风速驱动了流场运动，且不包含排风机的影响，因此数值模型出口处不需设置代表直流蜂窝板的边界条件。根据Smith\cite{smith1987effect}的论述，上边界更合适的边界条件为压强出口边界条件（pressure-outflow）。
+试验中排风机驱动了流场运动，而在数值模型中，入口风速驱动了流场运动，且不包含排风机的影响，因此数值模型出口处不需设置代表直流蜂窝板的边界条件。
+根据Smith\cite{smith1987effect}的论述，上边界更合适的边界条件为压强出口边界条件（pressure-outflow）。
 此边界条件假设除压强外的所有物理量在边界的法向梯度为零\cite{fluent2015user}。
 
 \subsection{控制方程及求解选项}
@@ -395,9 +396,9 @@ Baker利用Purdue-TVC进行了龙卷风风场的试验模拟\cite{baker1981bound
 
 \subsection{足尺龙卷风风场CFD模拟}\label{sec:full-tornado}
 本节利用长度相似比$L_s$和速度相似比$V_s$将缩尺CFD风场转化为足尺龙卷风风场。
-首先，将缩尺风场的计算流域（见图\ref{fig:TVC-domain}）的底面半径放大为$L_s\times R_0$、
-速度入口高度放大为$L_s \times H_0$；
+首先，将缩尺风场的计算流域（见图\ref{fig:TVC-domain}）的底面半径放大为$L_s\times R_0$、速度入口高度放大为$L_s \times H_0$；
 入口边界条件的径向和切向入流速度设置为：
+
 \begin{equation}
 	V_r^{\text{Full}}(z) = (V_s V_0)\times\left[z/(L_s z_0)\right]^{1/7}
 \end{equation}
@@ -405,8 +406,7 @@ Baker利用Purdue-TVC进行了龙卷风风场的试验模拟\cite{baker1981bound
 	V_t^{\text{Full}}(z) = 2 \times S \times V_r^{\text{Full}}(z)
 \end{equation}
 
-比较足尺龙卷风风场与Spencer龙卷风实测风场在不同高度处的切向速度沿径向的分布，
-见图\ref{fig:cfd-Spencer}所示。
+比较足尺龙卷风风场与Spencer龙卷风实测风场在不同高度处的切向速度沿径向的分布，见图\ref{fig:cfd-Spencer}所示。
 可见在离地高度较低时（$z \leq \SI{50}{m}$），CFD数值风场切向速度比实测风场小；
 而在离地高度较大时（$z \geq \SI{80}{m} $），CFD数值风场切向速度比实测风场大。
 这主要是由于该实测风场的涡流比$S$约为$2.0$\cite{hangan2008swirl}，而本文模拟的数值风场的涡流比为$0.28$。

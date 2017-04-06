@@ -38,7 +38,7 @@
 每个回路分别对应2基铁塔，共使用4基锚塔。
 
 导线采用四分裂布置，型号为 AACSR/EST-500 特强钢芯铝合金绞线，两根地线采用 36芯的OPGW-325型复合光缆，光缆为层绞结构。
-导线、OPGW均为整根，跨越耐张段没有接头。锚塔上跳线采用LGJ-630/45型钢芯铝绞线，越侧耐张绝缘子串引流线夹与LGJ-630/45型钢芯铝绞线匹配。跨越塔导线采用四联530k N级盘瓷悬垂绝缘子串，OPGW采用双联预绞式悬垂金具串；锚塔导线采用六联400k N级盘瓷耐张绝缘子串，OPGW采用预绞式耐张金具串。
+导线、OPGW均为整根，跨越耐张段没有接头。锚塔上跳线采用LGJ-630/45型钢芯铝绞线，越侧耐张绝缘子串引流线夹与LGJ-630/45型钢芯铝绞线匹配。跨越塔导线采用四联\SI{530}{kN}级盘瓷悬垂绝缘子串，OPGW采用双联预绞式悬垂金具串；锚塔导线采用六联\SI{400}{kN}级盘瓷耐张绝缘子串，OPGW采用预绞式耐张金具串。
 \begin{figure}[!htbp]
 	\centering
 	\includegraphics[width=\textwidth]{tower.png}
@@ -103,6 +103,11 @@
 \section{输电塔龙卷风荷载计算的FSI方法}
 
 \subsection{单向流固耦合方法介绍}
+单向流固耦合分析（One-way Fluid Structure Interaction）以解耦的形式进行\cite{benra2011comparison}\cite{qian2008fsi}：
+首先，将结构表面视为刚性的流场壁计算流场的分布；
+然后将流场计算得到的刚性壁面压力施加到结构上以计算其响应。
+单向流固耦合方法适用于结构在流场作用下变形较小（相比于流场的计算区域），
+即流场的边界改变较小，几乎不影响流场的分布情况。
 
 \subsection{包含输电塔刚性模型的龙卷风风场}\label{sec:tornado-fsi}
 输电塔结构可分为梁柱主体框架和支撑体系，将输电塔整体的刚性模型包含进风场时，发现划分的网格数量巨大，需要较长时间才能完成CFD计算。
@@ -112,9 +117,9 @@
 
 在该计算流域上设置第\ref{sec:full-tornado}足尺龙卷风风场的边界条件，并将输电塔刚性模型表面的边界条件设置为不可滑移壁面。
 利用ICEM CFD软件进行网格划分，先采用Octree算法将计算流域初步划分为六面体和四面体混合的非结构化网格，再将生成的网格以Delaunay算法进行优化。
-网格划分过程采用以下选项提高网格质量：控制输电塔表面网格划分的最大单元尺寸为0.4 m；
-同时在输电塔表面设置厚度为1.0 m的棱柱形单元膨胀层网格（Prism Layers）；
-并以输电塔中心建立半径为150 m的球状区域，在此区域内进行网格加密以尽可能精确离散结构表面。
+网格划分过程采用以下选项提高网格质量：控制输电塔表面网格划分的最大单元尺寸为\SI{0.4}{m}；
+同时在输电塔表面设置厚度为\SI{1.0}{m}的棱柱形单元膨胀层网格（Prism Layers）；
+并以输电塔中心建立半径为\SI{150}{m}的球状区域，在此区域内进行网格加密以尽可能精确离散结构表面。
 计算流域底部和输电塔刚性模型表面的网格划分见图\ref{fig:mesh}所示。
 
 考虑到龙卷风风场压强分布的梯度较大，故CFD计算采用PISO求解方法，压强离散采用PRESTO!格式\cite{fluent2015user}。
@@ -207,6 +212,7 @@
 	\item 将风压合力分量平分到梁单元$I$、$J$节点上。
 \end{enumerate}
 至此，完成了将CFD风压传递给有限元梁单元节点荷载的算法。
+算法的Python程序见附录\ref{apen:load}。
 
 \subsubsection{测试算例}
 设计如图\ref{fig:example}所示的算例测试该算法的有效性。
@@ -253,7 +259,7 @@
 	\bm{F_w} = \frac{1}{2} \rho_a C_d A |U| \bm{U}
 \end{equation}
 式中，$\rho_a$为空气密度，$C_d$为体型系数，本位取为$1.0$，$A$为该节点迎风投影面积，$\bm{U}$为风场在该节点处的风速矢量。
-编制fluent UDF程序提取任意支撑节点$P(x, y, z)$在第\ref{sec:tornado-fsi}节模拟风场中的速度，算法如下：
+编制fluent UDF（见附录\ref{apen:inter}）程序提取任意支撑节点$P(x, y, z)$在第\ref{sec:tornado-fsi}节模拟风场中的速度，算法如下：
 
 \begin{enumerate}
 	\item
@@ -369,7 +375,9 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 	\item[$A_\mathrm{m}$] 迎风面构件的投影面积
 	\item[$A_\mathrm{o}$] 塔架的轮廓面积
 \end{description}
-风压系数与密实度系数$\Phi$的关系表见参见规范 Guidelines for electrical transmission line structural loading \cite{wong2009guidelines}中表 2-4和表2-5。 图\ref{fig:force-coefficient}\cite{wong2009guidelines}
+风压系数与密实度系数$\Phi$的关系表见参见规范 Guidelines for electrical transmission line structural loading \cite{wong2009guidelines}中表 2-4和表2-5。
+
+%图\ref{fig:force-coefficient}\cite{wong2009guidelines}
 
 % \begin{figure}[!htbp]
 % 	\centering
@@ -599,7 +607,7 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 \end{equation}
 
 
-\section{FSI方法与规范方法的对比}
+\section{FSI方法与规范方法的对比}\label{sec:static-results}
 
 为了考虑最不利工况，将龙卷风核心距离输电塔中心的径向距离设置为龙卷风核心半径$R_T=r_{c,\mathrm{mat}}=\SI{120}{m}$，
 $\theta_T$分别取\SI{0}{\degree}、\SI{45}{\degree}和\SI{90}{\degree}。
@@ -678,4 +686,5 @@ $\theta_T$分别取\SI{0}{\degree}、\SI{45}{\degree}和\SI{90}{\degree}。
 %%% mode: latex
 %%% TeX-PDF-mode: t
 %%% TeX-engine: xetex
+%%% TeX-master: "../main"
 %%% End:
