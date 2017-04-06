@@ -1,0 +1,194 @@
+\chapter{CFD风场任意位置处风速的UDF插值程序}\label{apen:inter}
+\begin{minted}{c}
+#include "udf.h"
+
+#define MAXPOINTS 5000
+#define NSCALARS (1+ND_ND)
+
+real coords[MAXPOINTS][ND_ND+1];
+real values[MAXPOINTS][NSCALARS+ND_ND+1];
+
+int total_count;
+int total_points_found = 0;
+
+FILE *input;
+FILE *output;
+
+int is_point_in_cell(cell_t c, Thread *t, real *x);
+
+DEFINE_ON_DEMAND(interpolate)
+{
+    Domain *d = Get_Domain(1);
+    Thread *t;
+    cell_t c;
+
+    real NV_VEC(x), NV_VEC(dx), NV_VEC(grady), NV_VEC(centroid);
+    real y0, y;
+
+    int point, i, n;
+    int reader_flag;
+
+    /* Read the Points data to array coords */
+    input = fopen("node_list_0.txt", "r");
+
+    for(i=0; i<MAXPOINTS; i++)
+    {
+        reader_flag = fscanf(input, "%f, %f, %f, %f\n",\
+            &coords[i][0], &coords[i][1], &coords[i][2], &coords[i][3]);
+
+        if (reader_flag!=4)
+            break;
+
+        total_count = i;
+    }
+    fclose(input);
+
+
+    /* Initialize values */
+    for(i=0; i<MAXPOINTS; i++)
+    {
+        for(n=0; n<NSCALARS+ND_ND+1; n++)
+        {
+            values[i][n] = 0.0;
+        }
+    }
+    
+    /* Interpolation starts ... */
+    for(point=0; point<total_count; point++)
+    {
+        /* Get coords of point to vec x */
+        for(i=0; i<ND_ND; i++)
+            x[i] = coords[point][i+1];
+
+        /* Find the cell of point */
+        thread_loop_c(t, d)
+        {
+            begin_c_loop(c, t)
+            {
+                if (is_point_in_cell(c, t, x))
+                {
+                    C_CENTROID(centroid, c, t);
+                    total_points_found++;
+                    Message("The cell including point (%f,%f,%f) has\
+                        centroid of (%f,%f,%f).\n",\
+                        x[0],x[1],x[2],centroid[0],centroid[1],centroid[2]);
+
+                    /* Store the coords */
+                    values[point][0] = coords[point][0];
+                    for(i=0; i<ND_ND; i++)
+                    {
+                        values[point][i+1] = x[i];
+                    }
+
+                    y0 = 0.0;
+                    NV_VV(dx, =, x, -, centroid);
+            
+                    for(n=0; n<NSCALARS; n++)
+                    {
+                        switch (n)
+                        {
+                            case 0:
+                                NV_V(grady, =, C_P_G(c,t));
+                                y0 = C_P(c,t);
+                                break;
+                            case 1:
+                                NV_V(grady, =, C_U_G(c,t));
+                                y0 = C_U(c,t);
+                                break;
+                            case 2:
+                                NV_V(grady, =, C_V_G(c,t));
+                                y0 = C_V(c,t);
+                                break;
+                            case 3:
+                                NV_V(grady, =, C_W_G(c,t));
+                                y0 = C_W(c,t);
+                                break;
+                            default:
+                                break;
+                        }
+
+                        y = y0 + NV_DOT(grady, dx);
+                        values[point][ND_ND+n+1] = y;
+                    }
+                    break;
+                }
+            }
+            end_c_loop(c, t)
+        }
+    }
+
+    output = fopen("output.out","a");
+    if (!output)
+    {
+        Message("\n\nERROR: Could not open interpolation output file.\n");
+        return;
+    }
+    for(point=0; point<total_points_found; point++)
+    {
+        for(i=0; i<NSCALARS+ND_ND+1; i++)
+        {
+            fprintf(output, "%12.5f ", values[point][i]);
+        }
+        fprintf(output,"\n");
+    }
+    fprintf(output,"\n");
+    fclose(output);
+
+}
+
+
+int is_point_in_cell(cell_t c, Thread *t, real *x)
+{
+    int i;
+    face_t f;
+    Thread *tf;
+    real A[ND_ND], n[ND_ND], v[ND_ND], z[ND_ND];
+    real face_centroid[ND_ND], cell_centroid[ND_ND];
+    real Amag;
+
+    /* Center of cell */
+    C_CENTROID(cell_centroid, c, t);
+
+    /* Loop over all faces of cell */
+    c_face_loop(c, t, i)
+    {
+        /* Face i of cell */
+        f = C_FACE(c, t, i);
+        tf = C_FACE_THREAD(c, t, i);
+
+        /* Face normal */
+        F_AREA(A, f, tf);
+
+        /* Normalize A to reduce truncation error */
+        Amag = NV_MAG(A);
+        NV_VS(n, =, A, /, Amag);
+
+        /* Centroid on face i */
+        F_CENTROID(face_centroid, f, tf);
+
+        /* Vector from face centroid to point x */
+        NV_VV(v, =, x, -, face_centroid);
+
+        /* Vector from cell centroid to face centroid */
+        NV_VV(z, =, face_centroid, -, cell_centroid);
+
+        /* Perform test to make sure face normal points outwards */
+        if (NV_DOT(n, z) < 0.0)
+            NV_S(n, *=, -1.0);
+
+        /* If n.v > 0, then point is beyond "plane" that defines 
+           the face and it annot be inside the cell */
+        if (NV_DOT(n, v) > 0.0)
+            return 0;
+    }
+    
+    /* Otherwise it must be in the cell */
+    return 1;
+}
+
+\end{minted}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "interpolationUDF"
+%%% End:

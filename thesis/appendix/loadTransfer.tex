@@ -1,0 +1,210 @@
+\chapter{风压转化为梁节点集中力的Python程序}\label{apen:load}
+
+\section{main.py}
+\begin{minted}{python}
+import numpy as np
+
+import reader as rd
+import crossSele as cs
+import pNormIJ as pIJ
+
+loadOut = 'load.csv'
+epsilon = 0.01
+
+# Initiate Matrix elePres to hold pressure on
+# elemnt (eleNum, presX, presY, presZ)
+elePres = np.zeros((rd.elemCount, 5))
+elePres[:, 0] = range(1,rd.elemCount+1)
+
+print("Start to map the CFD Pressure Points to Elements...")
+
+for p in range(rd.presCount):
+    # p iterate all the cfd pressure points
+    XP = rd.cfdPresM[p, 0:3]    # Coordinates of point p+1
+    pres = rd.cfdPresM[p, 3]    # pressure of point p+1
+    
+    # decide cfd pressure point (p+1) belongs to which element
+    for e in range(rd.elemCount):
+        # e interate all elements, e refers element (e+1)
+        (dist, normVec, flag) = pIJ.pNormIJ(XP, cs.XIE(e+1), cs.XJE(e+1),\
+            distEpsilon=cs.RoE(e+1)*(1+epsilon))   
+        # compute the distance from point (p+1) to element (e+1)
+        if flag:
+            # cfd pressure point (p+1) belongs to element (e+1)
+            elePres[e, 1:4] = elePres[e, 1:4] + pres*normVec
+            elePres[e, 4] = elePres[e, 4] + 1
+            print("CFD Pressure Point ({X:9.3f},{Y:9.3f},{Z:9.3f}) \
+               belongs to Element {eleNum:6d}"\
+               .format(X=XP[0], Y=XP[1], Z=XP[2], eleNum=e+1))
+            break
+
+print("CFD Pressure Points mapping ratio:{:6.3%}."\
+  .format(sum(elePres[:,4])/rd.presCount))
+
+print("Starting convert the CFD Pressure to Elemeng nodal force...")
+# Transfer the element pressures to element node force
+# Init nodeForce matrix to hold force on nodes (nodeNum, Fx, Fy, Fz)
+nodeForce = np.zeros((rd.nodeCount, 4))
+nodeForce[:, 0] = range(1,rd.nodeCount+1)
+
+for e in range(rd.elemCount):
+    # (e+1) interate all elements
+    if elePres[e, 4] == 0:
+        presMean = np.zeros((3,))
+    else:
+        presMean = elePres[e, 1:4] / elePres[e, 4]
+
+    forceTotal = presMean * cs.AoE(e+1)
+    nodeI = int(rd.eleM[e, 1])
+    nodeJ = int(rd.eleM[e, 2])
+    nodeForce[nodeI-1, 1:4] = nodeForce[nodeI-1, 1:4] + forceTotal/2
+    nodeForce[nodeJ-1, 1:4] = nodeForce[nodeJ-1, 1:4] + forceTotal/2
+    print("Element {eleNum:6d} nodal force \
+                   F=({Fx:9.3f} N, {Fy:9.3f} N, {Fz:9.3f} N)"\
+      .format(eleNum=e+1, Fx=forceTotal[0]/2, \
+              Fy=forceTotal[1]/2, Fz=forceTotal[2]/2))
+
+
+print("Sum FX is {:6.3f} N.".format(sum(nodeForce[:, 1])))
+print("Sum FY is {:6.3f} N.".format(sum(nodeForce[:, 2])))
+print("Sum FZ is {:6.3f} N.".format(sum(nodeForce[:, 3])))
+
+
+with open(loadOut, 'w') as f:
+    for n in range(rd.nodeCount):
+        f.write('{NODE:6d}, {Fx:9.3f}, {Fy:9.3f}, {Fz:9.3f}\n'\
+        .format(NODE=n+1, Fx=nodeForce[n, 1], Fy=nodeForce[n, 2],\
+                Fz=nodeForce[n, 3]))
+
+f.close()
+
+\end{minted}
+
+\section{reader.py}
+\begin{minted}{python}
+import numpy as np
+
+inputDir = "Input/"
+caseDir = "theta-0/"
+# Read CFD Pressure Data (x[m], y[m], z[m], pres[Pa])
+cfdPresFile = inputDir + caseDir + "cfd_pressure.csv"
+cfdPresM = np.genfromtxt(cfdPresFile, delimiter=',', skip_header=17)
+cfdPresM[:,3] = 1.0*cfdPresM[:,3]    # into the surface pressure +
+
+# Read CFD velocity Data
+# (nodeNum, x[m], y[m], z[m], pres[Pa], u[m/s], v[m/s], w[m/s])
+cfdVeloFile = inputDir + caseDir + "cfd_velocity2.out"
+cfdVeloM = np.genfromtxt(cfdVeloFile, delimiter=',')
+
+# Remove the zero lines
+cfdV = cfdVeloM[~np.all(cfdVeloM == 0.0, axis = 1)]
+cfdV = cfdV[:, [0,5,6,7]]
+
+# Read Node List File (nodeNum, nodeX[m], nodeY[m], nodeZ[m])
+nodeFile = inputDir+"node_list.txt"
+nodeM = np.genfromtxt(nodeFile, delimiter=',')
+
+# Read Element List File (eleNum, eleI, eleJ, eleSecn)
+eleFile = inputDir+"ele_list.txt"
+eleM = np.genfromtxt(eleFile, delimiter=',')
+
+# Read Section List File (secNum, Ro[m])
+secFile = inputDir+"sec_list.txt"
+secM = np.genfromtxt(secFile, delimiter=',')
+
+presCount = np.size(cfdPresM, 0)    # total num. of cfd pressure points
+nodeCount = np.size(nodeM, 0)    # total num. of nodes
+elemCount = np.size(eleM, 0)    # total num. of elements
+secCount = np.size(secM, 0)    # total num. of sections
+veloCount = np.size(cfdV, 0)
+
+\end{minted}
+
+\section{pNormIJ.py}
+\begin{minted}{python}
+import numpy as np
+
+def pNormIJ(CoordP=(0.0, 0.0, 0.0), CoordI=(1.0, 0.0, 0.0), \
+                    CoordJ=(0.0, 1.0, 0.0), distEpsilon=1.0):
+    """ Return the distance of point P to line IJ and the norm vector PP'
+        where P' is the projection of P to IJ.
+
+    Keyword arguments:
+    CoordP -- the coordinates of point P, default (0.0, 0.0, 0.0)
+    CoordI -- the coordinates of point I, default (0.0, 1.0, 0.0)
+    CoordJ -- the coordinates of point J, default (0.0, 0.0, 1.0)
+    distEpsilon -- distance criterion
+
+    Return:
+    dist -- distance from point P to line IJ
+    normVec -- norm vector of PP'
+    """
+    CoordP = np.array(CoordP)
+    CoordI = np.array(CoordI)
+    CoordJ = np.array(CoordJ)
+    CoordPPrime = np.zeros((3,))
+    flag = False
+
+    normIJ = np.linalg.norm(CoordI - CoordJ)
+    CoordPPrime = CoordI + np.dot(CoordI-CoordP,\
+        CoordI-CoordJ)/(normIJ**2)*(CoordJ-CoordI)
+    dist = np.linalg.norm(CoordP-CoordPPrime)
+    normVec = (CoordPPrime-CoordP)/dist
+
+    if (np.dot(CoordPPrime-CoordI, CoordPPrime-CoordJ) < 0 and\
+        dist < distEpsilon):
+        flag = True
+
+    return (dist, normVec, flag)
+\end{minted}
+
+\section{crossSele.py}  
+\begin{minted}{python}
+import numpy as np
+
+import reader as rd
+
+def XIE(eleNum=1):
+    """ Get the coordinates of I node of Element eleNum.
+
+    Keyword argument:
+    eleNum -- element number
+    """
+    eINum = int(rd.eleM[eleNum-1][1])
+    return rd.nodeM[eINum-1][1:]
+
+
+def XJE(eleNum=1):
+    """ Get the coordinates of J node of Element eleNum.
+
+    Keyword argument:
+    eleNum -- element number
+    """
+    eJNum = int(rd.eleM[eleNum-1][2])
+    return rd.nodeM[eJNum-1][1:]
+
+
+def RoE(eleNum=1):
+    """ Get the Ro of section of Element eleNum.
+
+    Keyword argument:
+    eleNum -- element number
+    """
+    secNum = int(rd.eleM[eleNum-1][3])
+    return rd.secM[secNum-1][1]
+
+def AoE(eleNum=1):
+    """ Get the surface area of Element eleNum.
+
+    Keyword argument:
+    eleNum -- element number    
+    """
+    length = np.linalg.norm(XIE(eleNum)-XJE(eleNum))
+    return 2*np.pi*RoE(eleNum)*length
+
+\end{minted}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../main"
+%%% End:
