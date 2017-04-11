@@ -1,8 +1,6 @@
-%!TEX program = xelatex
+
 \documentclass[algorithmlist,figurelist,tablelist,nomlist,masters]{seuthesix}
 \usepackage{style}
-
-\usepackage{todonotes}
 
 \begin{document}
 \categorynumber{000} % 分类采用《中国图书资料分类法》
@@ -20,7 +18,7 @@
 \committeechair{}
 \reviewer{}{}
 \department{东南大学土木工程学院}{School of Civil Engineering}
-%\seuthesisthanks{}
+\seuthesisthanks{}
 
 \makebigcover
 \makecover
@@ -35,11 +33,12 @@
 \input{chapters/tornado.tex}
 \input{chapters/static.tex}
 \input{chapters/dynamic.tex}
+\input{chapters/conclusion.tex}
 
 \thesisbib{seuthesix}
 
-% \acknowledgement
-% 感谢每一个给予帮助的人。
+\acknowledgement
+\input{chapters/thanks.tex}
 
 \appendix
 \input{appendix/udf.tex}
@@ -48,6 +47,19 @@
 \input{appendix/loadTransfer.tex}
 \input{appendix/interUDF.tex}
 
+\resume{作者攻读硕士学位期间的研究成果}
+
+王勇（1991——），男，汉族，河南人，2014年毕业于东南大学土木工程专业，获工学学士学位。
+2014年免试攻读本校土木工程专业结构工程方向学术硕士学位。
+在校期间共学习课程13门，总计29学分，其中学位课程18学分，成绩优秀。
+
+
+\begin{flushleft}
+{\bfseries \large 发表的论文}\\ \relax
+[1] 第一作者. 龙卷风作用下输电塔结构的单向流固耦合分析[J]. 特种结构（已录用）
+\\
+[2] 第一作者. 
+\end{flushleft}
 \end{document}
 
 %%% Local Variables:
