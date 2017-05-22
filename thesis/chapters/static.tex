@@ -7,8 +7,8 @@
 为保障龙卷风多发地区电网运行安全，进行输电线路龙卷风风荷载及抗风研究具有重要的理论和实用价值。
 
 国内外文献研究龙卷风作用下输电塔结构响应的基本思路为：
-采用Rankine或Wen模型模拟龙卷风解析风场，或采用CFD技术模拟龙卷风数值风场；
-然后利用规范中风荷载计算公式将风速场转化为风荷载并施加到输电塔有限元模型上，计算结构响应。
+采用Rankine或Wen模型模拟龙卷风解析风场\cite{savory2001modelling}\cite{ren2010tower}\cite{bai2011tornado}，或采用CFD技术模拟龙卷风数值风场\cite{hamada2010finite}\cite{altalmas2014finite}\cite{hamada2011behaviour}；
+然后利用规范\cite{wong2009guidelines}\cite{GB50545-2010}中风荷载计算公式将风速场转化为风荷载并施加到输电塔有限元模型上，计算结构响应。
 这一研究思路采用普通风作用下的结构参数（如体型系数等）计算龙卷风荷载，但两种风场结构差别较大，有必要研究直接模拟输电塔结构所受龙卷风荷载的方法。
 
 本章利用单向流固耦合方法（Fluid Structure Interaction, FSI）直接在足尺龙卷风风场中建立输电塔的刚性模型，进行CFD计算得到结构表面受到的龙卷风风压。
@@ -101,7 +101,7 @@
 \section{输电塔龙卷风荷载计算的FSI方法}
 
 \subsection{单向流固耦合方法介绍}
-单向流固耦合分析（One-way Fluid Structure Interaction）以解耦的形式进行\cite{benra2011comparison}\cite{qian2008fsi}：
+单向流固耦合分析（One-way Fluid Structure Interaction, FSI）以解耦的形式进行\cite{benra2011comparison}\cite{qian2008fsi}：
 首先，将结构表面视为刚性的流场壁计算流场的分布；
 然后将流场计算得到的刚性壁面压力施加到结构上以计算其响应。
 单向流固耦合方法适用于结构在流场作用下变形较小（相比于流场的计算区域），即流场的边界改变较小，几乎不影响流场的分布情况。
@@ -192,7 +192,7 @@
 当同时满足这两个条件时，认为风压点$P$作用于梁单元$IJ$上，数学表达见式\eqref{eqn:cri}。
 \begin{gather}\label{eqn:cri}
 	\bm{P'I}\cdot\bm{P'J} < 0  \nonumber \\
-	|PP'-R_{IJ}| < \epsilon
+	|PP'-R_{IJ}| < \varepsilon
 \end{gather}
 式中点$P'$的坐标可由式\eqref{eqn:op}计算，
 \begin{equation}\label{eqn:op}
@@ -200,7 +200,7 @@
 \end{equation}
 风压点$P$作用于梁单元$IJ$上的风压在整体坐标系下的分量为
 \begin{equation}
-	(p_X, p_Y, p_z) = p\frac{\bm{PP'}}{|PP'|}
+	(p_X, p_Y, p_Z) = p\frac{\bm{PP'}}{|PP'|}
 \end{equation}
 
 根据上述判别法则，对每个CFD风压点与每根梁单元进行判别，可确定每根梁单元所受的所有CFD风压点及各自的风压分量。
@@ -244,6 +244,7 @@
 		8      & 154.990         & 0.000           & -0.001          \\
 		9      & 176.987         & 0.000           & 0.002           \\
 		10     & 93.992          & 0.000           & 0.002           \\
+    \midrule
 		$\sum$ & 898.987         & 0.000           & 0.003           \\
 		\bottomrule
 	\end{tabu}
@@ -455,7 +456,7 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 	      	F_{\mathrm{w}y} = 0.613 (V_{y}')^2 C_{\mathrm{f}y} A_y
 	      \end{equation}
 	      其中，$A_x$和$A_y$分别为该层迎风面构件沿$X$和$Y$方向的投影面积。
-	      风压系数由\ref{fig:force-coefficient}计算。
+	      风压系数由ASCE规范\cite{wong2009guidelines}中表2-4和表2-5计算。
 	      
 	      根据中国规范，该层$X$和$Y$方向龙卷风荷载$F_{\mathrm{w}x}$和$F_{\mathrm{w}y}$为
 	      \begin{equation}
@@ -522,7 +523,7 @@ ASCE主编的输电塔荷载规范 Guidelines for electrical transmission line s
 \end{description}
 
 \subsubsection{自重作用下的单索线形求解}
-索段竖向的平衡方程为：
+索段竖向的平衡方程为\cite{bhattacharya2010time}：
 \begin{gather}
 	T_y(s) = g \int_{s^0}^{s} \mu \mathrm{d}s + T_y^0 \notag \\
 	T_x \tan(\theta(s)) = g \mu \int_{s^0}^{s} \mathrm{d}s + T_y^0 \notag \\

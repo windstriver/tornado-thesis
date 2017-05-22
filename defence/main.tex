@@ -1,0 +1,81 @@
+
+\documentclass[]{beamer}
+%\usepackage{pgfpages}
+%\pgfpagesuselayout{2 on 1}[a4paper,border shrink=5mm]
+%\setbeameroption{show notes}
+
+\usepackage{ctex}
+\usepackage{siunitx}
+\usepackage{graphicx}
+
+\usepackage[
+  backend=biber,
+  style=numeric,
+  citestyle=ieee,
+  bibencoding=utf8,
+]{biblatex}
+\addbibresource{main.bib}
+
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+
+\usetheme{Montpellier}
+\usecolortheme{default}
+
+\title[硕士学位论文答辩]{大跨越输电塔结构在龙卷风作用下的响应分析}
+\author{140926~王勇 \\[1.5 \baselineskip]  \footnotesize{导师: 吕令毅 ~ 教授}}
+\institute{东南大学土木工程学院}
+\date{\today}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section*{目录}
+\begin{frame}
+  \tableofcontents
+\end{frame}
+
+\section{引言}
+\subsection{课题研究背景与意义}
+
+\begin{frame}
+  \frametitle{课题研究背景与意义}
+  \begin{itemize}
+  \item
+    大跨越输电塔结构是重要的生命线电力工程设施 ，具有数量大、分布广等特点，容易遭受龙卷风的袭击。
+  \item
+    全球范围内约 $80\%$ 的输电塔倒塌破坏是由于极端天气（如龙卷风、雷暴等）的影响。
+  \item
+    输电塔结构破坏将导致供电系统的瘫痪甚至引发火灾等严重后果，造成重大经济损失。
+    \bigskip
+  \item
+    鉴于近年龙卷风发生频率和强度似有增大趋势，而以往国内针对输电塔受龙卷风袭击的研究较少，故为保障龙卷风多发地区电网运行安全，进行输电线路的龙卷风荷载及抗风研究具有重要的理论和实用价值。
+  
+  \end{itemize}
+ 
+\end{frame}
+\subsection{课题研究思路与内容}
+
+\section{龙卷风风场及其数值模拟}
+\subsection{缩尺龙卷风的CFD模拟}
+\subsection{缩尺龙卷风数值模拟结果及正确性验证}
+\subsection{足尺龙卷风的CFD模拟}
+
+\section{输电塔结构在龙卷风作用下的静态响应分析}
+\subsection{背景工程介绍}
+\subsection{输电塔龙卷风荷载计算的FSI方法}
+\subsection{输电塔龙卷风荷载计算的规范方法}
+\subsection{FSI方法与规范方法的对比}
+
+\section{考虑龙卷风平移效应的动态响应分析}
+\subsection{动态龙卷风模型}
+\subsection{动态龙卷风风速和荷载时程}
+\subsection{输电塔结构动力时程分析}
+
+\section{课题总结与展望}
+
+\section{致谢}
+
+\end{document}

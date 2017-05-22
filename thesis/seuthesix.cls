@@ -137,16 +137,16 @@ listtablename={表格目录}
 \RequirePackage{fancyhdr}
 \fancypagestyle{seustyle}{%
 \fancyhf{}
-\fancyhead[CO]{\xiaowuhao\universityname{}\@thesistype}
-\fancyhead[CE]{ \xiaowuhao\leftmark}
+\fancyhead[CO]{\xiaowuhao\leftmark}
+\fancyhead[CE]{\xiaowuhao\universityname{}\@thesistype}
 \fancyfoot[CO,CE]{\thepage}
 }
 \pagestyle{seustyle}
 
 \fancypagestyle{nom}{%
 \fancyhf{} 
-\fancyhead[CO]{\xiaowuhao\universityname{}\@thesistype}
-\fancyhead[CE]{ \xiaowuhao\nomname}
+\fancyhead[CO]{\xiaowuhao\nomname}
+\fancyhead[CE]{\xiaowuhao\universityname{}\@thesistype}
 \fancyfoot[CO,CE]{\thepage}
 }
 

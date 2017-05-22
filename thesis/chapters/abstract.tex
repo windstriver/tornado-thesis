@@ -5,9 +5,21 @@
   %%% 本章主要研究问题；
   %%% 采用的研究方法；
   %%% 主要结果。
+
+  \noindent
+  {\heiti 论文题名：} 大跨越输电塔结构在龙卷风作用下的响应分析 \par
+  \noindent
+  {\heiti 硕士研究生：} \par
+  \noindent
+  {\heiti 导师：} \par
+  \noindent
+  {\heiti 学校：} 东南大学 \par
+  
+  \bigskip
+  
   龙卷风是一种伴随着高速旋转的漏斗状云柱的强风涡旋，发生的概率较低，但破坏力巨大。
-  大跨越输电塔结构是重要的生命线电力工程设施，具有数量大、分布广等特点，容易造成龙卷风的袭击，其破坏将导致供电系统的瘫痪甚至引发火灾等严重后果，造成重大经济损失。
-  美国输电塔设计规范已考虑龙卷风等极端天气荷载，我国相关设计规范尚未涉及。
+  大跨越输电塔结构是重要的生命线电力工程设施，具有数量大、分布广等特点，容易遭受龙卷风的袭击，其破坏将导致供电系统的瘫痪甚至引发火灾等严重后果，造成重大经济损失。
+  美国输电塔设计规范已考虑龙卷风等极端气象荷载，我国相关设计规范尚未涉及。
   为保障龙卷风多发地区电网运行安全，进行输电线路的龙卷风荷载及抗风研究具有重要的理论和实用价值。
   本文利用计算流体动力学（CFD）模拟技术和规范方法，研究龙卷风数值风场的生成和其作用于大跨越输电塔结构的静态荷载和考虑龙卷风移动效应的动态荷载，分析典型工况下输电塔结构的响应。
   
@@ -20,45 +32,58 @@
   其次，利用单向流固耦合（FSI）方法和规范方法计算龙卷风作用于输电塔结构的荷载，并分析比较结构响应。
   FSI方法直接在足尺龙卷风风场中建立输电塔结构的刚性模型，通过CFD方法计算得到结构表面受到的龙卷风风压，并将其转化为输电塔梁单元模型的节点集中力；
   规范方法利用输电塔设计规范中风荷载计算公式将足尺龙卷风数值风场转化为风荷载。
-  然后在龙卷风典型袭击角度（\SI{0}{\degree}、\SI{45}{\degree}和\SI{90}{\degree}）工况下，以两种方法计算输电塔结构受到的龙卷风荷载，进行静力弹塑性分析并分析结构响应。
-  结果表明，采用FSI 方法计算得到的输电塔结构响应整体上小于规范方法，且最大轴向力误差不超过$20\%$，位移响应不超过$30\%$；
+  然后在龙卷风典型袭击角度（\SI{0}{\degree}、\SI{45}{\degree}和\SI{90}{\degree}）工况下，以两种方法计算输电塔结构受到的龙卷风荷载，进行静力弹塑性分析并提取结构响应。
+  结果表明，采用FSI 方法计算得到的输电塔结构响应整体上小于规范方法，其中最大轴向力误差不超过$20\%$，位移分量误差不超过$30\%$；
   两种方法计算的结构响应随龙卷风袭击角度的变化趋势相似，可实现两种龙卷风荷载计算方法的相互验证。
   
   最后，进行了输电塔结构在考虑龙卷风平移效应时的动态响应分析。
   选取龙卷风移动路径平行和垂直于输电线的两种典型工况，在任意时间步利用规范方法计算并施加龙卷风动态荷载，进行动力时程分析，并分析龙卷风动态荷载和结构典型响应的时程。
-  结果表明，平行工况下龙卷风荷载总和时程在输电线方向的分量出现持续时间约为\SI{10}{s}的波形（荷载先逐渐增大，后逐渐衰减），且荷载峰值较大，呈现出一定的冲击效应。
-  垂直工况下龙卷风荷载总和时程在垂直输电线方向的分量出现类似的特点。
+  结果表明，平行工况下龙卷风荷载总和时程沿输电线方向的分量出现持续时间约为\SI{10}{s}的波形（荷载先逐渐增大，后逐渐衰减），且荷载峰值较大，呈现出一定的冲击效应。
+  垂直工况下龙卷风荷载总和时程沿垂直输电线方向的分量呈现类似的特点。
   且在两种工况下，输电塔塔顶节点位移时程与龙卷风荷载总和时程变化趋势相似。
 
 \end{abstract}
 
-\begin{englishabstract}{Tornado; Transmission tower; CFD numerical simulation; Finite Element analysis; Time-history analysis }
+\begin{englishabstract}{Tornado; Transmission tower; CFD numerical simulation; FEA; Time-history analysis }
+
+  
+  \noindent
+  {\textbf {Title}: } Response analysis of long span transmission tower structure under tornado wind loading \par
+  \noindent
+  {\textbf {Name of Graduate}: } \par
+  \noindent
+  {\textbf {Name of the Supervisor and the Title}: } \par
+  \noindent
+  {\textbf {Name of University}: } Southeast University \par
+  
+  \bigskip
+  
 
   A tornado is a rapidly rotating funnel-shaped column of air that spins with high speeds, which can cause extreme damages to buildings and infrastructures.
-  Long Span transmission tower structure is a vital lifeline to power system, with characteristics of large numbers and wide distribution, causing it higher possibility of tornado attack than other import facilities such as nuclear power plants.
-  The damages of transmission tower may result in the power failure of large areas, even fire disaster, with severe economic losses.
-  The Guidelines for electrical transmission line structural loading from American Society of Civil Engineers has included tornado loading as ectreme wether loading, which, however, is not considered in Chinese code for transmission tower design.
-  In order to increase safety of electrical power system in tornado-prone areas, conducting the research on the behaviour of tranmission tower structure under tornado loading is of great theoretical and practical significance.
-  In this theis tornado static and dynamic loads considering the translation effects were calculated by the method of Computational Fluid Dynamic (CFD) and the wind load formula in design code, with comparison of tower structure's response under typical load cases.
+  The long span transmission tower structure is a vital part to power system, with characteristics of large numbers and wide distribution, causing it higher possibility of tornado attack than other import facilities such as nuclear power plants.
+  The damage of transmission tower may result in the power failure even fire disaster to large areas, causing severe economic losses.
+  Guidelines for electrical transmission line structural loading from American Society of Civil Engineers have included tornado loading as extreme weather loading, which, however, is not considered in Chinese code for transmission tower design.
+  In order to increase the safety of electrical power system in tornado-prone areas, the research on behaviors of transmission tower structure under tornado loading is of great theoretical and practical significance.
+  In this thesis, tornado static and dynamic loads (dynamic loads are due to the translation effect of tornado) were calculated by the method of Computational Fluid Dynamic (CFD) and the wind load formula in design code, with comparison of tower structure's responses under typical load cases.
 
-  Firstly, the CFD simulation of tornado wind fields was conducted by using the commerical program FLUENT.
-  The numerical model was built based on an experimental program conducted by using a Ward-type vortex chamber.
-  By comparing the numerical results to the experiment measurements and the Rankine vortex theory, the tangential velocity showed a good agreement, which demonstrated the validity of the numerical model of tornado.
-  The numerical results were also compared with full scale data from the Spencer tornado of May 30, 1998 to determine approximate velocity and length scale, which were used to transform the reduced scale numerical model to full scale one.
-  The proper length scale $4000$ and velocity scale $60$ were estimated to mathch the full scale numerical tornado wind field profile with the field measurements.
+  Firstly, the CFD simulation of tornado wind fields was conducted by using the commercial program FLUENT.
+  The numerical model was built based on an experiment conducted by using a Ward-type vortex chamber.
+  By comparing the numerical results to the experimental measurements and the Rankine vortex theory, the tangential velocity profile showed a good agreement, which demonstrated the validity of the numerical model of tornado.
+  The numerical results were also compared to full scale data from the Spencer tornado of May 30, 1998 to determine approximate velocity and length scale, which were then used to transform the reduced scale numerical model to full scale one.
+  The proper length scale $4000$ and velocity scale $60$ were estimated to match the full scale numerical tornado wind field profile with the field measurements.
 
-  Secondly, the tornado loads acting on tranmission tower structure were calculated by the method of one-way fluid-structure interaction (FSI) and the wind load formula in design code.
-  FSI analysis was adopted to simulate the tornado loads acting on the surface of the rigid model of transmission tower, and the resulting CFD pressures on the surface were then converted to concentrated forces acting on the nodes of the tower finite element model.
+  Secondly, the tornado loads acting on transmission tower structure were calculated by the method of one-way fluid-structure interaction (FSI) and the wind load formula in design code.
+  FSI analysis was adopted to simulate the tornado loads acting on the surface of the rigid model of transmission tower, and the resulting CFD pressures on the surface were then converted to concentrated nodal forces of the tower finite element model.
   A parametric analysis was conducted by varying the attacking angle of tornados relative to the tranmission line system (\SI{0}{\degree}, \SI{45}{\degree} and \SI{90}{\degree}).
   The results of the parametric study are used to assess the sensitivity of the members' peak forces and displacements with the parameters defining the location of the tornado relative to the line.
-  The maximum axial force calculated by the method of FSI was smaller than the code method, with the error ratio of peak axial force less than $20\%$ and peak displacement less than $30\%$.
+  The maximum axial forces calculated by the method of FSI were smaller than the code method, with the error ratio of peak axial force less than $20\%$ and peak displacement less than $30\%$.
 
   Lastly, the time-history analysis of transmission tower under tornado dynamic loading is conducted by assuming an translation path for the tornado relative to the main tower.
-  Two different directions for the tornado motion are considered, which formed the cases of translation tornado motion parallel and perpendicular to the conductors, respectively.
-  At each time step, the steady-state tornado wind field data are used to evaluate the instantaneous forces acting on the main tower, following by a time-history dynamic analysis to assess the typical dynamic responses.
+  Two different directions for the tornado motion are considered, which formed the cases of translation motion parallel and perpendicular to the conductors, respectively.
+  At each time step, the steady-state tornado wind field data were used to evaluate the instantaneous forces acting on the main tower, following by a time-history dynamic analysis to assess the typical dynamic responses.
   The dynamic variation of the tornado loading showed a peak period lasting about $10$ seconds (tornado loads firstly increase then decrease).
   The peak value of tornado load had high value, causing some impact effects.
-  And the dynamic response of transmission tower under tornado had similar trends as the tornado loads time history.
+  And the dynamic response of transmission tower showed similar trends as the tornado loads time history.
   
 \end{englishabstract}
 
@@ -66,4 +91,5 @@
 %%% mode: latex
 %%% TeX-PDF-mode: t
 %%% TeX-engine: xetex
+%%% TeX-master: "../main"
 %%% End:
