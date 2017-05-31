@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="453.5433"
+   height="340.15747"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.92.0 r15299"
+   sodipodi:docname="flow_chart.svg"
+   version="1.0">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker8119"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path8117" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker8053"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path8051"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker7751"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:collect="always">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path7749" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker7697"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path7695"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker7455"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:collect="always">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path7453" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="marker7415"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path7413"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <marker
+       inkscape:isstock="true"
+       style="overflow:visible;"
+       id="marker7381"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:collect="always">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path7379" />
+    </marker>
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0.0"
+       refX="0.0"
+       id="Arrow1Lend"
+       style="overflow:visible;"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path6722"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;stroke-opacity:1;fill:#000000;fill-opacity:1"
+         transform="scale(0.8) rotate(180) translate(12.5,0)" />
+    </marker>
+    <linearGradient
+       id="linearGradient6548"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop6546" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient6514"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop6512" />
+    </linearGradient>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.1807536"
+     inkscape:cx="238.41176"
+     inkscape:cy="153.99249"
+     inkscape:document-units="mm"
+     inkscape:current-layer="g6715-9"
+     inkscape:window-width="1366"
+     inkscape:window-height="746"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     width="12.8cm"
+     height="9.6cm"
+     units="cm"
+     showgrid="false"
+     grid_units="mm"
+     inkscape:object-paths="false"
+     inkscape:grid-points="true"
+     inkscape:grid-bbox="true"
+     inkscape:guide-points="true"
+     showguides="false"
+     inkscape:guide-bbox="true"
+     inkscape:window-maximized="1">
+    <sodipodi:guide
+       orientation="vertical"
+       position="56.476527"
+       id="guide3573"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="11.035643"
+       id="guide3579"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="24.018753"
+       id="guide3886"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="285.62841"
+       id="guide3988"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       orientation="horizontal"
+       position="303.15561"
+       id="guide4081"
+       inkscape:locked="false" />
+    <inkscape:grid
+       id="GridFromPre046Settings"
+       type="xygrid"
+       originx="0px"
+       originy="0px"
+       spacingx="2mm"
+       spacingy="2mm"
+       color="#3f3fff"
+       empcolor="#3f3fff"
+       opacity="0.15"
+       empopacity="0.38"
+       empspacing="5" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:21.33333333px;line-height:25px;font-family:SimSun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;-inkscape-font-specification:SimSun;font-stretch:normal;font-variant:normal;"
+       x="47.427338"
+       y="39.502037"
+       id="text5040"><tspan
+         sodipodi:role="line"
+         id="tspan5038"
+         x="47.427338"
+         y="57.030319" /></text>
+    <g
+       id="g6575"
+       transform="translate(-15.775872,-1.7062989)">
+      <rect
+         y="23.41062"
+         x="25.830959"
+         height="20.326"
+         width="194.79085"
+         id="rect6570"
+         style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:1.20000005;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text5044"
+         y="39.280426"
+         x="32.422077"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+           y="39.280426"
+           x="32.422077"
+           id="tspan5042"
+           sodipodi:role="line">缩尺龙卷风风场的CFD模拟</tspan></text>
+    </g>
+    <rect
+       style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:1.20000005;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect6570-5"
+       width="194.79085"
+       height="20.326"
+       x="12.595837"
+       y="72.095863" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="15.355421"
+       y="87.965668"
+       id="text5044-7"><tspan
+         sodipodi:role="line"
+         id="tspan5042-4"
+         x="15.355421"
+         y="87.965668"
+         style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">足尺龙卷风风场的CFD模拟</tspan></text>
+    <g
+       transform="translate(33.089936,108.17492)"
+       id="g6575-7">
+      <rect
+         style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:1.04816973;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect6570-1"
+         width="147.51534"
+         height="20.477831"
+         x="25.755043"
+         y="23.334703" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="32.422077"
+         y="39.280426"
+         id="text5044-3"><tspan
+           sodipodi:role="line"
+           id="tspan5042-6"
+           x="32.422077"
+           y="39.280426"
+           style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">单向流固耦合方法</tspan></text>
+    </g>
+    <g
+       transform="translate(42.769293,184.62784)"
+       id="g6575-03" />
+    <g
+       transform="translate(33.089935,217.42717)"
+       id="g6575-8">
+      <rect
+         style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:0.99094754;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect6570-3"
+         width="131.48114"
+         height="20.535053"
+         x="25.726433"
+         y="23.306093" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="32.422077"
+         y="39.280426"
+         id="text5044-38"><tspan
+           sodipodi:role="line"
+           id="tspan5042-9"
+           x="32.422077"
+           y="39.280426"
+           style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">动态龙卷风模型</tspan></text>
+    </g>
+    <g
+       transform="translate(22.926938,22.212873)"
+       id="g6679">
+      <rect
+         y="157.05022"
+         x="35.820721"
+         height="20.672472"
+         width="96.894981"
+         id="rect6570-2"
+         style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:0.8535282;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text5044-2"
+         y="173.09326"
+         x="45.716377"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+           y="173.09326"
+           x="45.716377"
+           id="tspan5042-7"
+           sodipodi:role="line">规范方法</tspan></text>
+    </g>
+    <g
+       id="g6715"
+       transform="translate(18.820203,22.636324)">
+      <rect
+         style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:1.04816973;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect6570-1-5"
+         width="147.51534"
+         height="20.477831"
+         x="250.61145"
+         y="134.28079" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="261.51306"
+         y="149.37961"
+         id="text5044-3-0"><tspan
+           sodipodi:role="line"
+           id="tspan5042-6-2"
+           x="261.51306"
+           y="149.37961"
+           style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1">静态龙卷风荷载</tspan></text>
+    </g>
+    <g
+       id="g6575-7-95"
+       transform="translate(243.67661,217.02966)">
+      <rect
+         y="23.334703"
+         x="25.755043"
+         height="20.477831"
+         width="147.51534"
+         id="rect6570-1-7"
+         style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:1.04816973;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         id="text5044-3-5"
+         y="39.280426"
+         x="32.422077"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         xml:space="preserve"><tspan
+           style="font-size:16px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+           y="39.280426"
+           x="32.422077"
+           id="tspan5042-6-1"
+           sodipodi:role="line">动态龙卷风荷载</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#Arrow1Lend)"
+       d="M 32.551395,41.077999 V 71.170742"
+       id="path6717"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7455)"
+       d="M 32.188754,92.678348 32.400483,251.64221 57.604,252.06567"
+       id="path7367"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7381)"
+       d="M 32.180788,142.81341 H 58.541071"
+       id="path7369"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7415)"
+       d="M 32.180788,191.08767 H 58.646935"
+       id="path7371"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 155.72476,189.81729 h 69.87063 v -46.58042 h -18.20871"
+       id="path7685"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7697)"
+       d="m 226.01885,166.52708 h 38.53471"
+       id="path7687"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7751)"
+       d="m 189.83879,251.52611 h 75.45643"
+       id="path7741"
+       inkscape:connector-curvature="0" />
+    <g
+       id="g6715-9"
+       transform="translate(14.397568,-31.335917)">
+      <rect
+         style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:1.61491537;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect6570-1-5-4"
+         width="152.6619"
+         height="46.970669"
+         x="245.16064"
+         y="111.71831" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="257.47925"
+         y="129.0536"
+         id="text5044-3-0-9"><tspan
+           sodipodi:role="line"
+           x="257.47925"
+           y="129.0536"
+           style="font-size:16px;line-height:1px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan8005">输电塔在龙卷风作用</tspan><tspan
+           sodipodi:role="line"
+           x="257.47925"
+           y="154.0536"
+           style="font-size:16px;line-height:1px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan8013">下静态响应分析</tspan></text>
+      <rect
+         style="fill:#00c8ff;fill-opacity:1;stroke:#0000f9;stroke-width:1.61491537;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect6570-1-5-4-8"
+         width="152.6619"
+         height="46.970669"
+         x="252.4608"
+         y="317.51904" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.33333397px;line-height:25px;font-family:simsun;-inkscape-font-specification:simsun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         x="257.47925"
+         y="334.85434"
+         id="text5044-3-0-9-3"><tspan
+           sodipodi:role="line"
+           x="257.47925"
+           y="334.85434"
+           style="font-size:16px;line-height:1px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan8005-1">输电塔在龙卷风作用</tspan><tspan
+           sodipodi:role="line"
+           x="257.47925"
+           y="359.85434"
+           style="font-size:16px;line-height:1px;fill:#000000;fill-opacity:1;stroke:none;stroke-opacity:1"
+           id="tspan8013-8">下动态响应分析</tspan></text>
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker8053)"
+         d="m 320.55799,186.86555 v -27.5248"
+         id="path8043"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker8119)"
+         d="m 324.36912,292.73014 v 24.13712"
+         id="path8109"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

@@ -12,7 +12,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg2"
    version="1.1"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.0 r15299"
    xml:space="preserve"
    width="79.381355mm"
    height="122.13329mm"
@@ -110,9 +110,9 @@
      inkscape:window-height="746"
      id="namedview4"
      showgrid="false"
-     inkscape:zoom="1.3462289"
-     inkscape:cx="72.880542"
-     inkscape:cy="155.99886"
+     inkscape:zoom="2.0637493"
+     inkscape:cx="80.345461"
+     inkscape:cy="235.74295"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
@@ -236,20 +236,18 @@
        x="192.07622"
        y="-739.83044"
        id="text3395"
-       sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3397"
          x="192.07622"
          y="-739.83044"
-         style="font-size:12px">排风机</tspan></text>
+         style="font-size:12px;-inkscape-font-specification:SimSun;font-family:SimSun;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">排风机</tspan></text>
 <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12px;line-height:125%;font-family:SimSun;-inkscape-font-specification:SimSun;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="266.4567"
        y="-462.04724"
        id="text3397"
-       sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3399"
@@ -261,7 +259,6 @@
        x="263.95206"
        y="-456.57639"
        id="text3401"
-       sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3403"
@@ -273,7 +270,6 @@
        x="165.33275"
        y="-458.81775"
        id="text3405"
-       sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3407"
@@ -286,7 +282,6 @@
        x="165.92599"
        y="-568.11566"
        id="text3409"
-       sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3411"
@@ -298,31 +293,30 @@
        x="212.59842"
        y="-637.79529"
        id="text3413"
-       sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3415"
          x="212.59842"
-         y="-637.79529">蜂窝板</tspan></text>
+         y="-637.79529"
+         style="-inkscape-font-specification:SimSun;font-family:SimSun;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">蜂窝板</tspan></text>
 <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="204.29291"
        y="-705.10193"
        id="text3417"
-       sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          id="tspan3419"
          x="204.29291"
-         y="-705.10193">导流叶片</tspan></text>
+         y="-705.10193"
+         style="-inkscape-font-specification:SimSun;font-family:SimSun;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal">导流叶片</tspan></text>
 <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:12px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        x="186.26741"
        y="-499.85309"
        id="text3393"
-       sodipodi:linespacing="125%"
        transform="scale(1,-1)"><tspan
          sodipodi:role="line"
          x="186.26741"
